@@ -1,0 +1,84 @@
+
+.author-main-container {
+   padding: 80px 50px 90px;
+   background: #F9FAFC;
+}
+/* AUTHOR INFO START */
+.author-info {
+   display: flex;
+   max-width: 1000px;
+   margin: auto;
+   align-items: flex-start;
+}
+.author-info img {
+   width: 40%;
+}
+.author-info div {
+   width: 60%;
+   padding-left: 70px;
+}
+.author-info div h1 {
+   font-family: 'Lobster', cursive;
+   font-size: 32px;
+   margin-bottom: 20px;
+}
+.author-info div p {
+   font-weight: 300;
+   font-size: 17px;
+   margin: 0;
+   line-height: 1.8;
+}
+/* AUTHOR INFO END */
+
+/* AUTHORS BOOKS START */
+.authors-books-container {
+   padding: 70px 50px 50px;
+   max-width: 1550px;
+   margin: auto;
+   display: flex;
+   flex-direction: column;
+}
+.authors-books-container h1 {
+   font-family: 'Lobster', cursive;
+   font-size: 32px;
+   margin-bottom: 10px;
+   text-align: center;
+}
+.authors-books-list {
+   display: flex;
+   flex-wrap: wrap;
+   margin: 40px -1.5% 0;
+}
+.books-list-single {
+   margin: 0 1.5% 40px;
+   width: 17%;
+}
+.books-list-single a {
+   text-decoration: none;
+   color: black;
+}
+.books-list-single h2 {
+   font-size: 16px;
+   font-weight: 500;
+   color: black;
+}
+.books-list-single img {
+   max-width: 100%;
+   width: 100%;
+   border-radius: 6px;
+   margin-bottom: 20px;
+   box-shadow: 0px 0px 10px 0px #00000020;
+}
+.books-list-single p {
+   font-size: 16px;
+   margin-bottom: 8px;
+   font-weight: 300;
+}
+.book-price {
+   color: #7151ed;
+   font-weight: 500;
+}
+.book-price-stroked {
+   color: #7151ed;
+}
+/* AUTHORS BOOKS END */

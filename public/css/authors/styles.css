@@ -1,0 +1,106 @@
+
+.authors-prime-container {
+   padding: 50px 0 90px;
+   background: #F9FAFC;
+}
+.authors-prime-container h1 {
+   text-align: center;
+   font-family: 'Lobster', cursive;
+   font-size: 32px;
+}
+
+/* SEARCH STARTS */
+.search-author {
+   width: 700px;
+   display: flex;
+   margin: 40px auto 30px;
+}
+.search-author .search-list-container {
+   width: 100%;
+   position: relative;
+   z-index: 1;
+   display: flex;
+}
+.search-author input {
+   border: 1px solid #d0d0d0b3;
+   border-radius: 0;
+   border-right: 0;
+   padding: 10px 20px;
+   width: 100%;
+   box-shadow: 0px 3px 10px 0px rgb(0 0 0 / 10%);
+   font-weight: 300;
+}
+.search-list {
+   display: flex;
+   flex-direction: column;
+   margin-top: 52px;
+   box-shadow: 0px 3px 10px 0px rgb(0 0 0 / 10%);
+   background: white;
+   overflow: auto;
+   max-height: 240px;
+   position: absolute;
+   width: 100%;
+   visibility: hidden;
+}
+.search-list a {
+   color: black;
+   font-weight: 300;
+   text-decoration: none;
+   padding: 8px 20px;
+}
+.search-list a:hover {
+   background: #7151ed;
+   color: white;
+}
+.search-author button {
+   padding: 0 15px;
+   border-radius: 0;
+}
+/* SEARCH END */
+
+
+/* AUTHOR LIST START */
+.authors-list-container {
+   max-width: 1550px;
+   padding: 30px 50px 0px;
+   margin: auto;
+}
+.authors-list {
+   display: flex;
+   flex-wrap: wrap;
+   margin: 0 -1.5%;
+}
+.authors-list a {
+   width: 17%;
+   margin: 0 1.5% 40px;
+   color: black;
+   text-decoration: none;
+   padding: 30px 30px 28px;
+   background: white;
+}
+.authors-list div {
+   overflow: hidden;
+}
+.authors-list img {
+   width: 100%;
+   transition: 0.3s;
+}
+.authors-list a:hover img {
+   transform: scale(1.1);
+   filter: contrast(150%);
+}
+.authors-list h2 {
+   font-weight: 300;
+   font-size: 18px;
+   margin: 28px 0 0;
+}
+/* AUTHOR LIST END */
+
+
+/* FOOTER STYLES */
+.footer {
+   background: white;
+}
+.copyright {
+   background: #F9FAFC;
+}

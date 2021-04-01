@@ -1,0 +1,53 @@
+
+.content-wrapper {
+   padding: 40px 50px;
+   flex-direction: column;
+}
+.content-wrapper h1 {
+   width: 100%;
+   text-align: center;
+   font-family: 'Lobster', cursive;
+   font-size: 32px;
+}
+.books-list {
+   display: flex;
+   flex-wrap: wrap;
+   margin: 40px -1.5% 0;
+}
+.books-list-single {
+   margin: 0 1.5% 40px;
+   width: 17%;
+}
+.books-list-single a {
+   text-decoration: none;
+   color: black;
+}
+.books-list-single a:hover h2 {
+   color: #7151ed;
+}
+.books-list-single img {
+   max-width: 100%;
+   width: 100%;
+   border-radius: 6px;
+   margin-bottom: 20px;
+   box-shadow: 0px 0px 10px 0px #00000020;
+}
+.books-list-single h2 {
+   font-size: 16px;
+   font-weight: 500;
+   color: black;
+}
+.books-list-single p {
+   font-size: 16px;
+   margin-bottom: 8px;
+   font-weight: 300;
+} 
+.book-price {
+   color: #7151ed;
+   font-weight: 500;
+}
+.book-price-stroked {
+   color: #7151ed;
+   text-decoration: line-through;
+   opacity: 0.7;
+}

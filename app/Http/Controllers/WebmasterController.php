@@ -1,0 +1,91 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\Models\Book;
+use App\Models\Category;
+use App\Models\Author;
+
+class WebmasterController extends Controller
+{
+    public function __construct()
+    {
+        $this->middleware('webmaster');
+    }
+
+    public function index()
+    {
+        $books = Book::latest()->paginate(20);
+        $booksCount = Book::all()->count();
+
+        return view('webmaster.index', compact('books', 'booksCount'));
+    }
+
+    public function books_single($id)
+    {
+        $book = Book::find($id);
+        dd($book->name);
+    }
+
+    public function books_create()
+    {
+        $authors = Author::orderBy('name', 'asc')->get();
+        $categories = Category::orderBy('name', 'asc')->get();
+
+        return view('webmaster.books.create', compact('categories', 'authors'));
+    }
+
+    public function books_store(Request $request)
+    {
+        $book = new Book;
+        $book->name = $request->name;
+        $book->isFree = $request->isFree;
+        $book->price = $request->isFree ? 0 : $request->price;
+        $book->discountPrice = $request->isFree ? 0 : $request->discountPrice;
+        $book->description = $request->description;
+        //needed in books with errors page
+        $book->filename = 'Ошибка';
+        $book->photo = 'Ошибка';
+        $book->description = $request->description;
+        $book->publisher = $request->publisher;
+        $book->year = $request->year;
+        $book->pages = $request->pages;
+        $book->isPopular = $request->isPopular;
+        //only popular books display in main slider
+        if($request->isPopular) {
+            $book->txtColor = $request->txtColor;
+            $book->bgColor = $request->bgColor;
+            $book->btnColor = $request->btnColor;
+        }
+        $book->save();
+        
+        $file = $request->file('book');
+        $filename = $book->id . '.' . $file->getClientOriginalExtension();
+        //move book into public folder if its free
+        if($book->isFree) $file->move(public_path('free_books'), $filename);
+        //else move book into private folder
+        else $file->storeAs('books', $filename, 'private'); 
+        //change books filename in db
+        $book->filename = $filename;
+        $book->save();
+
+        //books photo
+        $photo = $request->file('photo');
+        $photoName = $book->id . '.' . $photo->getClientOriginalExtension();
+        $photo->move(public_path('img/books'), $photoName);
+        //change books photo in db
+        $book->photo = $photoName;
+        $book->save();
+
+        //Decode JSONed arrays and attach to the book
+        $decodedAuthors = json_decode($request->encodedAuthors);
+        $book->authors()->attach($decodedAuthors);
+
+        $decodedCategories = json_decode($request->encodedCategories);
+        $book->categories()->attach($decodedCategories);
+
+        return route('webmaster.index');
+    }
+
+}

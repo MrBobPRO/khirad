@@ -1,0 +1,60 @@
+
+.archive-container{
+   flex-direction: column;
+   padding: 50px;
+}
+h1 {
+   font-family: 'Lobster', cursive;
+   font-size: 32px;
+   margin-bottom: 25px;
+   text-align: center;
+}
+.archive-desc, .login-txt, .no-books {
+   font-weight: 300;
+   font-size: 18px;
+   text-align: center;
+}
+.login-txt, no-books {
+   margin-bottom: 50px;
+}
+.login-txt  a {
+   color: #7151ed;
+   font-weight: 400;
+}
+.books-list {
+   padding: 40px 0 30px;
+}
+.books-list-single {
+   display: flex;
+   align-items: center;
+   margin-bottom: 20px;
+   padding: 5px 10px;
+   box-shadow: 0px 0px 15px 0px rgb(0 0 0 / 5%);
+}
+.books-list-single img {
+   width: 40px;
+}
+.books-list-single .name {
+   width: 35%;
+   padding-left: 50px;
+   font-weight: 500;
+   text-overflow: ellipsis;
+   overflow: hidden;
+   white-space: nowrap;
+}
+.books-list-single .author {
+   width: 35%;
+   font-weight: 300;
+   padding-left: 50px;
+   text-overflow: ellipsis;
+   overflow: hidden;
+   white-space: nowrap;
+}
+.books-list-single form {
+   width: calc(30% - 40px);
+   justify-content: flex-end;
+   display: flex;
+}
+.pagination {
+   margin-top: 50px;
+}

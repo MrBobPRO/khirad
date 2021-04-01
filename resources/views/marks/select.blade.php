@@ -1,0 +1,1 @@
+<i class="far fa-star" data-mark="1"></i><i class="far fa-star" data-mark="2"></i><i class="far fa-star" data-mark="3"></i><i class="far fa-star" data-mark="4"></i><i class="far fa-star" data-mark="5"></i>
