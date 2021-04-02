@@ -35,7 +35,7 @@
    </div>
 
    <div class="form-single-block">
-      <label>Картинка (файл) : {{$book->filename == 'Ошибка' ? 'Пожалуйста выберите файл!!!' : $book->filename}}</label>
+      <label>Картинка (файл) : {{$book->photo == 'Ошибка' ? 'Пожалуйста выберите файл!!!' : $book->photo}}</label>
       <input name="photo" type="file" accept=".png, .jpeg, .jpg" class="upload-file" id="photo">
       <img class="form-img" src="{{asset('img/books/' . $book->photo)}}">
    </div>

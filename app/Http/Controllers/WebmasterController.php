@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Book;
 use App\Models\Category;
 use App\Models\Author;
+use Image;
 
 class WebmasterController extends Controller
 {
@@ -98,7 +99,7 @@ class WebmasterController extends Controller
         //move book into public folder if its free
         if($book->isFree) $file->move(public_path('free_books'), $filename);
         //else move book into private folder
-        else $file->storeAs('books', $filename, 'private'); 
+        else $file->storeAs('books', $filename, 'private');
         //change books filename in db
         $book->filename = $filename;
         $book->save();
@@ -107,6 +108,16 @@ class WebmasterController extends Controller
         $photo = $request->file('photo');
         $photoName = $book->id . '.' . $photo->getClientOriginalExtension();
         $photo->move(public_path('img/books'), $photoName);
+
+        //create image thumb
+        $thumb = Image::make(public_path('img/books/' . $photoName));
+        //Set image width 220 and height auto (saving ration)
+        $thumb->resize(220, null, function ($constraint) {
+            $constraint->aspectRatio();
+        });
+        //save created image
+        $thumb->save(public_path('img/thumbs/' . $photoName));
+
         //change books photo in db
         $book->photo = $photoName;
         $book->save();
@@ -189,6 +200,16 @@ class WebmasterController extends Controller
         if($photo) {
             $photoName = $book->id . '.' . $photo->getClientOriginalExtension();
             $photo->move(public_path('img/books'), $photoName);
+
+            //create image thumb
+            $thumb = Image::make(public_path('img/books/' . $photoName));
+            //Set image width 220 and height auto (saving ration)
+            $thumb->resize(220, null, function ($constraint) {
+                $constraint->aspectRatio();
+            });
+            //save created image
+            $thumb->save(public_path('img/thumbs/' . $photoName));
+
             //change books photo in db
             $book->photo = $photoName;
             $book->save();

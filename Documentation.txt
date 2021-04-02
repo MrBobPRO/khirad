@@ -13,6 +13,7 @@ Select2 -> used to style selects and multiselects
 Owl Carousel2 v2.3.4
 Font Awesome 5
 Spectrum ColorPicker -> used in Webmaster
+Intervention package used to create thumb images
 
 
 ---JQuery 3D FlipBook---
