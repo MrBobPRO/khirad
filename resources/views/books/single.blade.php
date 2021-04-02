@@ -121,14 +121,14 @@
             <div class="gallery-container">
                <h1>Скриншоты страниц книги</h1>
                <div class="gallery">
-                  <a href="{{asset('img/reviews/1.jpg')}}" class="big">
-                     <img src="{{asset('img/reviews/1.jpg')}}">
+                  <a href="{{asset('img/screenshots/' .  $book->screenshot1)}}" class="big">
+                     <img src="{{asset('img/screenshots/' .  $book->screenshot1)}}">
                   </a>
-                  <a href="{{asset('img/reviews/2.jpg')}}" class="big">
-                     <img src="{{asset('img/reviews/2.jpg')}}">
+                  <a href="{{asset('img/screenshots/' .  $book->screenshot2)}}" class="big">
+                     <img src="{{asset('img/screenshots/' .  $book->screenshot2)}}">
                   </a>
-                  <a href="{{asset('img/reviews/3.jpg')}}" class="big">
-                     <img src="{{asset('img/reviews/3.jpg')}}">
+                  <a href="{{asset('img/screenshots/' .  $book->screenshot3)}}" class="big">
+                     <img src="{{asset('img/screenshots/' .  $book->screenshot3)}}">
                   </a>
                </div>
             </div>

@@ -91,6 +91,7 @@ $('.select2_single_linked').on('select2:select', function (e) {
 
 //global variables
 var popular_books_inputs = document.getElementById('popular_books_inputs');
+var paid_books_inputs = document.getElementById('paid_books_inputs');
 var spinner = document.getElementById('spinner-container');
 
 window.onload = function () {
@@ -102,10 +103,6 @@ window.onload = function () {
    $('.color-picker').spectrum({
       type: "component"
     });
-
-   //Hiding containers by JS not by CSS becase of some error reasons (colorPicker)
-   if(popular_books_inputs)
-      popular_books_inputs.style.display = 'none';
    
 };
 
@@ -145,8 +142,8 @@ $.ajaxSetup({
    }
 });
 
-//Preapare and send data to the server on form submit
-function ajax_books_store() {
+//Preapare and send data to the server on form submit (Used for books store & update requests)
+function ajax_books_store(post_url) {
    event.preventDefault();
 
    //display file sizes if inputs contain files
@@ -180,7 +177,7 @@ function ajax_books_store() {
    $.ajax({
       type: 'POST',
       enctype: 'multipart/form-data',
-      url: '/books_store',
+      url: post_url,
       data: data,
       processData: false,
       contentType: false,
@@ -188,7 +185,9 @@ function ajax_books_store() {
       timeout: 600000,
       //reload page on success
       success: function (url) {
-         location.replace(url);
+         //redirect to webmaster.home if its books_store method
+         if (post_url == '/books_store') location.replace(url);
+         else location.reload();
       },
       error: function () {
          alert('Упс, что-то пошло не так. Проверьте список ошибочных книг!');

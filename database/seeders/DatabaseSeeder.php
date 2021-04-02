@@ -75,6 +75,11 @@ class DatabaseSeeder extends Seeder
             $book->txtColor = $txtColor[$i];
             $book->btnColor = $btnColor[$i];
             $book->bgColor = $bgColor[$i];
+            if(($i+1) % 4 != 0) {
+                $book->screenshot1 = '1a.jpg';
+                $book->screenshot2 = '1b.jpg';
+                $book->screenshot3 = '1c.jpg';
+            }
             if(($i+1) % 3 == 0) $book->isPopular = true;
             $book->save();
             $book->categories()->attach(rand(1, 26));

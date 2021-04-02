@@ -5,14 +5,15 @@
 <div class="content-info">
    <span><i class="fas fa-globe"></i>&nbsp; Всего <b>{{$booksCount}}</b> книг</span>
    <span><i class="fas fa-plus"></i>&nbsp; <a href=" {{route('webmaster.books.create')}} ">Добавить новую книгу</a></span>
+   <span><i class="fas fa-exclamation-triangle"></i>&nbsp; <a href=" {{route('webmaster.books.errors')}} ">Ошибки <b>({{count($erroredBooks)}})</b></a></span>
 </div>
 
 {{-- Books seach start --}}
 <div class="select2_single_container">
    <select class="select2_single select2_single_linked" data-placeholder="Найдите нужную книгу" data-dropdown-css-class="select2_single_dropdown">
       <option></option>
-      @foreach($books as $book)
-         <option data-link="124124" value="{{ route('webmaster.books.single', $book->id)}}">{{$book->name}}</option>   
+      @foreach($allBooks as $book)
+         <option value="{{ route('webmaster.books.single', $book->id)}}">{{$book->name}}</option>   
       @endforeach
    </select>
 </div>

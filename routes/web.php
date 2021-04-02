@@ -67,8 +67,10 @@ Route::post('/checkout', 'CheckoutController@checkout');
 Route::get('/webmaster', 'WebmasterController@index')->name('webmaster.index');
 Route::get('/webmaster/books/{id}', 'WebmasterController@books_single')->name('webmaster.books.single');
 Route::get('/webmaster/books_create', 'WebmasterController@books_create')->name('webmaster.books.create');
+Route::get('/webmaster/errors/books', 'WebmasterController@books_errors')->name('webmaster.books.errors');
 
 Route::post('/books_store', 'WebmasterController@books_store');
+Route::post('/books_update', 'WebmasterController@books_update');
 
 //Remove in production
 Route::get('/login', 'LoginController@index')->name('login');
