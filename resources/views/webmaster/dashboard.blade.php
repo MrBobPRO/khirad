@@ -8,7 +8,7 @@
       <i class="fas fa-user-circle"></i> Вэбмастер
    </a>
 
-   <a class="dashboard-links @if($route == 'webmaster.index' || $route == 'webmaster.books.create' || $route == 'webmaster.books.single') active @endif"  href="{{route('webmaster.index')}}">
+   <a class="dashboard-links @if($route == 'webmaster.index' || $route == 'webmaster.books.create' || $route == 'webmaster.books.errors' || $route == 'webmaster.books.single') active @endif"  href="{{route('webmaster.index')}}">
       <i class="fas fa-book"></i> Книги</h5>
    </a>
 

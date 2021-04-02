@@ -8,22 +8,12 @@
    <span><i class="fas fa-info-circle"></i>&nbsp; Очень важно чтобы картинки совпадали с нужными размерами, так как сайт будет подгонять их под себя!</span>
 </div>
 
-<form onsubmit="ajax_books_store()" class="limited-width-form" method="POST" enctype="multipart/form-data" id="store_book_form">
+<form onsubmit="ajax_books_store('/books_store')" class="limited-width-form" method="POST" enctype="multipart/form-data" id="store_book_form">
    {{ csrf_field() }}
 
    <div class="form-single-block">
       <label>Название</label>
       <input name="name" type="text" required>
-   </div>
-
-   <div class="form-single-block">
-      <label>Книга (файл)</label>
-      <input name="book" type="file" accept=".pdf" class="upload-file" id="book" required>
-   </div>
-
-   <div class="form-single-block">
-      <label>Картинка (файл)</label>
-      <input name="photo" type="file" accept=".png, .jpeg, .jpg" class="upload-file" id="photo" required>
    </div>
 
    <div class="form-single-block">
@@ -35,6 +25,16 @@
             @endforeach
          </select>
       </div>
+   </div>
+
+   <div class="form-single-block">
+      <label>Книга (файл)</label>
+      <input name="book" type="file" accept=".pdf" class="upload-file" id="book" required>
+   </div>
+
+   <div class="form-single-block">
+      <label>Картинка (файл)</label>
+      <input name="photo" type="file" accept=".png, .jpeg, .jpg" class="upload-file" id="photo" required>
    </div>
 
    <div class="form-single-block">
@@ -54,7 +54,7 @@
    </div>
 
    <div class="form-single-block">
-      <label>Вид книги</label>
+      <label>Тип книги</label>
       <input class="wm-radio" type="radio" name="isFree" id="book_is_free" value="1"/>
       <label class="radio-labels mr-20px" for="book_is_free">Бесплатная</label>
       <input class="wm-radio" type="radio" name="isFree" id="book_isnt_free" value="0" checked/>
@@ -63,10 +63,19 @@
 
    <div class="form-single-block" id="paid_books_inputs">
       <label>Цена (только цифры).</label>
-      <input name="price" type="number" value="0" required>
+      <input name="price" type="number" min="0" step="any" value="0" required>
 
       <label class="mt-20px">Скидочная цена (только цифры). Оставьте 0 если у книги нету скидочной цены!</label>
-      <input name="discountPrice" type="number" value="0" required>
+      <input name="discountPrice" type="number" min="0" step="any" value="0" required>
+
+      <label class="mt-20px">Скриншот 1</label>
+      <input name="screenshot1" type="file" accept=".png, .jpeg, .jpg" class="upload-file">
+
+      <label class="mt-20px">Скриншот 2</label>
+      <input name="screenshot2" type="file" accept=".png, .jpeg, .jpg" class="upload-file">
+
+      <label class="mt-20px">Скриншот 3</label>
+      <input name="screenshot3" type="file" accept=".png, .jpeg, .jpg" class="upload-file">
    </div>
 
    <div class="form-single-block">

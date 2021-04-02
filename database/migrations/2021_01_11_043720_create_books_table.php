@@ -22,6 +22,9 @@ class CreateBooksTable extends Migration
             $table->text('description');
             $table->string('filename');
             $table->string('photo');
+            $table->string('screenshot1')->nullable();
+            $table->string('screenshot2')->nullable();
+            $table->string('screenshot3')->nullable();
             $table->string('publisher');    
             $table->integer('year');
             $table->integer('pages');
