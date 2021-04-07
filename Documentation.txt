@@ -68,9 +68,9 @@ protected $middlewareGroups = [
 
 ---Webmaster Middleware---
 Only Admins can enter dashboard
-1) Created & preaperad WebmasterMiddleware
+1) Created & preaperad Webmaster middleware
 2) Added into $routeMiddleware (App/Http/KerneL)
-3) Assigned to WebmasterController
+3) Assigned to WebmasterController & other needed controllers
 
 
 ---Pagination---
@@ -88,3 +88,4 @@ Search styles and view are almost same as all books, discounted books, popular b
 REMOVE ALL MAINTANCE MIDDLEWARES IN PRODUCTION
 Created Maintance Middleware/Controller/View
 Added into KerneL
+Added into all Controllers

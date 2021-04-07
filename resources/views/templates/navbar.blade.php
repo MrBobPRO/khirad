@@ -31,8 +31,20 @@
 
          <div class="nav-top-middle">
             <form action="/search" method="GET">
-               <input type="text" name="keyword" minlength="3" required placeholder="{{ __('Поиск всех наших книг...') }}"/>
-               <button type="submit" class="primary-btn">{{ __("Поиск") }}</button>
+               {{-- global seach start --}}
+               <div class="select2_single_container navbar_search_container">
+                  <select class="select2_single navbar_select2_single" data-placeholder="{{ __('Поиск всех наших книг...') }}" data-dropdown-css-class="select2_single_dropdown select2_navbar_dropdown" name="keyword">
+                     <option></option>
+                     @foreach($allBooksNames as $name)
+                        <option value="{{$name}}">{{$name}}</option>   
+                     @endforeach
+                     @foreach($allAuthorsNames as $name)
+                        <option value="{{$name}}">{{$name}}</option>   
+                     @endforeach
+                  </select>
+                  <button class="primary-btn" type="submit">{{ __("Поиск") }}</button>
+               </div>
+               {{-- global seach end --}}
             </form> 
          </div>
 

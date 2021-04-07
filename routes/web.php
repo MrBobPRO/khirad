@@ -63,7 +63,8 @@ Route::post('/empty_basket', 'BasketController@empty');
 Route::post('/checkout', 'CheckoutController@checkout');
 
 
-//Webmaster
+//--------------------------Webmaster Routes--------------------------------
+// books
 Route::get('/webmaster', 'WebmasterController@index')->name('webmaster.index');
 Route::get('/webmaster/books/{id}', 'WebmasterController@books_single')->name('webmaster.books.single');
 Route::get('/webmaster/books_create', 'WebmasterController@books_create')->name('webmaster.books.create');
@@ -71,6 +72,24 @@ Route::get('/webmaster/errors/books', 'WebmasterController@books_errors')->name(
 
 Route::post('/books_store', 'WebmasterController@books_store');
 Route::post('/books_update', 'WebmasterController@books_update');
+
+//authors
+Route::get('/webmaster/authors', 'AuthorController@webmaster_index')->name('webmaster.authors.index');
+Route::get('/webmaster/authors/{id}', 'AuthorController@webmaster_single')->name('webmaster.authors.single');
+Route::get('/webmaster/authors_create', 'AuthorController@webmaster_create')->name('webmaster.authors.create');
+
+Route::post('/authors_store', 'AuthorController@webmaster_store');
+Route::post('/authors_update', 'AuthorController@webmaster_update');
+
+//categories
+Route::get('/webmaster/categories', 'CategoryController@webmaster_index')->name('webmaster.categories.index');
+Route::get('/webmaster/categories/{id}', 'CategoryController@webmaster_single')->name('webmaster.categories.single');
+Route::get('/webmaster/categories_create', 'CategoryController@webmaster_create')->name('webmaster.categories.create');
+
+Route::post('/categories_store', 'CategoryController@webmaster_store');
+Route::post('/categories_update', 'CategoryController@webmaster_update');
+
+//--------------------------Webmaster Routes--------------------------------
 
 //Remove in production
 Route::get('/login', 'LoginController@index')->name('login');

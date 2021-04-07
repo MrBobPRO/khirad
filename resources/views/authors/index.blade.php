@@ -10,21 +10,17 @@
       @endif
    </h1>
 
-   <form class="search-author">
-      <div class="search-list-container">
-         <input type="text" placeholder="Найдите своего любимого автора" name="name" autocomplete="off"
-         onfocus="show_authors_list()" onblur="setTimeout(hide_authors_list, 150)" onkeyup="regenerate_authors_list()">
-         <button class="primary-btn primary-btn-shadow" type="button"><i class="fa fa-search"></i></button>
-
-         {{-- AUTHORS LIST FOR AUTOCOMPLATING AUTHORS NAME --}}
-         <div class="search-list">
-            @foreach($allAuthors as $author)
-                <a href="{{route('authors.single', $author->id)}}">{{$author->name}}</a>
-            @endforeach
-         </div>
-
-      </div>
-   </form>
+   {{-- Authors seach start --}}
+   <div class="select2_single_container authors_search_container">
+      <select class="select2_single select2_single_linked" data-placeholder="Муаллифи лозимаро пайдо намоед" data-dropdown-css-class="select2_single_dropdown select2_authors_dropdown">
+         <option></option>
+         @foreach($allAuthors as $author)
+            <option value="{{ route('authors.single', $author->id)}}">{{$author->name}}</option>   
+         @endforeach
+      </select>
+      <button class="primary-btn" type="button"><i class="fa fa-search" aria-hidden="true"></i></button>
+   </div>
+   {{-- Authors seach end --}}
 
    <div class="authors-list-container">
       <div class="authors-list">

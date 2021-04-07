@@ -13,6 +13,8 @@ class CategoryController extends Controller
     {
         //Remove in production
         $this->middleware('maintance');
+        //webmaster routes
+        $this->middleware('webmaster')->only(['webmaster_index', 'webmaster_single', 'webmaster_create', 'webmaster_store', 'webmaster_update']);
     }
 
     public function single($id)
@@ -60,5 +62,50 @@ class CategoryController extends Controller
         
         return view('categories.single', compact('books'));
     }
+
+
+    //---------------------------------------------Webmaster Routes--------------------------------------------
+    public function webmaster_index()
+    {
+        $categories = Category::orderBy('name', 'asc')->get();
+        $categoriesCount = count($categories);
+
+        return view('webmaster.categories.index', compact('categories', 'categoriesCount'));
+    }
+
+    public function webmaster_create()
+    {
+        return view('webmaster.categories.create');
+    }
+
+    public function webmaster_store(Request $request)
+    {
+        Category::create([
+            'name' => $request->name,
+            'russian_name' => $request->russian_name
+        ]);
+
+        return redirect()->route('webmaster.categories.index');
+
+    }
+
+    public function webmaster_single($id)
+    {
+        $category = Category::find($id);
+
+        return view('webmaster.categories.single', compact('category'));
+    }
+
+    public function webmaster_update(Request $request)
+    {
+        $category = Category::find($request->id);
+        $category->name = $request->name;
+        $category->russian_name = $request->russian_name;
+        $category->save();
+
+        return redirect()->back();
+    }
+
+    //---------------------------------------------Webmaster Routes--------------------------------------------
 
 }

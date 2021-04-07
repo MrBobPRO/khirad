@@ -1,7 +1,4 @@
 
-<link href="{{ asset('css/main/styles.css') }}" rel="stylesheet">
-<link href="{{ asset('css/main/modal.css') }}" rel="stylesheet">
-
 @switch($route)
 
     @case('home')

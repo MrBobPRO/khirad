@@ -20,7 +20,7 @@
             {{-- SHOW BOOKS LIST IF BASKET ISNT EMPTY --}}
             @foreach($books as $book)
                <div class="books-list-single">
-                  <a href="{{route('books.single', $book->id)}}"><img src="{{asset('img/books/' . $book->photo)}}"></a>
+                  <a href="{{route('books.single', $book->id)}}"><img src="{{asset('img/thumbs/' . $book->photo)}}"></a>
                   <div class="name">{{$book->name}}</div>
                   <div class="author">
                      <i class="fas fa-user-circle"></i> &nbsp;

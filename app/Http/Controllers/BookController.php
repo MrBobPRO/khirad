@@ -72,7 +72,6 @@ class BookController extends Controller
 
                 ->orWhere(function ($query) use ($keyword) {
                     $query->where('name', 'LIKE', "%{$keyword}%")
-                        ->orWhere('description', 'LIKE', "%{$keyword}%")
                         ->orWhere('publisher', 'LIKE', "%{$keyword}%");
                 })->get();
 

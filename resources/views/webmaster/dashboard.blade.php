@@ -12,11 +12,11 @@
       <i class="fas fa-book"></i> Книги</h5>
    </a>
 
-   <a class="dashboard-links @if($route == 'webmaster.authors') active @endif"  href="{{route('webmaster.index')}}">
+   <a class="dashboard-links @if($route == 'webmaster.authors.index' || $route == 'webmaster.authors.create' || $route == 'webmaster.authors.single') active @endif"  href="{{route('webmaster.authors.index')}}">
       <i class="fas fa-user-tie"></i> Авторы</h5>
    </a>
 
-   <a class="dashboard-links @if($route == 'webmaster.categories') active @endif"  href="{{route('webmaster.index')}}">
+   <a class="dashboard-links @if($route == 'webmaster.categories.index' || $route == 'webmaster.categories.create' || $route == 'webmaster.categories.single') active @endif"  href="{{route('webmaster.categories.index')}}">
       <i class="fa fa-star"></i> Категории</h5>
    </a>
 

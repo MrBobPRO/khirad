@@ -93,7 +93,8 @@ class DatabaseSeeder extends Seeder
 
         foreach($categories as $cat) {
             Category::create([
-                'name' => $cat
+                'name' => $cat,
+                'russian_name' => $cat
             ]);
         }
 

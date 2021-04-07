@@ -21,7 +21,7 @@
       @foreach ($author->books as $book)
          <div class="books-list-single">
             <a href="{{route('books.single', $book->id)}}">
-               <img src="{{asset('img/books/' . $book->photo)}}">
+               <img src="{{asset('img/thumbs/' . $book->photo)}}">
                <h2>{{$book->name}}</h2>
             </a>
             <p>

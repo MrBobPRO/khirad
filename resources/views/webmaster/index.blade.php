@@ -17,7 +17,6 @@
       @endforeach
    </select>
 </div>
-
 {{-- Books seach end --}}
 
 <div class="list-titles">

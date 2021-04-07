@@ -17,7 +17,7 @@ class WebmasterController extends Controller
 
     public function index()
     {
-        $books = Book::latest()->paginate(20);
+        $books = Book::latest()->paginate(40);
         $allBooks = Book::orderBy('name', 'asc')->get();
         $booksCount = count($allBooks);
         $erroredBooks = Book::where('filename', 'Ошибка')
@@ -111,8 +111,8 @@ class WebmasterController extends Controller
 
         //create image thumb
         $thumb = Image::make(public_path('img/books/' . $photoName));
-        //Set image width 220 and height auto (saving ration)
-        $thumb->resize(220, null, function ($constraint) {
+        //Set image width 250 and height auto (saving ration)
+        $thumb->resize(250, null, function ($constraint) {
             $constraint->aspectRatio();
         });
         //save created image
@@ -203,8 +203,8 @@ class WebmasterController extends Controller
 
             //create image thumb
             $thumb = Image::make(public_path('img/books/' . $photoName));
-            //Set image width 220 and height auto (saving ration)
-            $thumb->resize(220, null, function ($constraint) {
+            //Set image width 250 and height auto (saving ration)
+            $thumb->resize(250, null, function ($constraint) {
                 $constraint->aspectRatio();
             });
             //save created image
