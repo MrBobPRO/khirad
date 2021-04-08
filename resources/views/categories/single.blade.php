@@ -5,7 +5,7 @@
 <div class="primary-container content-wrapper">
    <h1>
       {{-- CHANGE MAIN TITLE ACCORDING TO ROUTE NAME --}}
-      @if($route == 'categories.single') {{$category->name}}
+      @if($route == 'categories.single') {{\App::getLocale() == 'tj' ? $category->name : $category->russian_name}}
       @elseif($route == 'categories.discounts') {{ __('Актуальные скидки') }}
       @elseif($route == 'categories.popular') {{ __('Популярные книги') }}
       @elseif($route == 'categories.rating') {{ __('Книги с высокими рейтингами') }}

@@ -8,7 +8,7 @@
          <div class="footer-social">
             <a href="https://www.facebook.com/%D0%A5%D0%B8%D1%80%D0%B0%D0%B4-106239201477539" target="_blank"><img src="{{asset('img/main/facebook.png')}}"></a>
             <a href="https://www.instagram.com/khirad.21/" target="_blank"><img class="instagram" src="{{asset('img/main/instagram.png')}}"></a>
-            <a href="#" target="_blank"><img src="{{asset('img/main/telegram.png')}}"></a>
+            <a href="https://t.me/Khirad21" target="_blank"><img src="{{asset('img/main/telegram.png')}}"></a>
          </div>
       </div>
       <div class="footer-middle">

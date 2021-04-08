@@ -17,7 +17,7 @@
    </div>
 
    <div class="form-single-block">
-      <label>Фото (файл)</label>
+      <label>Фото (файл). Необходимый размер 700x830</label>
       <input name="photo" type="file" accept=".png, .jpeg, .jpg" class="upload-file" id="photo" required>
    </div>
 

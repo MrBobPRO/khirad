@@ -1,3 +1,4 @@
+{{------------------------ Used only in books.single route ------------------}}
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
@@ -29,8 +30,10 @@
 
    <link href="{{ asset('css/main/styles.css') }}" rel="stylesheet">
    <link href="{{ asset('css/main/modal.css') }}" rel="stylesheet">
-
-   @include('templates.styles')
+   
+   {{-- JQ Gallery Plugin --}}
+   <link href="{{ asset('js/simplelightbox-master/dist/simple-lightbox.min.css') }}" rel="stylesheet">
+   <link href="{{ asset('css/books_single/styles.css') }}" rel="stylesheet">
 
 </head>
 <body>
@@ -53,7 +56,15 @@
    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
    <script src="{{ asset('js/main.js') }}"></script>
-   @include('templates.scripts')
+
+   {{-- JQ Gallery Plugin --}}
+   <script src="{{ asset('js/simplelightbox-master/dist/simple-lightbox.jquery.min.js') }}"></script>
+   {{-- Screenshots disabled for free books --}}
+   @if(!$book->isFree)
+      <script>  var gallery = $('.gallery a').simpleLightbox({ });  </script>
+   @endif
+
+   <script src="{{ asset('js/books_single.js') }}"></script>
 
 </body>
 </html>

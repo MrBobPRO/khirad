@@ -49,7 +49,7 @@
             <select class="jq-select" name="category">
                <option value="all">{{__('Все категории')}}</option>
                @foreach ($categories as $category)
-                  <option value="{{$category->id}}">{{$category->name}}</option>
+                  <option value="{{$category->id}}">{{$curLocale == 'tj' ? $category->name : $category->russian_name}}</option>
                @endforeach
             </select>
 

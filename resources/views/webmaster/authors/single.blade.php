@@ -19,7 +19,7 @@
    </div>
 
    <div class="form-single-block">
-      <label>Фото (файл) : {{$author->photo}}</label>
+      <label>Фото (файл). Необходимый размер 700x830 : {{$author->photo}}</label>
       <input name="photo" type="file" accept=".png, .jpeg, .jpg" class="upload-file" id="photo">
       <img class="form-img" src="{{asset('img/authors/' . $author->photo)}}">
    </div>

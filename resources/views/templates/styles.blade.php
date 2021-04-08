@@ -7,15 +7,7 @@
       <link href="{{ asset('css/home/styles.css') }}" rel="stylesheet">
     @break
 
-    @case('books.single')
-      <link href="{{ asset('js/simplelightbox-master/dist/simple-lightbox.min.css') }}" rel="stylesheet">
-      <link href="{{ asset('css/books_single/styles.css') }}" rel="stylesheet">
-    @break
-
-    @case('categories.single') @case('categories.popular') @case('categories.discounts') @case('categories.rating') @case('categories.bestsellers') @case('books.all') @case('categories.free')
-      <link href="{{ asset('css/categories/styles.css') }}" rel="stylesheet">
-    @break
-    {{-- SEARCH STYLES ARE ALMOST SAME AS CAT.SING CAT.POP ETC --}}
+    {{-- SEARCH STYLES ARE ALMOST SAME AS CAT.SING CAT.POP CAT.FREE ETC --}}
     @case('books.search')
       <link href="{{ asset('css/books_search/styles.css') }}" rel="stylesheet">
     @break

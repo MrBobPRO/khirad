@@ -238,9 +238,6 @@ input {
    display: flex;
    justify-content: space-between;
 }
-.navbar-bottom img {
-   margin-right: 60px;
-}
 .navbar-bottom-menu {
    display: flex;
    margin-top: 7px;

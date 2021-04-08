@@ -80,18 +80,18 @@
                @if($auth)
                   {{-- CHECK IF USER HAS ALREADY ADDED THIS BOOK INTO BASKET --}}
                   @if($basketed) 
-                     <form action="/remove_from_basket" method="POST">
+                     <form action="/remove_from_basket" method="POST" id="remove_from_basket">
                         @csrf
                         <input type="hidden" name="book_id" value="{{$book->id}}">
-                        <button class="primary-btn"><i class="far fa-trash-alt"></i> &nbsp; Убрать из корзины</button>
+                        <button class="primary-btn" id="remove_from_basket_btn"><i class="far fa-trash-alt"></i> &nbsp; Убрать из корзины</button>
                      </form>
 
                   {{-- ELSE If USER HASNT ALREADY ADDED THIS BOOK INTO BASKET AND HASNT OBTAINED IT YET --}}
                   @elseif(!$basketed && !$obtained)
-                     <form action="/add_into_basket" method="POST">
+                     <form action="/add_into_basket" method="POST" id="add_into_basket">
                         @csrf
                         <input type="hidden" name="book_id" value="{{$book->id}}">
-                        <button class="primary-btn"><i class="fas fa-cart-plus"></i>
+                        <button class="primary-btn" id="add_into_basket_btn"><i class="fas fa-cart-plus"></i>
                            &nbsp; В корзину {{$book->price == $book->discount ? $book->price : $book->discount}} сом
                         </button>
                      </form>
@@ -188,7 +188,7 @@
 
                   {{-- ADD REVIEW FORM --}}
                   <div class="collapse" id="reviews-collapse">
-                     <form action="/reviews-store" method="POST">
+                     <form action="/reviews-store" id="review_store" method="POST">
                         @csrf
                         <input type="hidden" name="book_id" value="{{$book->id}}">
                         <input class="d-none" name="mark" value="1">
@@ -196,7 +196,7 @@
                         <p id="add-review-stars">@include('marks.select')</p>
                         <label>Ваш отзыв</label>
                         <textarea name="body" rows="5"></textarea>
-                        <button type="submit" class="primary-btn"><i class="fa fa-send"></i> Отправить</button>
+                        <button type="submit" id="review_store_btn" class="primary-btn"><i class="fa fa-send"></i> Отправить</button>
                      </form>
                   </div>
                @endif
@@ -220,7 +220,7 @@
                      <a data-bs-toggle="collapse" href="#reviews-collapse" role="button" aria-expanded="false" aria-controls="reviews-collapse" class="users-review-badget"><i class="fa fa-pencil"></i></a>
 
                      <div class="collapse" id="reviews-collapse">
-                        <form action="/reviews-edit" method="POST">
+                        <form action="/reviews-edit" method="POST" id="reviews_edit">
                            @csrf
                            <input type="hidden" name="book_id" value="{{$book->id}}">
                            <input type="hidden" name="review_id" value="{{$review->id}}">
@@ -229,7 +229,7 @@
                            <p id="edit-review-stars">@include('marks.select')</p>
                            <label>Ваш отзыв</label>
                            <textarea name="body" rows="5"></textarea>
-                           <button class="primary-btn"><i class="fa fa-pencil"></i> &nbsp;Обновить отзыв</button>
+                           <button class="primary-btn" id="reviews_edit_btn"><i class="fa fa-pencil"></i> &nbsp;Обновить отзыв</button>
                         </form>
                      </div>
                   @endif

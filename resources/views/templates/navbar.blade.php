@@ -120,7 +120,7 @@
                      <div class="mega-menu-right-inner">
                         {{-- $navCats DEFINED ON APPSERVICEPROVIDER --}}
                         @foreach($navCats as $category)
-                           <a href="{{route('categories.single', $category->id)}}">{{$category->name}}</a>
+                           <a href="{{route('categories.single', $category->id)}}">{{$curLocale == 'tj' ? $category->name : $category->russian_name}}</a>
                         @endforeach
                      </div>
                   </div>
@@ -135,7 +135,7 @@
       
             <div class="dropdown nav-lang-dropdown">
                <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
-                  @if(\App::currentLocale() == 'ru')
+                  @if($curLocale == 'ru')
                      <img src="{{asset('img/main/russian.png')}}"> Русский
                   @else
                      <img src="{{asset('img/main/tajik.png')}}"> Тоҷикӣ
@@ -143,7 +143,7 @@
                </button>
                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
       
-                  @if(\App::currentLocale() == 'ru')
+                  @if($curLocale == 'ru')
                <li>
                      <form action="/setLangRu" method="POST">
                         @csrf

@@ -45,6 +45,15 @@ class AppServiceProvider extends ServiceProvider
         view()->composer('templates.navbar', function ($view) {
             $view->with('allAuthorsNames', Author::orderBy('name', 'asc')->pluck('name'));
         });
+        //share App Locale with navbar
+        view()->composer('templates.navbar', function ($view) {
+            $view->with('curLocale', \App::currentLocale());
+        });
+
+        //share App Locale with home blade (used in search)
+        view()->composer('home.index', function ($view) {
+            $view->with('curLocale', \App::currentLocale());
+        });
 
         //SHARE ROUTE NAME WITH ALL MASTER TEMPLATES
         view()->composer('templates.master', function ($view) {

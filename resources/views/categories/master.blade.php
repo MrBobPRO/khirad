@@ -30,7 +30,7 @@
    <link href="{{ asset('css/main/styles.css') }}" rel="stylesheet">
    <link href="{{ asset('css/main/modal.css') }}" rel="stylesheet">
 
-   @include('templates.styles')
+   <link href="{{ asset('css/categories/styles.css') }}" rel="stylesheet">
 
 </head>
 <body>
@@ -53,8 +53,6 @@
    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
    <script src="{{ asset('js/main.js') }}"></script>
-   
-   @include('templates.scripts')
 
 </body>
 </html>

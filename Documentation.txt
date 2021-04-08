@@ -4,19 +4,21 @@ Used manual (Ajax) modal Authentication.
 Timezone -> Asia/Dushanbe
 
 
----Installed packages & plugins---
+-----------Installed packages & plugins-----------
 Bootstrap v5.0
 Font -> Roboto | Secondary font -> Lobster
 JQuery v3.6
-JQ FormStyler -> Used to style inputs, selects, radios etc. Only simple selects wich have less items styled by JQ Formstyler
+JQuery 3dflipbook -> used for reading books
+JQ FormStyler -> Used to style inputs, selects, radios etc. (Only simple select)
 Select2 -> used to style selects and multiselects
 Owl Carousel2 v2.3.4
 Font Awesome 5
+JQ Simple LightBox -> Used as gallery for screenshots
 Spectrum ColorPicker -> used in Webmaster
 Intervention package used to create thumb images
 
 
----JQuery 3D FlipBook---
+-------------- 3D FlipBook-----------
 JQuery 3D FlipBook is used for reading books. More at : https://3dflipbook.net/
 
 Plugins files copied (from archive) into public folder:
@@ -28,13 +30,13 @@ from /3d-flip-book/js/libs to js.
 from /3d-flip-book/js/dist/3dflipbook.min.js to js
 
 
----Errors---
+-----------Errors-----------
 if php artisan migrate isn`t working
 Use php artisan migrate:fresh 
 May help: comment code in boot method of AppServiceProvider, mgirate and restore boot method
 
 
----Storage---
+-----------Storage-----------
 For the secure reasons of paid books, books are stored on private folder
 -> Created new private disk (config/filesystems.php)
 -> path: storage/app/private/books
@@ -42,50 +44,50 @@ For the secure reasons of paid books, books are stored on private folder
 Free books are stored at public/free_books folder
 
 
----ViewComposer---
+-----------ViewComposer-----------
 Some variables and collections are declarated in AppServiceProvider via viewComposer
 
 
----Routing---
+-----------Routing-----------
 Added  ->   protected $namespace = 'App\Http\Controllers';    on RouteServiceProvider to support 
 old type of routing like ->   Route::get('/', 'HomeController@index')->name('home');
 
 
----Localiztion---
+-----------Localiztion-----------
 Tajik translations are written on \resources\lang\tj.json file
 
 1)Locale & fallback_locale (default languages) setted as 'tj' (config/app.php)
-2)On language change we store 'my_locale' variable in session
-session(['my_locale' => 'tj']);
-3)Created Middleware 'Language', that will change appLocale into sessionLocale
+2)Created Middleware 'Language', that will change appLocale into sessionLocale
 $this->app->setLocale(session('my_locale', config('app.locale')));
-4)Language Middleware added into App/Http/KerneL
+3)Language Middleware added into App/Http/KerneL
 $middleware = [
 \App\Http\Middleware\Language::class,
 protected $middlewareGroups = [
 \App\Http\Middleware\Language::class,   *after StartSession Middleware
+4)On language change we store 'my_locale' variable in session
+session(['my_locale' => 'tj']);
 
 
----Webmaster Middleware---
+-----------Webmaster Middleware-----------
 Only Admins can enter dashboard
 1) Created & preaperad Webmaster middleware
 2) Added into $routeMiddleware (App/Http/KerneL)
 3) Assigned to WebmasterController & other needed controllers
 
 
----Pagination---
+-----------Pagination-----------
 Used Bootstrap pagination instead of default Tailwind (tailwind.blade.php)
 For this added below code on AppServiceProvider:
 Paginator::useBootstrap();
 
 
----Styles and Views---
+-----------Styles and Views-----------
 For all books, discounted books, popular books, rated books and single category books used same view and styles 
 Search styles and view are almost same as all books, discounted books, popular books, rated books and single category books
 
 
----Maintance---
-REMOVE ALL MAINTANCE MIDDLEWARES IN PRODUCTION
+-----------Maintance-----------
+!!!REMOVE ALL MAINTANCE MIDDLEWARES IN PRODUCTION!!!
 Created Maintance Middleware/Controller/View
 Added into KerneL
 Added into all Controllers

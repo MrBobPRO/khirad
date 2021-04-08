@@ -33,7 +33,7 @@
    </div>
 
    <div class="form-single-block">
-      <label>Картинка (файл)</label>
+      <label>Картинка (файл). Необходимый размер 700x1030</label>
       <input name="photo" type="file" accept=".png, .jpeg, .jpg" class="upload-file" id="photo" required>
    </div>
 
@@ -68,7 +68,7 @@
       <label class="mt-20px">Скидочная цена (только цифры). Оставьте 0 если у книги нету скидочной цены!</label>
       <input name="discountPrice" type="number" min="0" step="any" value="0" required>
 
-      <label class="mt-20px">Скриншот 1</label>
+      <label class="mt-20px">Скриншот 1. Все 3 скриншота должны иметь одинаковые размеры!</label>
       <input name="screenshot1" type="file" accept=".png, .jpeg, .jpg" class="upload-file">
 
       <label class="mt-20px">Скриншот 2</label>
