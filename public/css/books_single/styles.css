@@ -59,6 +59,17 @@
    color: black;
    margin-right: 8px;
 }
+.ya-share2__list.ya-share2__list_direction_horizontal {
+   margin-top: 0 !important;
+}
+.ya-share2__badge {
+   background-color: #7151ed !important;
+}
+.ya-share2__container_size_m .ya-share2__badge .ya-share2__icon {
+   height: 22px !important;
+   width: 22px !important;
+   background-size: 22px 22px !important;
+}
 .book-price {
    color: #7151ed;
    font-weight: 500;

@@ -532,8 +532,8 @@ input {
   color: white;
 }
 .select2_single_dropdown .select2-results__option--highlighted.select2-results__option--selectable {
-  background-color: #7151ed;
-  color: white;
+  background-color: #F9FAFC;
+  color: black;
 }
 /* Select2 single dropdown styles end*/
 /* Select2 single styles end*/

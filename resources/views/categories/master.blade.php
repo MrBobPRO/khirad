@@ -10,7 +10,27 @@
    <meta name="googlebot" content="noindex, nofollow"/>
    <meta name="yandex" content="none"/>
    
-   <title>Хирад</title>
+   <?php $lang = \App::currentLocale(); ?>
+   {{-- var $category isnt compucted in some routes (popular/free etc) --}}
+   <title>Хирад@if(isset($category)) | {{$lang == 'tj' ? $category->name : $category->russian_name}}@endif</title>
+
+   {{-- Opengraph --}}
+   <?php $shareText = 'Книга — один из видов печатной продукции: непериодическое издание, состоящее из сброшюрованных или отдельных бумажных листов (страниц) или тетрадей, на которых нанесе...'; ?>
+   <meta name="description" content="{{$shareText}}">
+   <meta property="og:description" content="{{$shareText}}">
+   <meta property="og:locale" content="ru_RU" />
+   <meta property="og:type" content="object" />
+   <meta property="og:title" content="Хирад@if(isset($category)) | {{$lang == 'tj' ? $category->name : $category->russian_name}}@endif" />
+   <meta property="og:site_name" content="Хирад" />
+   <meta property="og:image" content="{{ asset('img/main/logo-share.png') }}">
+   <meta name="twitter:card" content="summary_large_image">
+   <meta name="twitter:title" content="Хирад@if(isset($category)) | {{$lang == 'tj' ? $category->name : $category->russian_name}}@endif" />
+   <meta name="twitter:image" content="{{ asset('img/main/logo-share.png') }}">
+   
+   <link rel="icon" href="{{ asset('img/main/cropped-favi-32x32.png') }}" sizes="32x32">
+   <link rel="icon" href="{{ asset('img/main/cropped-favi-192x192.png') }}" sizes="192x192">
+   <link rel="apple-touch-icon-precomposed" href="{{ asset('img/main/cropped-favi-180x180.png') }}">
+   <meta name="msapplication-TileImage" content="{{ asset('img/main/cropped-favi-270x270.png') }}">
 
    {{-- Roboto font --}}
    <link rel="preconnect" href="https://fonts.gstatic.com">

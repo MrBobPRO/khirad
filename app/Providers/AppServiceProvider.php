@@ -55,16 +55,8 @@ class AppServiceProvider extends ServiceProvider
             $view->with('curLocale', \App::currentLocale());
         });
 
-        //SHARE ROUTE NAME WITH ALL MASTER TEMPLATES
+        //SHARE ROUTE NAME (used in styles.blade.php & scripts.blade.php etc)
         view()->composer('templates.master', function ($view) {
-            $view->with('route', \Route::currentRouteName());
-        });
-
-        view()->composer('books.master', function ($view) {
-            $view->with('route', \Route::currentRouteName());
-        });
-
-        view()->composer('categories.master', function ($view) {
             $view->with('route', \Route::currentRouteName());
         });
 

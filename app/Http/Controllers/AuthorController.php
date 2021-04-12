@@ -30,7 +30,11 @@ class AuthorController extends Controller
     {
         $author = Author::find($id);
 
-        return view('authors.single', compact('author'));
+        // FOR OPENGRAPH
+        $shareText = $author->description;
+        $shareText = mb_strlen($shareText) < 170 ? $shareText : mb_substr($shareText, 0, 166) . '...';
+
+        return view('authors.single', compact('author', 'shareText'));
     }
 
     public function popular()

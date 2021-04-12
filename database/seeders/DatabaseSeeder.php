@@ -72,6 +72,7 @@ class DatabaseSeeder extends Seeder
             $book->publisher = 'ООО Ориёнфарм';
             $book->year = rand(1990, 2021);
             $book->pages = rand(4, 80);
+            $book->sales = rand(0, 50);
             $book->txtColor = $txtColor[$i];
             $book->btnColor = $btnColor[$i];
             $book->bgColor = $bgColor[$i];

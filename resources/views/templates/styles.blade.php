@@ -16,10 +16,6 @@
       <link href="{{ asset('css/authors/styles.css') }}" rel="stylesheet">
     @break
 
-    @case('authors.single')
-      <link href="{{ asset('css/authors_single/styles.css') }}" rel="stylesheet">
-    @break
-
     @case('archive')
       <link href="{{ asset('css/archive/styles.css') }}" rel="stylesheet">
     @break

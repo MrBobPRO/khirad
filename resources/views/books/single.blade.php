@@ -5,8 +5,9 @@
 {{-- BOOKS MAIN CONTAINER START --}}
 <div class="book-main-container">
    <div class="primary-container">
-      <img src="{{asset('img/books/' . $book->photo)}}" class="book-photo">   
 
+      <img src="{{asset('img/books/' . $book->photo)}}" class="book-photo"> 
+  
       <div class="book-info">
          <h1>{{$book->name}} | 
             {{-- GENERATE AUTHORS NAME AND CUT LAST ' & ' FROM STRING (LAST 3 SYMBOLS) --}}
@@ -17,12 +18,11 @@
             ?>
             {{substr($authors, 0, -3)}}
          </h1>
-         <div class="share-container">
-            <p class="average-rating">
-               @include('marks.' . $book->marksTemplate)
-               &nbsp;&nbsp;{{$book->marksCount}} отзыва
-            </p>
-         </div>
+         
+         <p class="average-rating">
+            @include('marks.' . $book->marksTemplate)
+            &nbsp;&nbsp;{{$book->marksCount}} отзыва
+         </p>
 
          <p class="description">{{$book->description}}</p>
 
@@ -68,6 +68,17 @@
             <div class="book-properties-single">
                <div class="key">Количество страниц</div>
                <div class="value">{{$book->pages}} страниц</div>
+            </div>
+
+            {{-- Share container --}}
+            <div class="book-properties-single">
+               <div class="key">Поделиться</div>
+               <div class="value">
+                  <div class="ya-share2" data-access-token:facebook="fb-token" 
+                     data-curtain data-color-scheme="blackwhite"
+                     data-services="facebook,vkontakte,telegram,viber,twitter">
+                  </div>
+               </div>
             </div>
 
             {{-- IF ITS FREE BOOK SHOW READ BOOK LINK. ELSE SHOW ADD INTO BASKET/REMOVE FROM BASKET/DOWNLOAD BOOK LINKS --}}

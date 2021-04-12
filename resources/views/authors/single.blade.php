@@ -1,5 +1,5 @@
 
-@extends('templates.master')
+@extends('authors.master')
 @section('content')
 
 <div class="author-main-container">

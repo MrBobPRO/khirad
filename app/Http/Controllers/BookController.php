@@ -25,8 +25,13 @@ class BookController extends Controller
 
     public function single($id)
     {
+
         $book = Book::find($id);
         $reviews = Review::where('book_id', $book->id)->orderBy('updated_at', 'desc')->get();
+
+        // FOR OPENGRAPH
+        $shareText = $book->description;
+        $shareText = mb_strlen($shareText) < 170 ? $shareText : mb_substr($shareText, 0, 166) . '...';
 
         // CHECK IF USER HAS ALREADY MARKED THIS BOOK
         $auth = Auth::check();
@@ -55,7 +60,7 @@ class BookController extends Controller
             $obtained = false;
         }
 
-        return view('books.single', compact('book', 'usersReview', 'auth', 'reviews', 'basketed', 'obtained'));
+        return view('books.single', compact('book', 'usersReview', 'auth', 'reviews', 'basketed', 'obtained', 'shareText'));
     }
 
     public function search(Request $request)

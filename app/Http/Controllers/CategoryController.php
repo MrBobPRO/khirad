@@ -51,7 +51,7 @@ class CategoryController extends Controller
 
     public function bestsellers()
     {
-        $books = Book::where('sales', '>', 0)->orderBy('sales', 'desc')->paginate(30);
+        $books = Book::where('sales', '>', 20)->orderBy('sales', 'desc')->paginate(30);
         
         return view('categories.single', compact('books'));
     }
