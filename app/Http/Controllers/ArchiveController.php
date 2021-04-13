@@ -32,23 +32,29 @@ class ArchiveController extends Controller
         $book_id = $request->book_id;
         //CHECK IF USER IS NOT TRYING TO CHEAT
         $user = Auth::user();
-        $book = $user->books()->where('id', $book_id)->get();
+        $book = $user->books()->where('id', $book_id)->first();
 
         //RETURN BOOK IF USER ISNT CHEATING
-        if(count($book) != 0) 
+        if($book) 
         {   
             //GET BOOK FORMAT
-            $fileName = explode('.', $book[0]->filename);
+            $fileName = explode('.', $book->filename);
             $format = $fileName[1];
 
+            // GENERATE AUTHORS NAME AND CUT LAST ' & ' FROM STRING (LAST 3 SYMBOLS)
+            $authors = '';
+            foreach($book->authors as $author)
+                $authors = $authors . $author->name . ' & ';
+            $authors = substr($authors, 0, -3);
+
             //GENERATE NEW FILENAME
-            $newName = $book[0]->name . ' - ' . $book[0]->author;
-            //SET MAXIMUM GENERATED FILENAME LENGTH TO 80
-            $newName = substr($newName, 0, 80);
+            $newName = $book->name . ' - ' . $authors;
+            //SET MAXIMUM GENERATED FILENAME LENGTH TO 90
+            $newName = substr($newName, 0, 90);
             $newName = $newName . '.' . $format;
 
             //GET BOOK FILE PATH
-            $path = 'books' . '/' . $book[0]->filename;
+            $path = 'books' . '/' . $book->filename;
 
             return Storage::disk('private')->download($path, $newName); 
         }
