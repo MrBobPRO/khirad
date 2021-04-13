@@ -1,11 +1,14 @@
 <div id="fb3d-ctx" class="flip-book">
   <div class="view">
-    <div class="fnav">
+    <div class="widControls fnav hidden">
       <div class="prev">
-        <a class="cmdBackward" href="#"><span class="icon"><i class="fa fa-angle-left" title="<$tr>Previous page</$tr>"></i></span></a>
+        <a class="cmdBigBackward" href="#"><span class="icon"><i class="fa fa-angle-left" title="<$tr>Previous page</$tr>"></i></span></a>
       </div>
       <div class="next">
-        <a class="cmdForward" href="#"><span class="icon"><i class="fa fa-angle-right" title="<$tr>Next page</$tr>"></i></span></a>
+        <a class="cmdBigForward" href="#"><span class="icon"><i class="fa fa-angle-right" title="<$tr>Next page</$tr>"></i></span></a>
+      </div>
+      <div class="widPendingPlay pending-play hidden">
+        <a class="cmdPendingPlay" href="#"><i class="fa fa-play" title="<$tr>Play</$tr>"></i></a>
       </div>
     </div>
     <div class="widLoadingProgress loading-progress hidden">
@@ -15,6 +18,8 @@
       </div>
     </div>
     <div class="widLoading page-loading hidden">
+    </div>
+    <div class="widUserMessage txtUserMessage user-message hidden">
     </div>
   </div>
 
@@ -49,9 +54,9 @@
     </div>
   </div>
 
-  <div class="controls">
+  <div class="widControls controls hidden">
 
-    <div class="ctrl js-center">
+    <div class="ctrl js-center css-center">
       <nav class="fnavbar">
         <ul class="fnav">
 

@@ -129,13 +129,16 @@ class BookController extends Controller
 
     public function read(Request $request)
     {
+
         $book = Book::find($request->id);
-        $filename = $book->filename;
+        // FOR OPENGRAPH
+        $shareText = $book->description;
+        $shareText = mb_strlen($shareText) < 170 ? $shareText : mb_substr($shareText, 0, 166) . '...';
 
         // RETURN ERROR CASE BOOK ISNT FREE
         if(!$book->isFree) return 'Доступ запрещён!';
 
-        return view('books.read', compact('filename'));
+        return view('books.read', compact('book', 'shareText'));
     }
 
 }

@@ -32,7 +32,7 @@
                   <a href="{{route('books.single', $book->id)}}" style="color: {{$book->btnColor}}">Подробнее <i class="fas fa-long-arrow-alt-right"></i></a>
                </div>
                <div class="owl-img-container">
-                  <img src="{{asset('img/thumbs/' . $book->photo)}}" style="box-shadow: 0 0px 10px {{$book->bgColor}}">
+                  <img src="{{asset('img/thumbs/' . $book->photo)}}" alt="{{$book->name}}" style="box-shadow: 0 0px 10px {{$book->bgColor}}">
                </div>
             </div>
          </div>
@@ -72,7 +72,7 @@
             <a href="{{route('categories.discounts')}}"><p class="discount-books-link">{{__('Актуальные скидки')}}</p></a>
             @foreach ($discountedBooks as $book)
                 <div class="sidebar-book-block">
-                   <a class="sidebar-link" href="{{route('books.single', $book->id)}}"><img src="{{asset('img/thumbs/' . $book->photo)}}"></a>
+                   <a class="sidebar-link" href="{{route('books.single', $book->id)}}"><img src="{{asset('img/thumbs/' . $book->photo)}}" alt="{{$book->name}}"></a>
                    <div class="sidebar-book-info">
                       <a href="{{route('books.single', $book->id)}}">{{$book->name}}</a>
                       <p>
@@ -100,7 +100,7 @@
                @foreach ($latestBooks as $book)
                   <div class="books-list-single">
                      <a href="{{route('books.single', $book->id)}}">
-                        <img src="{{asset('img/thumbs/' . $book->photo)}}">
+                        <img src="{{asset('img/thumbs/' . $book->photo)}}" alt="{{$book->name}}">
                         <h2>{{$book->name}}</h2>
                      </a>
                      <p>
@@ -144,7 +144,7 @@
          @foreach ($topBooks as $topBook)
              <div class="top-book-singe">
                 <a href="{{route('books.single', $topBook->id)}}">
-                  <img src="{{asset('img/thumbs/' . $topBook->photo)}}" style="box-shadow: 0px 0px 5px -2px {{$topBook->bgColor}};">
+                  <img src="{{asset('img/thumbs/' . $topBook->photo)}}" alt="{{$book->name}}" style="box-shadow: 0px 0px 5px -2px {{$topBook->bgColor}};">
                   <h2>{{$topBook->name}}</h2>
                 </a>
                 <p>

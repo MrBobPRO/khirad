@@ -8,7 +8,7 @@ Timezone -> Asia/Dushanbe
 Bootstrap v5.0
 Font -> Roboto | Secondary font -> Lobster
 JQuery v3.6
-JQuery 3dflipbook -> used for reading books
+JQuery 3dflipbook -> used for reading books. More at : https://3dflipbook.net/ (licensed)
 JQ FormStyler -> Used to style inputs, selects, radios etc. (Only simple select)
 Select2 -> used to style selects and multiselects
 Owl Carousel2 v2.3.4
@@ -16,18 +16,6 @@ Font Awesome 5
 JQ Simple LightBox -> Used as gallery for screenshots
 Spectrum ColorPicker -> used in Webmaster
 Intervention package used to create thumb images
-
-
--------------- 3D FlipBook-----------
-JQuery 3D FlipBook is used for reading books. More at : https://3dflipbook.net/
-
-Plugins files copied (from archive) into public folder:
-from /3d-flip-book/images to images,
-from /3d-flip-book/fonts to fonts,
-from /3d-flip-book/templates to templates,
-from /3d-flip-book/css to css,
-from /3d-flip-book/js/libs to js.
-from /3d-flip-book/js/dist/3dflipbook.min.js to js
 
 
 -----------Errors-----------

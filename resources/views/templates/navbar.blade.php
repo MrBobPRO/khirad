@@ -92,7 +92,7 @@
 
       {{-- BOTTOM NAVBAR START --}}
       <div class="navbar-bottom">
-         <a href="/"><img src="{{asset('img/main/logo-nav.png')}}"></a>
+         <a href="/"><img src="{{asset('img/main/logo-nav.png')}}" alt="Хирад лого"></a>
 
 
          {{-- BOTTOM NAVBAR MENU START --}}

@@ -1,75 +1,91 @@
+.css-center {
+  left: 50%;
+  transform: translateX(-50%);
+}
+
 .flip-book {
   position: relative;
   height: 100%;
 }
 
-.flip-book .view {
+.view {
   text-align: center;
   height: 100%;
 }
 
-.flip-book .view .fnav {
+.view .fnav {
 }
 
-.flip-book .view .prev, .flip-book .view .next {
+.view .fnav.hidden {
+  display: none;
+}
+
+.view .prev, .view .next {
   position: absolute;
   top: 50%;
   transform: translate(0, -50%);
   z-index: 1;
 }
 
-.flip-book .view .prev {
+.view .prev {
   left: 20px;
 }
 
-.flip-book .view .next {
+.view .next {
   right: 20px;
 }
 
+.view .pending-play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+}
 
-.flip-book .view .fnav a {
-  font-size: 72pt;
+.view .fnav a {
+  font-size: 72px;
   color: #666;
 }
 
-.flip-book .view .fnav a:hover {
+.view .fnav a:hover {
   cursor: pointer;
-  text-shadow: 0 0 7px #000;
+  text-shadow: 0 0 1px #000;
 }
 
-.flip-book .view .fnav a:active {
-  font-size: 70pt;
+.view .fnav a:active {
+  font-size: 70px;
 }
 
-.flip-book .view .fnav .hidden {
+.view .fnav .hidden {
   display: none;
 }
 
-.flip-book .view .fnav .active {
+.view .fnav .active {
   color: #555;
 }
 
-.flip-book .view .fnav .disabled {
+.view .fnav .disabled {
   color: #aaa;
 }
 
-.flip-book .view .fnav .disabled:hover {
+.view .fnav .disabled:hover {
   cursor: not-allowed;
   text-shadow: none;
 }
 
-.flip-book .view .loading-progress {
+.view .loading-progress {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
 
-.flip-book .view .loading-progress.hidden {
+.view .loading-progress.hidden {
   display: none;
 }
 
-.flip-book .loading-progress .progress {
+.loading-progress .progress {
   background-color: #555;
   background-image: none;
   width: 50px;
@@ -81,7 +97,7 @@
   margin-bottom: 10px;
 }
 
-.flip-book .loading-progress .progress::after {
+.loading-progress .progress::after {
   content: ' ';
   display: block;
   width: 100%;
@@ -90,7 +106,7 @@
   background-image: url('../images/light-loader.gif');
 }
 
-.flip-book .page-loading {
+.page-loading {
   width: 50px;
   height: 50px;
   position: absolute;
@@ -100,11 +116,11 @@
   z-index: 1;
 }
 
-.flip-book .page-loading.hidden {
+.page-loading.hidden {
   display: none;
 }
 
-.flip-book .page-loading::after {
+.page-loading::after {
   content: ' ';
   display: block;
   width: 100%;
@@ -113,7 +129,7 @@
   background-image: url('../images/light-loader.gif');
 }
 
-.flip-book .loading-progress .caption {
+.loading-progress .caption {
   background-color: #555;
   border: 1px solid #333;
   padding: 7px 10px;
@@ -124,22 +140,51 @@
   color: #eee;
 }
 
-.flip-book .controls {
+.user-message {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.user-message.hidden {
+  display: none;
+}
+
+.user-message .text {
+  border: 1px solid transparent;
+  padding: 7px 10px;
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size: 10pt;
+  border-radius: 5px;
+}
+
+.user-message .error {
+  color: #842029;
+  background-color: #f8d7da;
+  border-color: #f5c2c7;
+}
+
+.controls {
   position: relative;
 }
 
-.flip-book .controls .fnavbar {
-  margin: 0 auto;
-  opacity: 0.3;
-  transition: opacity 2s ease-in-out 3s;
+.controls.hidden {
+  display: none;
 }
 
-.flip-book .controls .fnavbar:hover {
+.controls .fnavbar {
+  margin: 0 auto;
+  /* opacity: 0.3;
+  transition: opacity 2s ease-in-out 3s; */
+}
+
+.controls .fnavbar:hover {
   opacity: 1;
   transition: opacity 1s ease;
 }
 
-.flip-book .controls .ctrl {
+.controls .ctrl {
   font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
   position: absolute;
   bottom: 10px;
@@ -209,6 +254,7 @@
 }
 .ctrl .fnavbar .fnav .dropdown .menu {
   top: 100%;
+  right: 0;
   box-shadow: 3px 0 3px #222;
 }
 .ctrl .fnavbar .fnav .icon-caret {
@@ -237,6 +283,7 @@
   background-color: #222;
   z-index: 10;
   min-width: 160px;
+  right: 0;
 }
 .ctrl .fnavbar .menu li {
   display: block;
@@ -307,7 +354,7 @@
 
 /* floating window */
 
-.flip-book .float-wnd {
+.float-wnd {
   position: absolute;
   top: 10px;
   left: 10px;
@@ -318,11 +365,11 @@
   box-shadow: 3px 0 3px #222;
 }
 
-.flip-book .float-wnd.hidden {
+.float-wnd.hidden {
   display: none;
 }
 
-.flip-book .float-wnd .header {
+.float-wnd .header {
   border-radius: 4px 4px 0 0;
   background-color: #3c3c3c;
   background-image: linear-gradient(to bottom,#3c3c3c 0,#222 100%);
@@ -335,7 +382,7 @@
   cursor: move;
 }
 
-.flip-book .float-wnd .header .close {
+.float-wnd .header .close {
   top: 5px;
   right: 8px;
   font-size: 14px;
@@ -343,16 +390,16 @@
   color: #ccc;
 }
 
-.flip-book .float-wnd .header .close:hover {
+.float-wnd .header .close:hover {
   color: #fff;
 }
-.flip-book .float-wnd .header .close:active {
+.float-wnd .header .close:active {
   font-size: 12px;
   padding-top: 1px;
   padding-right: 1px;
 }
 
-.flip-book .float-wnd .body {
+.float-wnd .body {
   border: 1px solid #444;
   border-top: none;
 }

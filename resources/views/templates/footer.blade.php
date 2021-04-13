@@ -1,7 +1,7 @@
 <div class="footer">
    <div class="primary-container footer-inner">
       <div class="footer-left">
-         <a href="/"><img src="{{asset('img/main/logo-foot.png')}}"></a>
+         <a href="/"><img src="{{asset('img/main/logo-foot.png')}}" alt="Хирад лого"></a>
          <p>
             Важно помнить, что формирование гармонии между работой и семьей – один из основных рецептов человеческого счастья, успехов и достижений, как в личной жизни, так и на профессиональном поприще!
          </p>

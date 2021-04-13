@@ -5,7 +5,7 @@
 <div class="author-main-container">
    {{-- AUTHORS INFO START --}}
    <div class="author-info">
-      <img src="{{asset('img/authors' . '/' . $author->photo)}}">
+      <img src="{{asset('img/authors' . '/' . $author->photo)}}" alt="{{$author->name}}">
       <div>
          <h1>{{$author->name}}</h1>
          <p>{!!$author->description!!}</p>
@@ -21,7 +21,7 @@
       @foreach ($author->books as $book)
          <div class="books-list-single">
             <a href="{{route('books.single', $book->id)}}">
-               <img src="{{asset('img/thumbs/' . $book->photo)}}">
+               <img src="{{asset('img/thumbs/' . $book->photo)}}" alt="{{$book->name}}">
                <h2>{{$book->name}}</h2>
             </a>
             <p>

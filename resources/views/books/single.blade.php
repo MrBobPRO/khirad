@@ -6,7 +6,7 @@
 <div class="book-main-container">
    <div class="primary-container">
 
-      <img src="{{asset('img/books/' . $book->photo)}}" class="book-photo"> 
+      <img src="{{asset('img/books/' . $book->photo)}}" class="book-photo" alt="{{$book->name}}"> 
   
       <div class="book-info">
          <h1>{{$book->name}} | 
