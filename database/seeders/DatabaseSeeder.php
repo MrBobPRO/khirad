@@ -8,6 +8,7 @@ use App\Models\Book;
 use App\Models\Category;
 use App\Models\Review;
 use App\Models\Author;
+use App\Models\Top;
 
 class DatabaseSeeder extends Seeder
 {
@@ -94,8 +95,8 @@ class DatabaseSeeder extends Seeder
 
         foreach($categories as $cat) {
             Category::create([
-                'name' => $cat,
-                'russian_name' => $cat
+                'tjName' => $cat,
+                'ruName' => $cat
             ]);
         }
 
@@ -198,8 +199,25 @@ class DatabaseSeeder extends Seeder
         $u->books()->attach(9);
         $u->books()->attach(7);
 
-        $book = Book::find(2);
+        $top = new Top;
+        $top->book_id = 8;
+        $top->save();
+
+        $top = new Top;
+        $top->book_id = 4;
+        $top->save();
         
+        $top = new Top;
+        $top->book_id = 5;
+        $top->save();
+
+        $top = new Top;
+        $top->book_id = 9;
+        $top->save();
+
+        $top = new Top;
+        $top->book_id = 14;
+        $top->save();
 
     }
 }

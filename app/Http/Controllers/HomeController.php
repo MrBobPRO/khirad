@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Book;
 use App\Models\Category;
+use App\Models\Top;
 use App\Models\User;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\Route;
 
 class HomeController extends Controller
 {
@@ -20,12 +22,27 @@ class HomeController extends Controller
 
 
     public function index() {
+        $appLocale = App::currentLocale();
+        
+        $latestBooks = Book::latest()->take(15)                                
+                            ->select('id', 'name', 'photo')
+                            ->with(['authors' => function($query) {
+                                $query->select('id', 'name');
+                            }])->get();
 
-        $latestBooks = Book::latest()->take(15)->get();
         $popularBooks = Book::where('isPopular', true)->inRandomOrder()->take(10)->get();
-        $discountedBooks = Book::where('discountPrice', '!=', 0)->inRandomOrder()->take(7)->get();
-        $topBooks = Book::orderBy('year', 'desc')->take(5)->get();
-        $categories = Category::orderBy('name', 'asc')->get();
+
+        // $discountedBooks = Book::where('discountPrice', '!=', 0)->inRandomOrder()->take(7)->get();
+        $discountedBooks = Book::inRandomOrder()->take(7)
+                                ->select('id', 'name', 'photo')
+                                ->with(['authors' => function($query) {
+                                    $query->select('id', 'name');
+                                }])->get();
+
+        $topBooks = Top::orderBy('id', 'asc')->take(5)->get();
+
+        $categories = Category::select($appLocale . 'Name as name', 'id')->
+                                orderBy('name', 'asc')->get();
 
         return view('home.index', compact('latestBooks', 'popularBooks', 'discountedBooks', 'topBooks','categories'));
     }

@@ -1,3 +1,13 @@
+----------------Временные изменения--------------------
+Весь нужный код просто комментирован
+
+Цены, скидочные центы, итд что связано с ценами скроем или удалим
+Главная / Актуальные скидки -> поменяли на Рекомендуемые книги
+Меню - корзина и архив ссылки отключены
+
+
+
+
 Laravel v8.21.0 (PHP v7.4.5)
 Authentication -> Laravel Breeze -> all routes have been disabled except Logout (/routes/auth.php)
 Used manual (Ajax) modal Authentication.
@@ -16,6 +26,33 @@ Font Awesome 5
 JQ Simple LightBox -> Used as gallery for screenshots
 Spectrum ColorPicker -> used in Webmaster
 Intervention package used to create thumb images
+
+
+----------JQuery 3dflipbook--------
+Copied files:
+webpack.config.js -> public folder
+cmaps -> public folder
+images -> public folder
+fonts -> public folder
+sounds -> public folder
+templates -> public folder
+
+copied into public css folder :
+black-book-view.css
+font-awesome.min.css
+search-book-view.css
+short-black-book-view.css
+short-white-book-view.css
+white-book-view.css
+
+copied into public js folder :
+3dflipbook.min.js
+default-book-view.js
+html2canvas.min.js
+jquery.min.js
+pdf.min.js
+pdf.worker.js
+three.min.js
 
 
 -----------Errors-----------

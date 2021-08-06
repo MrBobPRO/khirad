@@ -6,7 +6,7 @@
          @auth
          <div class="nav-top-left">
             <div class="user-profile">
-               <div><img src="{{asset('img/main/avatar.png')}}"> {{auth()->user()->name}}</div>
+               <div><img src="{{asset('img/main/avatar.png')}}"> {{$user->name}}</div>
                <form method="POST" action="{{ route('logout') }}">
                   @csrf
                   <span> / </span>
@@ -52,11 +52,13 @@
             <div class="nav-bookshelf">
                <img src="{{asset('img/main/bookShelf.png')}}">
                <div>
-                  <a href="{{route('archive')}}">{{ __("Архив") }}</a>
+                  {{-- <a href="{{route('archive')}}">{{ __("Архив") }}</a> --}}
+                  <a href="#">{{ __("Архив") }}</a>
                   <p>
-                     @auth {{\Auth::user()->books->count()}} @endauth
+                     {{-- @auth {{$user->books->count()}} @endauth
                      @guest 0 @endguest
-                     книг
+                     книг --}}
+                     {{ __("Архив") }}
                   </p>
                </div>
             </div>
@@ -64,25 +66,26 @@
             <div class="nav-basket">
                <img src="{{asset('img/main/basket.png')}}">
                <div>
-                  <a href="{{route('basket')}}">{{ __("Корзина") }}</a>
+                  <a href="#">{{ __("Корзина") }}</a>
+                  {{-- <a href="{{route('basket')}}">{{ __("Корзина") }}</a> --}}
                   {{-- CHECK IF USER HAS AUTH --}}
-                  @if(\Auth::check())
+                  {{-- @if($user) --}}
                      {{-- CHECK IF USERS BASKET IS EMPTY --}}
-                     @if(\Auth::user()->basket->count() == 0)
+                     {{-- @if($user->basket->count() == 0)
                         <p>0.00 сомони</p>
-                     @else 
+                     @else  --}}
                         <?php 
-                           $totalPrice = 0;
-                           foreach(\Auth::user()->basket as $book)
+                           // $totalPrice = 0;
+                           // foreach($user->basket as $book)
                               // CHECK IF BOOK HAS DISCOUNTED PRICE AND GENERATE TOTAL PRICE 
-                              $book->discountPrice != 0 ? $totalPrice += $book->discountPrice : $totalPrice += $book->price;
+                              // $book->discountPrice != 0 ? $totalPrice += $book->discountPrice : $totalPrice += $book->price;
                         ?>
-                        <p>{{$totalPrice . ' сом'}}</p>
-                     @endif
+                        {{-- <p>{{$totalPrice . ' сом'}}</p> --}}
+                     {{-- @endif --}}
                   {{-- ELSE IF USER IS GUEST   --}}
-                  @else
-                     <p>0.00 сомони</p>
-                  @endif
+                  {{-- @else --}}
+                     <p>{{ __("Корзина") }}</p>
+                  {{-- @endif --}}
                </div>
             </div>
          </div>
@@ -120,7 +123,7 @@
                      <div class="mega-menu-right-inner">
                         {{-- $navCats DEFINED ON APPSERVICEPROVIDER --}}
                         @foreach($navCats as $category)
-                           <a href="{{route('categories.single', $category->id)}}">{{$curLocale == 'tj' ? $category->name : $category->russian_name}}</a>
+                           <a href="{{route('categories.single', $category->id)}}">{{$category->name}}</a>
                         @endforeach
                      </div>
                   </div>
@@ -135,7 +138,7 @@
       
             <div class="dropdown nav-lang-dropdown">
                <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
-                  @if($curLocale == 'ru')
+                  @if($appLocale == 'ru')
                      <img src="{{asset('img/main/russian.png')}}"> Русский
                   @else
                      <img src="{{asset('img/main/tajik.png')}}"> Тоҷикӣ
@@ -143,7 +146,7 @@
                </button>
                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
       
-                  @if($curLocale == 'ru')
+                  @if($appLocale == 'ru')
                <li>
                      <form action="/setLangRu" method="POST">
                         @csrf

@@ -5,16 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Category extends Model
+class Top extends Model
 {
     use HasFactory;
-    
-    protected $guarded = ['id'];
+
     public $timestamps = false;
 
-    public function books()
+    public function book() 
     {
-        return $this->belongsToMany(Book::class);
+        return $this->belongsTo(Book::class);
     }
     
 }

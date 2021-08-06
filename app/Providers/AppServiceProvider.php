@@ -8,6 +8,9 @@ use App\Models\Category;
 use Illuminate\Pagination\Paginator;
 use App\Models\Book;
 use App\Models\Author;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -34,38 +37,27 @@ class AppServiceProvider extends ServiceProvider
 
         \Schema::defaultStringLength(191);
 
-        // SHARE DATA wITH ALL ROUTES (NAVBAR CATEGORIES)
-        $navCats = Category::orderBy('name', 'asc')->get();
-        View::share('navCats', $navCats);
+        //share appp locale & route name with all views
+        View::share('appLocale', App::currentLocale());
+        View::share('route', Route::currentRouteName());
+        View::share('user', Auth::user());
 
         //Share all book names & author names for search
+        //Share navbar categories
         view()->composer('templates.navbar', function ($view) {
-            $view->with('allBooksNames', Book::orderBy('name', 'asc')->pluck('name'));
-        });
-        view()->composer('templates.navbar', function ($view) {
-            $view->with('allAuthorsNames', Author::orderBy('name', 'asc')->pluck('name'));
-        });
-        //share App Locale with navbar
-        view()->composer('templates.navbar', function ($view) {
-            $view->with('curLocale', \App::currentLocale());
+            $appLocale = App::currentLocale();
+            $navCats = Category::select($appLocale . 'Name as name', 'id')->
+                    orderBy('name', 'asc')->get();
+
+            $view->with('allBooksNames', Book::orderBy('name', 'asc')->pluck('name'))
+            ->with('allAuthorsNames', Author::orderBy('name', 'asc')->pluck('name'))
+            ->with('navCats', $navCats)
+            ->with('appLocale', $appLocale)
+            ->with('user', Auth::user());
         });
 
-        //share App Locale with home blade (used in search)
-        view()->composer('home.index', function ($view) {
-            $view->with('curLocale', \App::currentLocale());
-        });
-
-        //SHARE ROUTE NAME (used in styles.blade.php & scripts.blade.php etc)
-        view()->composer('templates.master', function ($view) {
-            $view->with('route', \Route::currentRouteName());
-        });
-
-        view()->composer('categories.single', function ($view) {
-            $view->with('route', \Route::currentRouteName());
-        });
-
-        view()->composer('webmaster.master', function ($view) {
-            $view->with('route', \Route::currentRouteName());
+        view()->composer(['templates.styles', 'templates.scripts'], function ($view) {
+            $view->with('route', Route::currentRouteName());
         });
 
     }

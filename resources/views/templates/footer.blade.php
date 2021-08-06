@@ -14,7 +14,7 @@
       <div class="footer-middle">
          <h4>{{ __("Топ категории") }}</h4>
          <?php $c = 0; ?>
-         @foreach ($navCats as $category)
+         @foreach ($categories as $category)
             @if($c > 5) @break @endif
             <a href="{{route('categories.single', $category->id)}}">{{$category->name}}</a> 
             <?php $c++; ?>
