@@ -34,8 +34,10 @@
    {{-- Roboto font --}}
    <link rel="preconnect" href="https://fonts.gstatic.com">
    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&display=swap" rel="stylesheet">
-   {{-- Lobster font --}}
-   <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+   {{-- Cuprum font --}}
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link href="https://fonts.googleapis.com/css2?family=Cuprum:ital,wght@1,700&display=swap" rel="stylesheet">
    <!-- FONT AWESOME 5 -->
    <script src="https://kit.fontawesome.com/0f5643e341.js" crossorigin="anonymous"></script>
    {{-- Bootstrap v5.0 --}}

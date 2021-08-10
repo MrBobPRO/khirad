@@ -33,11 +33,12 @@
                <div class="value">
                   @if($book->isFree)
                   <span class="book-price">Бесплатная</span>
-                  @elseif($book->discountPrice == 0)
-                  <span class="book-price">{{$book->price}} сом.</span>
+                  {{-- @elseif($book->discountPrice == 0)
+                  <span class="book-price">{{$book->price}} сом.</span> --}}
                   @else
-                  <span class="book-price-stroked">{{$book->price}} сом.</span>
-                  <span class="book-price">{{$book->discountPrice}} сом.</span>
+                  <span class="book-price">Плантная</span>
+                  {{-- <span class="book-price-stroked">{{$book->price}} сом.</span>
+                  <span class="book-price">{{$book->discountPrice}} сом.</span> --}}
                   @endif
                </div>
             </div>
@@ -61,7 +62,7 @@
                <div class="key">Категория</div>
                <div class="value">
                   @foreach ($book->categories as $category)
-                        <a href="{{route('categories.single', $category->id)}}">{{$category->name}}</a>
+                        <a href="{{route('categories.single', $category->id)}}">{{$category[$appLocale . 'Name']}}</a>
                   @endforeach
                </div>
             </div>
@@ -81,66 +82,36 @@
                </div>
             </div>
 
-            {{-- IF ITS FREE BOOK SHOW READ BOOK LINK. ELSE SHOW ADD INTO BASKET/REMOVE FROM BASKET/DOWNLOAD BOOK LINKS --}}
-            @if($book->isFree) <a href="/read_book?id={{$book->id}}" class="primary-btn read-book" target="_blank">
-               <i class="fab fa-readme"></i> &nbsp; Читать книгу</a>
-
-            {{-- ELSE SHOW ADD INTO BASKET/REMOVE FROM BASKET/DOWNLOAD LINKS --}}
-            @else
-
-               @if($auth)
-                  {{-- CHECK IF USER HAS ALREADY ADDED THIS BOOK INTO BASKET --}}
-                  @if($basketed) 
-                     <form action="/remove_from_basket" method="POST" id="remove_from_basket">
-                        @csrf
-                        <input type="hidden" name="book_id" value="{{$book->id}}">
-                        <button class="primary-btn" id="remove_from_basket_btn"><i class="far fa-trash-alt"></i> &nbsp; Убрать из корзины</button>
-                     </form>
-
-                  {{-- ELSE If USER HASNT ALREADY ADDED THIS BOOK INTO BASKET AND HASNT OBTAINED IT YET --}}
-                  @elseif(!$basketed && !$obtained)
-                     <form action="/add_into_basket" method="POST" id="add_into_basket">
-                        @csrf
-                        <input type="hidden" name="book_id" value="{{$book->id}}">
-                        <button class="primary-btn" id="add_into_basket_btn"><i class="fas fa-cart-plus"></i>
-                           &nbsp; В корзину {{$book->price == $book->discount ? $book->price : $book->discount}} сом
-                        </button>
-                     </form>
-                  
-                  {{-- ELSE IF USER HAS ALREADY OBTAINED IT --}}
-                  @elseif($obtained)
-                     <form method="POST" action="/archive/download">
-                        @csrf
-                        <input type="hidden" name="book_id" value="{{$book->id}}">
-                        <button type="submit" class="primary-btn"><i class="fas fa-cloud-download-alt"></i> &nbsp;Скачать</button>
-                     </form>
-                  @endif
-               @else 
-                  {{-- CASE GUEST SHOW LOGIN MODAL --}}
-                  <button class="primary-btn" data-bs-toggle="modal" data-bs-target="#loginModal"><i class="fas fa-cart-plus"></i>
-                     &nbsp; В корзину {{$book->discountPrice == 0 ? $book->price : $book->discountPrice}} сом
-                  </button>
-               @endif  {{-- if($book->isFree) --}}
-
-            @endif  {{-- if($auth) --}}
+            {{-- CHECK SINGLE_OLD.BLADE.PHP--}}
+            <a href="/read_book?id={{$book->id}}" class="primary-btn read-book" target="_blank">
+               <i class="fab fa-readme"></i> &nbsp; {{$book->isFree ? 'Читать книгу' : 'Читать фрагмент книги'}}
+            </a>
          </div>
          {{-- BOOK PROPERTIES END --}}
    
          {{-- SCREENSHOTS START--}}
          {{-- THERE ARE NO SCREENSHOTS FOR FREE BOOKS --}}
-         @if(!$book->isFree)
+         @if($book->screenshot1 != '' || $book->screenshot2 != '' || $book->screenshot3 != '')
             <div class="gallery-container">
                <h1>Скриншоты страниц книги</h1>
                <div class="gallery">
-                  <a href="{{asset('img/screenshots/' .  $book->screenshot1)}}" class="big">
-                     <img src="{{asset('img/screenshots/' .  $book->screenshot1)}}">
-                  </a>
-                  <a href="{{asset('img/screenshots/' .  $book->screenshot2)}}" class="big">
-                     <img src="{{asset('img/screenshots/' .  $book->screenshot2)}}">
-                  </a>
-                  <a href="{{asset('img/screenshots/' .  $book->screenshot3)}}" class="big">
-                     <img src="{{asset('img/screenshots/' .  $book->screenshot3)}}">
-                  </a>
+                  @if($book->screenshot1 != '')
+                     <a href="{{asset('img/screenshots/' .  $book->screenshot1)}}" class="big">
+                        <img src="{{asset('img/screenshots/' .  $book->screenshot1)}}">
+                     </a>
+                  @endif
+
+                  @if($book->screenshot2 != '')
+                     <a href="{{asset('img/screenshots/' .  $book->screenshot2)}}" class="big">
+                        <img src="{{asset('img/screenshots/' .  $book->screenshot2)}}">
+                     </a>
+                  @endif
+
+                  @if($book->screenshot3 != '')
+                     <a href="{{asset('img/screenshots/' .  $book->screenshot3)}}" class="big">
+                        <img src="{{asset('img/screenshots/' .  $book->screenshot3)}}">
+                     </a>
+                  @endif
                </div>
             </div>
          @endif

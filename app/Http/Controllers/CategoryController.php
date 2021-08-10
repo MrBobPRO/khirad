@@ -20,45 +20,75 @@ class CategoryController extends Controller
     public function single($id)
     {
         $category = Category::find($id);
-        $books = Book::whereHas('categories', function($q) use ($id) {
-            $q->where('id', $id); })
-            ->latest()
-            ->paginate(30);
+        // $books = Book::whereHas('categories', function($q) use ($id) {
+        //     $q->where('id', $id); })
+        //     ->latest()
+        //     ->paginate(30);
+
+        $books = $category->books()
+                    ->select('id', 'name', 'photo')
+                    ->with(['authors' => function($query) {
+                        $query->select('id', 'name'); }])
+                    ->latest()
+                    ->paginate(30);
 
         return view('categories.single', compact('category', 'books'));
     }
 
     public function discounts()
     {
-        $books = Book::where('discountPrice', '!=', 0)->latest()->paginate(30);
+        $books = Book::where('discountPrice', '!=', 0)
+                    ->select('id', 'name', 'photo')
+                    ->with(['authors' => function($query) {
+                        $query->select('id', 'name'); }])
+                    ->latest()
+                    ->paginate(30);
         
         return view('categories.single', compact('books'));
     }
 
     public function popular()
     {
-        $books = Book::where('isPopular', true)->latest()->paginate(30);
+        $books = Book::where('isPopular', true)
+                ->select('id', 'name', 'photo')
+                ->with(['authors' => function($query) {
+                    $query->select('id', 'name'); }])
+                ->latest()
+                ->paginate(30);
         
         return view('categories.single', compact('books'));
     }
 
     public function by_rating()
     {
-        $books = Book::where('averageMark', '>=', 3.5)->orderBy('averageMark', 'desc')->paginate(30);
+        $books = Book::where('averageMark', '>=', 3.5)
+                    ->select('id', 'name', 'photo', 'marksTemplate', 'marksCount', 'averageMark')
+                    ->with(['authors' => function($query) {
+                        $query->select('id', 'name'); }])
+                    ->orderBy('averageMark', 'desc')
+                    ->paginate(30);
         
         return view('categories.single', compact('books'));
     }
 
     public function bestsellers()
     {
-        $books = Book::where('sales', '>', 20)->orderBy('sales', 'desc')->paginate(30);
+        $books = Book::where('sales', '>', 20)
+                    ->select('id', 'name', 'photo', 'sales')
+                    ->with(['authors' => function($query) {
+                        $query->select('id', 'name'); }])
+                    ->orderBy('sales', 'desc')->paginate(30);
         
         return view('categories.single', compact('books'));
     }
 
     public function free()
     {
-        $books = Book::where('isFree', '=', true)->latest()->paginate(30);
+        $books = Book::where('isFree', '=', true)
+                    ->select('id', 'name', 'photo')
+                    ->with(['authors' => function($query) {
+                        $query->select('id', 'name'); }])
+                    ->paginate(30);
         
         return view('categories.single', compact('books'));
     }
@@ -67,7 +97,7 @@ class CategoryController extends Controller
     //---------------------------------------------Webmaster Routes--------------------------------------------
     public function webmaster_index()
     {
-        $categories = Category::orderBy('name', 'asc')->get();
+        $categories = Category::orderBy('tjName', 'asc')->get();
         $categoriesCount = count($categories);
 
         return view('webmaster.categories.index', compact('categories', 'categoriesCount'));
@@ -81,8 +111,8 @@ class CategoryController extends Controller
     public function webmaster_store(Request $request)
     {
         Category::create([
-            'name' => $request->name,
-            'russian_name' => $request->russian_name
+            'tjName' => $request->tjName,
+            'ruName' => $request->ruName
         ]);
 
         return redirect()->route('webmaster.categories.index');
@@ -99,8 +129,8 @@ class CategoryController extends Controller
     public function webmaster_update(Request $request)
     {
         $category = Category::find($request->id);
-        $category->name = $request->name;
-        $category->russian_name = $request->russian_name;
+        $category->tjName = $request->tjName;
+        $category->ruName = $request->ruName;
         $category->save();
 
         return redirect()->back();

@@ -92,10 +92,10 @@
 .gallery {
    width: 50%;
    display: flex;
-   justify-content: space-between;
+   gap: 20px;
 }
 .gallery a {
-   width: 30%;
+   width: 33.3%;
 }
 .gallery a img {
    max-width: 100%;

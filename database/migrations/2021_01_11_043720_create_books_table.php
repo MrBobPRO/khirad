@@ -17,7 +17,7 @@ class CreateBooksTable extends Migration
             $table->id();
             $table->text('name');
             $table->boolean('isFree')->default(false); 
-            $table->float('price');
+            $table->float('price')->default(0);;
             $table->float('discountPrice')->default(0); //скидочная цена
             $table->text('description');
             $table->string('filename');

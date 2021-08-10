@@ -27,7 +27,7 @@
          @foreach($authors as $author)
             <a href="{{route('authors.single', $author->id)}}">
                <div>
-                  <img src="{{asset('img/authors' . '/' . $author->photo)}}" alt="{{$author->name}}">
+                  <img src="{{asset('img/authors/thumbs/' . $author->photo)}}" alt="{{$author->name}}">
                </div>
                <h2>{{$author->name}}</h2>
             </a>

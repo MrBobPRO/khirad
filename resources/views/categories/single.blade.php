@@ -3,9 +3,10 @@
 
 @section('content')
 <div class="primary-container content-wrapper">
+   <?php $route = \Route::currentRouteName(); ?>
    <h1>
       {{-- CHANGE MAIN TITLE ACCORDING TO ROUTE NAME --}}
-      @if($route == 'categories.single') {{\App::getLocale() == 'tj' ? $category->name : $category->russian_name}}
+      @if($route == 'categories.single') {{$appLocale == 'tj' ? $category->tjName : $category->ruName}}
       @elseif($route == 'categories.discounts') {{ __('Актуальные скидки') }}
       @elseif($route == 'categories.popular') {{ __('Популярные книги') }}
       @elseif($route == 'categories.rating') {{ __('Книги с высокими рейтингами') }}
@@ -39,14 +40,14 @@
          <p>Покупок : {{$book->sales}}</p>
          @endif
          
-         @if($book->isFree)
+         {{-- @if($book->isFree)
          <span class="book-price">Бесплатная</span>
          @elseif($book->discountPrice == 0)
          <span class="book-price">{{$book->price}} сом.</span>
          @else
          <span class="book-price-stroked">{{$book->price}} сом.</span>
          <span class="book-price">{{$book->discountPrice}} сом.</span>
-         @endif
+         @endif --}}
       </div>   
    @endforeach
    </div>

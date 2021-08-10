@@ -35,7 +35,7 @@
    </div>
 
    <div class="form-single-block">
-      <label>Картинка (файл). Необходимый размер 700x1030 : {{$book->photo == 'Ошибка' ? 'Пожалуйста выберите файл!!!' : $book->photo}}</label>
+      <label>Картинка (файл). Необходимый размер 700x980 : {{$book->photo == 'Ошибка' ? 'Пожалуйста выберите файл!!!' : $book->photo}}</label>
       <input name="photo" type="file" accept=".png, .jpeg, .jpg" class="upload-file" id="photo">
       <img class="form-img" src="{{asset('img/books/' . $book->photo)}}">
    </div>
@@ -49,7 +49,7 @@
 					@foreach ($book->categories as $bookCategory)
 						{{ $bookCategory->id == $category->id ? 'selected' : ''}}
 					@endforeach
-				>{{$category->name}}</option>
+				>{{$category->tjName}}</option>
             @endforeach
          </select>
       </div>
@@ -72,12 +72,15 @@
       <label class="radio-labels" for="book_isnt_free">Платная</label>
    </div>
 
-   <div class="form-single-block" id="paid_books_inputs" @if($book->isFree) style="display: none" @endif>
-      <label>Цена (только цифры).</label>
+   <div class="form-single-block" id="paid_books_inputs" @if($book->isFree) style="display: none" @endif data-form-action="update">
+      {{-- <label>Цена (только цифры).</label>
       <input name="price" type="number" min="0" step="any" value="{{$book->price}}" required>
 
       <label class="mt-20px">Скидочная цена (только цифры). Оставьте 0 если у книги нету скидочной цены!</label>
-      <input name="discountPrice" type="number" min="0" step="any" value="{{$book->discountPrice}}" required>
+      <input name="discountPrice" type="number" min="0" step="any" value="{{$book->discountPrice}}" required> --}}
+
+      <label>Фрагмент книги для просмотра (файл). {{!$book->isFree ? 'Имеется' : ''}}</label>
+      <input name="piece" type="file" accept=".pdf" class="upload-file" id="piece">
 
       <label class="mt-20px">Скриншот 1 : {{$book->screenshot1}}</label>
       <input name="screenshot1" type="file" accept=".png, .jpeg, .jpg" class="upload-file">
@@ -130,8 +133,36 @@
       <input name="btnColor" class="color-picker" value="{{$book->btnColor == '' ? 'black' : $book->btnColor}}">
    </div>
 
-   <button type="submit" class="primary-btn">Сохранить изменения</button>
+   <div class="form-btns-container">
+      <button type="submit" class="primary-btn">Сохранить изменения</button>
+      <button type="button" data-bs-toggle="modal" data-bs-target="#deleteModal" class="primary-btn secondary-btn">Удалить книгу</button>
+   </div>
+
    
 </form>
+
+
+<!-- Delete Modal start-->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModal" aria-hidden="true">
+   <div class="modal-dialog">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h5 class="modal-title" id="deleteModal">Удалить</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+         </div>
+         <div class="modal-body">Вы уверены что хотите удалить?</div>
+         <div class="modal-footer">
+            <button type="button" class="primary-btn" data-bs-dismiss="modal">Отмена</button>
+
+            <form action="/books_remove" method="POST">
+               {{ csrf_field() }}
+               <input type="hidden" value="{{$book->id}}" name="id"/>
+               <button type="submit" class="primary-btn secondary-btn">Удалить</button>
+            </form>
+         </div>
+      </div>
+   </div>
+</div>
+<!-- Delete Modal end-->
 
 @endsection

@@ -5,7 +5,7 @@
 <div class="author-main-container">
    {{-- AUTHORS INFO START --}}
    <div class="author-info">
-      <img src="{{asset('img/authors' . '/' . $author->photo)}}" alt="{{$author->name}}">
+      <img src="{{asset('img/authors/' . $author->photo)}}" alt="{{$author->name}}">
       <div>
          <h1>{{$author->name}}</h1>
          <p>{!!$author->description!!}</p>
@@ -35,14 +35,14 @@
                {{substr($authors, 0, -3)}}
             </p>
             
-            @if($book->isFree)
+            {{-- @if($book->isFree)
             <span class="book-price">Бесплатная</span>
             @elseif($book->discountPrice == 0)
             <span class="book-price">{{$book->price}} сом.</span>
             @else
             <span class="book-price-stroked">{{$book->price}} сом.</span>
             <span class="book-price">{{$book->discountPrice}} сом.</span>
-            @endif
+            @endif --}}
          </div>   
       @endforeach
 

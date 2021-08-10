@@ -12,7 +12,7 @@
    <select class="select2_single select2_single_linked" data-placeholder="Найдите нужную категорию" data-dropdown-css-class="select2_single_dropdown">
       <option></option>
       @foreach($categories as $category)
-         <option value="{{ route('webmaster.categories.single', $category->id)}}">{{$category->name}}</option>   
+         <option value="{{ route('webmaster.categories.single', $category->id)}}">{{$category->tjName}}</option>   
       @endforeach
    </select>
 </div>
@@ -26,8 +26,8 @@
 
 @foreach ($categories as $category)
     <a class="list-item" href="{{route('webmaster.categories.single', $category->id)}}">
-      <div class="width-33">{{$category->name}}</div>
-      <div class="width-33">{{$category->russian_name}}</div>
+      <div class="width-33">{{$category->tjName}}</div>
+      <div class="width-33">{{$category->ruName}}</div>
       <div class="width-33">{{count($category->books)}}</div>
    </a>
 @endforeach

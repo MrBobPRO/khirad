@@ -93,6 +93,7 @@ $('.select2_single_linked').on('select2:select', function (e) {
 var popular_books_inputs = document.getElementById('popular_books_inputs');
 var paid_books_inputs = document.getElementById('paid_books_inputs');
 var spinner = document.getElementById('spinner-container');
+var piece = document.getElementById('piece'); //piece of book for paid books
 
 window.onload = function () {
    $('.wm-select').styler(); //JQ FORM STYLER
@@ -124,12 +125,20 @@ $('#book_isnt_popular').on('change', function () {
 $('#book_is_free').on('change', function () {
    if ($(this).is(':checked')) {
       paid_books_inputs.style.display = 'none';
+
+      //make piece of book field unrequired on create paid books
+      if (paid_books_inputs.dataset.formAction == 'create')
+         piece.required = false;
    }
 });
 
 $('#book_isnt_free').on('change', function () {
    if ($(this).is(':checked')) {
       paid_books_inputs.style.display = 'block';
+
+      //make piece of book field unrequired on create paid books
+      if (paid_books_inputs.dataset.formAction == 'create')
+         piece.required = true;
    }
 });
 //-----------------On RadioButton Changes---------------------
@@ -184,10 +193,19 @@ function ajax_books_store(post_url) {
       cache: false,
       timeout: 600000,
       //reload page on success
-      success: function (url) {
+      success: function (response) {
          //redirect to webmaster.home if its books_store method
-         if (post_url == '/books_store') location.replace(url);
-         else location.reload();
+         if (post_url == '/books_store') location.replace(response);
+            
+         //alert error message on errors
+         else if (response == 'no book fragment') {
+            //hide spinner
+            spinner.style.visibility = 'hidden';
+            alert('Пожалуйста, выберите фрагмент для просмотра платной книги, после того как поменяли бесплатную книгу на платную !');
+         }
+            
+         else if (response == 'success')
+            location.reload();
       },
       error: function () {
          alert('Упс, что-то пошло не так. Проверьте список ошибочных книг!');

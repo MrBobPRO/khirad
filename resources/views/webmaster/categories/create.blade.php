@@ -15,12 +15,12 @@
 
    <div class="form-single-block">
       <label>Имя</label>
-      <input name="name" type="text" required>
+      <input name="tjName" type="text" required>
    </div>
 
    <div class="form-single-block">
     <label>Имя на русском</label>
-    <input name="russian_name" type="text" required>
+    <input name="ruName" type="text" required>
  </div>
 
    <button type="submit" class="primary-btn">Добавить категорию</button>

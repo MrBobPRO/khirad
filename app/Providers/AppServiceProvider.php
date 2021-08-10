@@ -39,8 +39,6 @@ class AppServiceProvider extends ServiceProvider
 
         //share appp locale & route name with all views
         View::share('appLocale', App::currentLocale());
-        View::share('route', Route::currentRouteName());
-        View::share('user', Auth::user());
 
         //Share all book names & author names for search
         //Share navbar categories
@@ -56,7 +54,7 @@ class AppServiceProvider extends ServiceProvider
             ->with('user', Auth::user());
         });
 
-        view()->composer(['templates.styles', 'templates.scripts'], function ($view) {
+        view()->composer(['templates.styles', 'templates.scripts', 'webmaster.master'], function ($view) {
             $view->with('route', Route::currentRouteName());
         });
 

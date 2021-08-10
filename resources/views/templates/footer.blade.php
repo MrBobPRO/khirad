@@ -1,5 +1,6 @@
 <div class="footer">
    <div class="primary-container footer-inner">
+
       <div class="footer-left">
          <a href="/"><img src="{{asset('img/main/logo-foot.png')}}" alt="Хирад лого"></a>
          <p>
@@ -11,21 +12,24 @@
             <a href="https://t.me/Khirad21" target="_blank"><img src="{{asset('img/main/telegram.png')}}"></a>
          </div>
       </div>
+
       <div class="footer-middle">
          <h4>{{ __("Топ категории") }}</h4>
-         <?php $c = 0; ?>
-         @foreach ($categories as $category)
-            @if($c > 5) @break @endif
-            <a href="{{route('categories.single', $category->id)}}">{{$category->name}}</a> 
-            <?php $c++; ?>
-         @endforeach
+            <a href="{{route('categories.single', 1)}}">Адабиёт</a>
+            <a href="{{route('categories.single', 6)}}">Кӯдакон ва наврасон</a>
+            <a href="{{route('categories.single', 2)}}">Донишномаҳо</a>
+            <a href="{{route('categories.single', 3)}}">Забоншиносӣ</a>
+            <a href="{{route('categories.single', 4)}}">Зиндагинома</a>
+            <a href="{{route('categories.single', 5)}}">Иқтисодиёт</a>
       </div>
+
       <div class="footer-right">
          <h4>{{ __("Контакты") }}</h4>
-         <a href="#"><i aria-hidden="true" class="fas fa-map-marker-alt"></i> Таджикистан г. Душанбе <br>наш адрес</a>
-         <a href="#"><i aria-hidden="true" class="fas fa-phone-alt"></i> Номер телефона</a>
+         <a href="#"><i aria-hidden="true" class="fas fa-map-marker-alt"></i> Таджикистан г. Душанбе <br>Кучаи Шамси Б</a>
+         <a href="#"><i aria-hidden="true" class="fas fa-phone-alt"></i> +992 927685858</a>
          <a href="#"><i aria-hidden="true" class="fas fa-envelope"></i> Наша почта</a>
       </div>
+
    </div>
    <div class="copyright">
       © 2021 Хирад. {{ __("Все права защищены") }}

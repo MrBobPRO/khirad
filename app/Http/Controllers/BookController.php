@@ -18,7 +18,10 @@ class BookController extends Controller
 
     public function all()
     {
-        $books = Book::latest()->paginate(30);
+        $books = Book::select('id', 'name', 'photo')
+                ->with(['authors' => function($query) {
+                    $query->select('id', 'name'); }])
+                ->latest()->paginate(30);
 
         return view('categories.single', compact('books'));
     }
@@ -136,7 +139,7 @@ class BookController extends Controller
         $shareText = mb_strlen($shareText) < 170 ? $shareText : mb_substr($shareText, 0, 166) . '...';
 
         // RETURN ERROR CASE BOOK ISNT FREE
-        if(!$book->isFree) return 'Доступ запрещён!';
+        // if(!$book->isFree) return 'Доступ запрещён!';
 
         return view('books.read', compact('book', 'shareText'));
     }

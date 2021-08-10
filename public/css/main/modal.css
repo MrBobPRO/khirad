@@ -23,7 +23,7 @@
    color: #000000c4;
    font-size: 24px;
    text-align: center;
-   font-family: 'Lobster', cursive;
+   font-family: 'Cuprum', sans-serif;
 }
 .modal-header button {
    margin: -40px -5px 0 0 !important;
@@ -39,7 +39,7 @@
    color: #000000c4;
    margin-bottom: 2px;
    font-weight: 500;
-   font-family: 'Lobster', cursive;
+   font-family: 'Cuprum', sans-serif;
    font-size: 17px;
 }
 .modal-body input {
@@ -62,7 +62,7 @@
 .modal-footer button {
    width: 100%;
    padding: 12px 50px;
-   font-family: 'Lobster', cursive;
+   font-family: 'Cuprum', sans-serif;
    font-size: 17px;
 }
 

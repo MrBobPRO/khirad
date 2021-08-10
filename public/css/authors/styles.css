@@ -5,7 +5,7 @@
 }
 .authors-prime-container h1 {
    text-align: center;
-   font-family: 'Lobster', cursive;
+   font-family: 'Cuprum', sans-serif;
    font-size: 32px;
 }
 
@@ -90,7 +90,7 @@
 .authors-list h2 {
    font-weight: 300;
    font-size: 18px;
-   margin: 28px 0 0;
+   margin: 25px 0 0;
 }
 /* AUTHOR LIST END */
 

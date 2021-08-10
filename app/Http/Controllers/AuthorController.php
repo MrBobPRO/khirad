@@ -20,8 +20,11 @@ class AuthorController extends Controller
     public function index()
     {
         // ALL AUTHORS USED FOR SEARCH
-        $allAuthors = Author::orderBy('name', 'asc')->get();
-        $authors = Author::orderBy('name', 'asc')->paginate(30);
+        $allAuthors = Author::select('id', 'name')
+                            ->orderBy('name', 'asc')->get();
+
+        $authors = Author::select('id', 'name', 'photo')
+                            ->orderBy('name', 'asc')->paginate(30);
 
         return view('authors.index', compact('authors', 'allAuthors'));
     }
@@ -51,7 +54,8 @@ class AuthorController extends Controller
     public function webmaster_index()
     {
         $authors = Author::orderBy('name', 'asc')->paginate(40);
-        $allAuthors = Author::orderBy('name', 'asc')->get();
+        $allAuthors = Author::select('id', 'name')
+                    ->orderBy('name', 'asc')->get();
         $authorsCount = count($allAuthors);
 
         return view('webmaster.authors.index', compact('authors', 'allAuthors', 'authorsCount'));
@@ -77,8 +81,8 @@ class AuthorController extends Controller
 
         //create image thumb
         $thumb = Image::make(public_path('img/authors/' . $photoName));
-        //Set image width 200 and height auto (saving ration)
-        $thumb->resize(200, null, function ($constraint) {
+        //Set image width 250 and height auto (saving ration)
+        $thumb->resize(250, null, function ($constraint) {
             $constraint->aspectRatio();
         });
         //save created image
@@ -115,8 +119,8 @@ class AuthorController extends Controller
     
             //create image thumb
             $thumb = Image::make(public_path('img/authors/' . $photoName));
-            //Set image width 200 and height auto (saving ration)
-            $thumb->resize(200, null, function ($constraint) {
+            //Set image width 250 and height auto (saving ration)
+            $thumb->resize(250, null, function ($constraint) {
                 $constraint->aspectRatio();
             });
             //save created image
@@ -128,6 +132,27 @@ class AuthorController extends Controller
         }
 
         return redirect()->back();
+    }
+
+    public function webmaster_remove(Request $request)
+    {
+        $author = Author::find($request->id);
+
+        //delete images
+        $path = public_path('img/authors/' . $author->photo);
+        $thumb_path = public_path('img/authors/thumbs/' . $author->photo);
+        if($author->photo != '') {
+            if (file_exists($path)) unlink($path);
+            if (file_exists($thumb_path)) unlink($thumb_path);
+        }
+
+        //delete authors books
+        $author->books()->delete();
+
+        //delete author from db
+        $author->delete();
+
+        return redirect()->route('webmaster.authors.index');
     }
 
     //---------------------------------------Webmaster Routes------------------------------------------------
