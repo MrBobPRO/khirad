@@ -27,7 +27,7 @@
          <h4>{{ __("Контакты") }}</h4>
          <a href="#"><i aria-hidden="true" class="fas fa-map-marker-alt"></i> Таджикистан г. Душанбе <br>Кучаи Шамси Б</a>
          <a href="#"><i aria-hidden="true" class="fas fa-phone-alt"></i> +992 927685858</a>
-         <a href="#"><i aria-hidden="true" class="fas fa-envelope"></i> Наша почта</a>
+         <a href="#"><i aria-hidden="true" class="fas fa-envelope"></i> khirad2121@gmail.com</a>
       </div>
 
    </div>
