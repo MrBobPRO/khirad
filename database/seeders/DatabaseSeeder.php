@@ -8,7 +8,6 @@ use App\Models\Book;
 use App\Models\Category;
 use App\Models\Review;
 use App\Models\Author;
-use App\Models\Top;
 
 class DatabaseSeeder extends Seeder
 {
@@ -52,9 +51,6 @@ class DatabaseSeeder extends Seeder
 
         $books = ['Дар олами афсона', 'Чор дарвеш', 'Шамоли саҳфагардон', 'Шахсият ва замон', 'Китоби орзуҳо', 'Хунёгар', 'Туву хубиву раънои', 'Ибтидо', 'Кӯҳи абр', 'Таҳаввули ҷумлаи содаи забони тоҷикӣ', 'Дарёи сузон', 'Бозгашт', 'Сабоҳи мардон', 'Девони зулф', 'Девони ғарбӣ-шарқӣ', 'Шоҳаншоҳ', 'Витаминҳо', 'Тифлаки анбарсиришт', 'Тӯй болои тӯй', 'Ҳисори нанг'];
 
-        // $prices = ['24', '38.5', '15', '0', '30', '72', '42.5', '0', '12.5', '80', '77.5', '0', '12', '7', '3', '0', '56', '32', '5', '0'];
-        // $discountPrices = ['0', '32.5', '0', '0', '25.5', '60', '0', '0', '0', '0', '70', '0', '10', '0', '0', '0', '0', '30', '2', '0'];
-
         $txtColor = ['#fff', '#fff', '#fff', '#fff', '#fff', '#fff', '#fff', '#fff', '#fff', '#fff', '#fff', '#fff', '#fff', '#fff', '#fff', '#fff', '#fff', '#000', '#fff', '#fff'];
         $btnColor = ['#342578', '#342578', '#309a1a', '#342578', '#342578', '#905612', '#342578', '#342578', '#000', '#342578', '#342578', '#406693', '#342578', '#342578', '#13226b', '#342578', '#342578', '#000', '#342578', '#342578'];
         $bgColor = ['#342578', '#342578', '#309a1a', '#342578', '#342578', '#905612', '#342578', '#342578', '#9a3f2a', '#342578', '#342578', '#406693', '#342578', '#342578', '#13226b', '#342578', '#342578', '#F1EE9D', '#342578', '#342578'];
@@ -63,21 +59,18 @@ class DatabaseSeeder extends Seeder
         {
             $book = new Book;
             $book->name = $books[$i];
-            $book->isFree = true;
-            if($i == 0 || $i == 18)
-                $book->isFree = false;
-            $book->price = 0;
-            // $book->price = $prices[$i];
-            // $book->discountPrice = $discountPrices[$i];
-            $book->discountPrice = 0;
-            if(($i+1) % 4 == 0) $book->isFree = true;
+            $book->free = true;
+            if($i == 0 || $i == 18) {
+                $book->free = false;
+                $book->price = 45;
+            }
             $book->description = 'Книга — один из видов печатной продукции: непериодическое издание, состоящее из сброшюрованных или отдельных бумажных листов (страниц) или тетрадей, на которых нанесена типографским или рукописным способом текстовая и графическая (иллюстрации) информация, имеющее, как правило, твёрдый переплёт';
             $book->photo = ($i+1) . '.jpg';
             $book->filename = ($i+1) . '.pdf';
             $book->publisher = 'ООО Ориёнфарм';
             $book->year = rand(1990, 2021);
             $book->pages = rand(4, 80);
-            $book->sales = rand(0, 50);
+            $book->language = 'tj';
             $book->txtColor = $txtColor[$i];
             $book->btnColor = $btnColor[$i];
             $book->bgColor = $bgColor[$i];
@@ -86,53 +79,62 @@ class DatabaseSeeder extends Seeder
                 $book->screenshot2 = '1b.jpg';
                 $book->screenshot3 = '1c.jpg';
             }
+            if($i == 4) {
+                $book->screenshot1 = '5a.jpg';
+                $book->screenshot2 = '5b.jpg';
+                $book->screenshot3 = 'bc.jpg';
+            }
             if($i == 18) {
                 $book->screenshot1 = '19a.jpg';
                 $book->screenshot2 = '19b.jpg';
                 $book->screenshot3 = '19c.jpg';
             }
 
-            if(($i+1) % 3 == 0) $book->isPopular = true;
+            if(($i+1) % 3 == 0) $book->most_readable = true;
+
+            if($i ==7) $book->number_of_readings = 59;
+            if($i ==2) $book->number_of_readings = 53;
+            if($i ==0) $book->number_of_readings = 44;
+            if($i ==5) $book->number_of_readings = 37;
+            if($i ==6) $book->number_of_readings = 22;
+            if($i ==10) $book->number_of_readings = 18;
+            if($i ==7) $book->number_of_readings = 7;
+            if($i ==14) $book->number_of_readings = 3;
+    
             $book->save();
-            $book->categories()->attach(rand(1, 26));
+            $book->categories()->attach(rand(1, 25));
             $book->authors()->attach($i+1);
         }
 
 
         //CATEGORIES
-        $categories = ['Адабиёт', 'Донишномаҳо', 'Забоншиносӣ', 'Зиндагинома', 'Иқтисодиёт', 'Кӯдакон ва наврасон', 'Луғатнома', 'Мантиқ', 'Педагогика',
-        'Президент', 'Равоншиносӣ', 'Риёзӣ', 'Санъати сухан', 'Сиёсат', 'Табиатшиносӣ', 'Тарбиявӣ - ахлоқӣ', 'Ташаккули шахсият', 'Таърих', 'Технологияи иттилоотӣ', 'Тиб', 'Фалсафа', 'Фарҳангшиносӣ', 'Физика', 'Химия', 'Ҳуқуқ', 'Ҷомеашиносӣ'];
+        $categories = ['Адабиёт', 'Донишномаҳо', 'Забоншиносӣ', 'Зиндагинома', 'Иқтисодиёт', 'Кӯдакон ва наврасон', 'Луғатнома', 'Мантиқ', 'Педагогика', 'Равоншиносӣ', 'Риёзӣ', 'Санъати сухан', 'Сиёсӣ', 'Табиатшиносӣ', 'Тарбиявӣ - ахлоқӣ', 'Ташаккули шахсият', 'Таърих', 'Технологияи иттилоотӣ', 'Тиб', 'Фалсафа', 'Фарҳангшиносӣ', 'Физика', 'Химия', 'Ҳуқуқ', 'Ҷомеашиносӣ'];
 
         foreach($categories as $cat) {
             Category::create([
-                'tjName' => $cat,
-                'ruName' => $cat
+                'name' => $cat,
             ]);
         }
 
         $review = new Review;
-        $review->user_id = 1;
         $review->book_id = 1;
         $review->mark = 5;
         $review->body = 'Однозначно рекомендую к покупке! Сам сделал ошибку, купив несколько лет назад бюджетные версии романов, теперь те книги придётся или подарить, или продать за бесценок. А этот набор, несомненно, станет украшением любой библиотеки. Если бы мне подарили нечто подобное, я был бы доволен как слон.)';
         $review->save();
 
         $review = new Review;
-        $review->user_id = 2;
         $review->book_id = 1;
         $review->mark = 1;
         $review->body = 'Однозначно НЕ рекомендую к покупке! Фуфло полнейшее! Деньги на ветер... Лучше купить 10 пачек чипсов, чем эту фигню!';
         $review->save();
 
         $review = new Review;
-        $review->user_id = 3;
         $review->book_id = 1;
         $review->mark = 5;
         $review->body = 'Норм книга. Этот набор, несомненно, станет украшением любой библиотеки. Если бы мне подарили нечто подобное, я был бы доволен как слон!';
         $review->save();
 
         $review = new Review;
-        $review->user_id = 4;
         $review->book_id = 1;
         $review->mark = 3;
         $review->body = 'Понравилось только облошка. А так самаю худшая книга, которую я когда либо читал. ';
@@ -145,14 +147,12 @@ class DatabaseSeeder extends Seeder
         $book->save();
 
         $review = new Review;
-        $review->user_id = 2;
         $review->book_id = 2;
         $review->mark = 1;
         $review->body = 'Понравилось только облошка. А так самаю худшая книга, которую я когда либо читал. ';
         $review->save();
 
         $review = new Review;
-        $review->user_id = 4;
         $review->book_id = 2;
         $review->mark = 5;
         $review->body = 'Держи пятюху брат!';
@@ -165,7 +165,6 @@ class DatabaseSeeder extends Seeder
         $book->save();
 
         $review = new Review;
-        $review->user_id = 3;
         $review->book_id = 5;
         $review->mark = 5;
         $review->body = 'Какой-то очень хороший и можно сказать очень длинный и скучный отзыв про кнмгу и можно сказать очень длинный и скучный отзыв про кнмгу и можно сказать очень длинный и скучный отзыв про кнмгу и можно сказать очень длинный и скучный отзыв про кнмгу.';
@@ -178,14 +177,12 @@ class DatabaseSeeder extends Seeder
         $book->save();
 
         $review = new Review;
-        $review->user_id = 1;
         $review->book_id = 18;
         $review->mark = 3;
         $review->body = 'Какой-то очень плохой но очень прикольный отзыв про книгу.';
         $review->save();
 
         $review = new Review;
-        $review->user_id = 5;
         $review->book_id = 18;
         $review->mark = 5;
         $review->body = 'Какой-то очень хороший и очень интересный отзыв про книгу.';
@@ -196,38 +193,6 @@ class DatabaseSeeder extends Seeder
         $book->averageMark = 4;
         $book->marksTemplate = '4';
         $book->save();
-
-        $u = User::first();
-        $u->books()->attach(4);
-        $u->books()->attach(2);
-        $u->books()->attach(9);
-        $u->books()->attach(7);
-
-        $u = User::find(5);
-        $u->books()->attach(4);
-        $u->books()->attach(2);
-        $u->books()->attach(9);
-        $u->books()->attach(7);
-
-        $top = new Top;
-        $top->book_id = 8;
-        $top->save();
-
-        $top = new Top;
-        $top->book_id = 4;
-        $top->save();
-        
-        $top = new Top;
-        $top->book_id = 5;
-        $top->save();
-
-        $top = new Top;
-        $top->book_id = 9;
-        $top->save();
-
-        $top = new Top;
-        $top->book_id = 14;
-        $top->save();
 
     }
 }

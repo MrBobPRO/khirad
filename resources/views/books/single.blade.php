@@ -31,17 +31,10 @@
             <div class="book-properties-single">
                <div class="key">Цена</div>
                <div class="value">
-                  @if($book->isFree)
-                  <span class="book-price">Бесплатная</span>
-                  {{-- @elseif($book->discountPrice == 0)
-                  <span class="book-price">{{$book->price}} сом.</span> --}}
-                  @else
-                  <span class="book-price">Плантная</span>
-                  {{-- <span class="book-price-stroked">{{$book->price}} сом.</span>
-                  <span class="book-price">{{$book->discountPrice}} сом.</span> --}}
-                  @endif
+                  <span class="book-price">{{$book->free ? 'Бепул' : $book->price . ' сомонӣ'}}</span>
                </div>
             </div>
+
             <div class="book-properties-single">
                <div class="key">Автор</div>
                <div class="value">
@@ -50,22 +43,26 @@
                   @endforeach
                </div>
             </div>
+
             <div class="book-properties-single">
                <div class="key">Издатель</div>
                <div class="value">{{$book->publisher}}</div>
             </div>
+
             <div class="book-properties-single">
                <div class="key">Год выпуска</div>
                <div class="value">{{$book->year}} года</div>
             </div>
+
             <div class="book-properties-single">
                <div class="key">Категория</div>
                <div class="value">
                   @foreach ($book->categories as $category)
-                        <a href="{{route('categories.single', $category->id)}}">{{$category[$appLocale . 'Name']}}</a>
+                        <a href="{{route('categories.single', $category->id)}}">{{$category->name}}</a>
                   @endforeach
                </div>
             </div>
+
             <div class="book-properties-single">
                <div class="key">Количество страниц</div>
                <div class="value">{{$book->pages}} страниц</div>
@@ -84,13 +81,12 @@
 
             {{-- CHECK SINGLE_OLD.BLADE.PHP--}}
             <a href="/read_book?id={{$book->id}}" class="primary-btn read-book" target="_blank">
-               <i class="fab fa-readme"></i> &nbsp; {{$book->isFree ? 'Читать книгу' : 'Читать фрагмент книги'}}
+               <i class="fab fa-readme"></i> &nbsp; {{$book->free ? 'Читать книгу' : 'Читать фрагмент книги'}}
             </a>
          </div>
          {{-- BOOK PROPERTIES END --}}
    
          {{-- SCREENSHOTS START--}}
-         {{-- THERE ARE NO SCREENSHOTS FOR FREE BOOKS --}}
          @if($book->screenshot1 != '' || $book->screenshot2 != '' || $book->screenshot3 != '')
             <div class="gallery-container">
                <h1>Скриншоты страниц книги</h1>
@@ -132,94 +128,43 @@
             </div>
             {{-- AVERAGE RATING END --}}   
 
+            {{-- IF THERE ARE NO REVIEWS --}}
+            @if($book->marksCount == 0) <p class="no-reviews">Отзывы о товаре отсуствуют.</p> @endif
+            {{-- ADD NEW REVIEW--}}
+            <div class="add-review">
+               <a data-bs-toggle="collapse" href="#reviews-collapse" role="button" aria-expanded="false" aria-controls="reviews-collapse" class="collapsed">
+               <i class="fa fa-plus"></i> Добавить свой отзыв</a>
+            </div>   
 
-            {{-- IF USER IS GUEST --}}
-            @if(!$auth)
-               {{-- LOGIN TO VOTE --}}
-               <p class="login-to-vote"><a data-bs-toggle="modal" href="#loginModal">Войдите</a> чтобы оставить отзыв!</p> 
-               {{-- IF THERE ARE NO REVIEWS --}}
-               @if($book->marksCount == 0)
-                  <p class="no-reviews">Отзывы о товаре отсуствуют.</p>
-               @else
-                  @foreach ($book->reviews as $review)
-                  <div class="review-single-block">
-                     <div class="review-header" @if($review->body == '') style="margin: 0" @endif>
-                        <h6>{{$review->author->name}}</h6>
-                        <p>
-                           <?php $date = \Carbon\Carbon::parse($review->created_at)->locale('ru');
-                           $formatted = $date->isoFormat('DD MMMM YYYY') ?>
-                           <span class="review-date">{{$formatted}}</span>
-                           @include('marks.' . $review->mark)
-                        </p>
-                     </div>
-                     <p>{{$review->body}}</p>
-                  </div>
-                  @endforeach
-               @endif
+            {{-- ADD REVIEW FORM --}}
+            <div class="collapse" id="reviews-collapse">
+               <form action="/reviews-store" id="review_store" method="POST">
+                  @csrf
+                  <input type="hidden" name="book_id" value="{{$book->id}}">
+                  <input class="d-none" name="mark" value="1">
+                  <label>Ваша оценка<span>*</span></label>
+                  <p id="add-review-stars">@include('marks.select')</p>
+                  <label>Ваш отзыв</label>
+                  <textarea name="body" rows="5"></textarea>
+                  <button type="submit" id="review_store_btn" class="primary-btn"><i class="fa fa-send"></i> Отправить</button>
+               </form>
+            </div>
             
-            {{-- ELSE IF USER HAS AUTH --}}
-            @else
-               {{-- IF THERE ARE NO REVIEWS --}}
-               @if($book->marksCount == 0) <p class="no-reviews">Отзывы о товаре отсуствуют.</p> @endif
-               {{-- IF USER DIDN`T VOTE YET--}}
-               @if(count($usersReview) == 0)
-                  <div class="add-review">
-                     <a data-bs-toggle="collapse" href="#reviews-collapse" role="button" aria-expanded="false" aria-controls="reviews-collapse" class="collapsed">
-                     <i class="fa fa-plus"></i> Добавить свой отзыв</a>
-                  </div>   
-
-                  {{-- ADD REVIEW FORM --}}
-                  <div class="collapse" id="reviews-collapse">
-                     <form action="/reviews-store" id="review_store" method="POST">
-                        @csrf
-                        <input type="hidden" name="book_id" value="{{$book->id}}">
-                        <input class="d-none" name="mark" value="1">
-                        <label>Ваша оценка<span>*</span></label>
-                        <p id="add-review-stars">@include('marks.select')</p>
-                        <label>Ваш отзыв</label>
-                        <textarea name="body" rows="5"></textarea>
-                        <button type="submit" id="review_store_btn" class="primary-btn"><i class="fa fa-send"></i> Отправить</button>
-                     </form>
-                  </div>
-               @endif
-               
-               {{-- REVIEWS LIST --}}
-               @foreach ($reviews as $review)
-               <div class="review-single-block">
-                  <div class="review-header" @if($review->body == '') style="margin: 0" @endif>
-                     <h6>{{$review->author->name}}</h6>
-                     <p>
-                        <?php $date = \Carbon\Carbon::parse($review->updated_at)->locale('ru');
-                        $formatted = $date->isoFormat('DD MMMM YYYY') ?>
-                        <span class="review-date">{{$formatted}}</span>
-                        @include('marks.' . $review->mark)
-                     </p>
-                  </div>
-                  <p>{{$review->body}}</p>
-                  
-                  {{-- SHOW BADGET AND ADD REVIEW CHANGE FORM CASE ITS USERS REVIEW --}}
-                  @if($review->user_id == \Auth::id())
-                     <a data-bs-toggle="collapse" href="#reviews-collapse" role="button" aria-expanded="false" aria-controls="reviews-collapse" class="users-review-badget"><i class="fa fa-pencil"></i></a>
-
-                     <div class="collapse" id="reviews-collapse">
-                        <form action="/reviews-edit" method="POST" id="reviews_edit">
-                           @csrf
-                           <input type="hidden" name="book_id" value="{{$book->id}}">
-                           <input type="hidden" name="review_id" value="{{$review->id}}">
-                           <input class="d-none" name="mark" value="1">
-                           <label>Ваша оценка<span>*</span></label>
-                           <p id="edit-review-stars">@include('marks.select')</p>
-                           <label>Ваш отзыв</label>
-                           <textarea name="body" rows="5"></textarea>
-                           <button class="primary-btn" id="reviews_edit_btn"><i class="fa fa-pencil"></i> &nbsp;Обновить отзыв</button>
-                        </form>
-                     </div>
-                  @endif
+            {{-- REVIEWS LIST --}}
+            @foreach ($reviews as $review)
+            <div class="review-single-block">
+               <div class="review-header" @if($review->body == '') style="margin: 0" @endif>
+                  <h6>Гость</h6>
+                  <p>
+                     <?php $date = \Carbon\Carbon::parse($review->updated_at)->locale('ru');
+                     $formatted = $date->isoFormat('DD MMMM YYYY') ?>
+                     <span class="review-date">{{$formatted}}</span>
+                     @include('marks.' . $review->mark)
+                  </p>
                </div>
-               @endforeach
-
-            @endif
-
+               <p>{{$review->body}}</p>
+            </div>
+            @endforeach
          </div> {{-- REVIEWS CONTAINER END --}}
 
       </div>  {{-- BOOK INFO END --}}

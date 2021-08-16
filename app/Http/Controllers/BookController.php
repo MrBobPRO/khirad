@@ -12,8 +12,7 @@ class BookController extends Controller
 
     public function __construct()
     {
-        //Remove in production
-        $this->middleware('maintance');
+        $this->middleware('auth')->except('single');
     }
 
     public function all()
@@ -28,7 +27,6 @@ class BookController extends Controller
 
     public function single($id)
     {
-
         $book = Book::find($id);
         $reviews = Review::where('book_id', $book->id)->orderBy('updated_at', 'desc')->get();
 
@@ -36,34 +34,7 @@ class BookController extends Controller
         $shareText = $book->description;
         $shareText = mb_strlen($shareText) < 170 ? $shareText : mb_substr($shareText, 0, 166) . '...';
 
-        // CHECK IF USER HAS ALREADY MARKED THIS BOOK
-        $auth = Auth::check();
-
-        if ($auth) {
-            $userId = Auth::id();
-            // CHECK IF USER HAS ALREADY MARKED THIS BOOK
-            $usersReview = Review::where('user_id', $userId)->where('book_id', $id)->get();
-
-            // CHECK IF USER HAS ALREADY ADDED THIS BOOK INTO BASKET
-            $basket = Auth::user()->basket->where('id', $id)->count();
-            if ($basket > 0)
-                $basketed = true;
-            else
-                $basketed = false;
-
-            //CHECK IF USER HAS ALREADY OBTAINED THIS BOOK
-            $obtainedBooks = Auth::user()->books->where('id', $id)->count();
-            if ($obtainedBooks > 0)
-                $obtained = true;
-            else
-                $obtained = false;
-        } else {
-            $usersReview = null;
-            $basketed = false;
-            $obtained = false;
-        }
-
-        return view('books.single', compact('book', 'usersReview', 'auth', 'reviews', 'basketed', 'obtained', 'shareText'));
+        return view('books.single', compact('book', 'reviews', 'shareText'));
     }
 
     public function search(Request $request)
@@ -132,14 +103,10 @@ class BookController extends Controller
 
     public function read(Request $request)
     {
-
         $book = Book::find($request->id);
         // FOR OPENGRAPH
         $shareText = $book->description;
         $shareText = mb_strlen($shareText) < 170 ? $shareText : mb_substr($shareText, 0, 166) . '...';
-
-        // RETURN ERROR CASE BOOK ISNT FREE
-        // if(!$book->isFree) return 'Доступ запрещён!';
 
         return view('books.read', compact('book', 'shareText'));
     }

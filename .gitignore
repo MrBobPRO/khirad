@@ -13,11 +13,11 @@ npm-debug.log
 yarn-error.log
 khirad.zip
 
-/storage/app/private/books/*
-/public/free_books/*
+/public/books/*
 /public/img/authors/*
 !/public/img/authors/thumbs
 /public/img/authors/thumbs/*
 /public/img/books/*
+!/public/img/books/thumbs
+/public/img/books/thumbs/*
 /public/img/screenshots/*
-/public/img/thumbs/*

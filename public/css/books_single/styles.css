@@ -250,33 +250,6 @@
    line-height: 1.8;
    margin: 0px;
 }
-.review-single-block #reviews-collapse {
-   margin: 20px 0 0;
-}
-.review-single-block #reviews-collapse form {
-   margin: 0;
-   padding: 0;
-   border: 0;
-}
-.review-single-block #reviews-collapse label {
-   font-weight: 500;
-}
-.review-single-block #reviews-collapse p {
-   margin-bottom: 10px;
-}
-.users-review-badget {
-   position: absolute;
-   background: #7151ed;
-   line-height: 1;
-   color: white;
-   top: 0;
-   right: 0;
-   font-size: 14px;
-   padding: 4px;
-}
-.users-review-badget:hover {
-   color: white;
-}
 /* REVIEWS SINGLE BLOCK END */
 
 /* REVIEWS CONTAINER EMD */

@@ -10,7 +10,7 @@
 
 {{-- Books seach start --}}
 <div class="select2_single_container">
-   <select class="select2_single select2_single_linked" data-placeholder="Найдите нужную книгу" data-dropdown-css-class="select2_single_dropdown">
+   <select class="select2_single" data-placeholder="Найдите нужную книгу" data-dropdown-css-class="select2_single_dropdown">
       <option></option>
       @foreach($allBooks as $book)
          <option value="{{ route('webmaster.books.single', $book->id)}}">{{$book->name}}</option>   

@@ -41,15 +41,4 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-
-    public function books() 
-    {
-        return $this->belongsToMany(Book::class);
-    }
-
-    public function basket()
-    {
-        return $this->belongsToMany(Book::class, 'baskets');
-    }
-
 }

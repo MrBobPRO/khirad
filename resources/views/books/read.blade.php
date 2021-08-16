@@ -64,7 +64,7 @@
 
   <script type="text/javascript">
     $('#container').FlipBook({
-    pdf: 'free_books/{{$book->filename}}',
+    pdf: 'books/{{$book->filename}}',
     
     controlsProps: {
       actions: {

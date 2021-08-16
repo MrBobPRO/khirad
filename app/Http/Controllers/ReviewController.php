@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use App\Models\Review;
 use App\Models\Book;
 
@@ -12,8 +11,7 @@ class ReviewController extends Controller
 
     public function __construct()
     {
-        //Remove in production
-        $this->middleware('maintance');
+        $this->middleware('auth');
     }
 
 
@@ -24,7 +22,6 @@ class ReviewController extends Controller
         if($mark == 0) $mark == 1;
 
         Review::create([
-            'user_id' => Auth::id(),
             'book_id' => $request->book_id,
             'mark' => $mark,
             'body' => $request->body
@@ -37,23 +34,6 @@ class ReviewController extends Controller
         //REGENERATE AVERAGE TOTAL MARK
         $this->regenerateAverageMark($book->id);
 
-
-        return redirect()->back();
-    }
-
-    public function edit(Request $request)
-    {
-        //FOR SECURE REASONS
-        $mark = $request->mark;
-        if($mark == 0) $mark == 1;
-
-        $review = Review::find($request->review_id);
-        $review->mark = $mark;
-        $review->body = $request->body;
-        $review->save();
-        
-        //REGENERATE AVERAGE TOTAL MARK
-        $this->regenerateAverageMark($request->book_id);
 
         return redirect()->back();
     }

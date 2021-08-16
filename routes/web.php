@@ -14,16 +14,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', 'HomeController@index')->name('home');
-// CHANGE LANGUAGE ROUTES
-Route::post('/setLangRu', 'HomeController@setLangRu');
-Route::post('/setLangTj', 'HomeController@setLangTj');
-// AJAX CHECK OF LOGIN/REGISTER FORMS
-Route::post('/checkLogin', 'HomeController@checkLogin');
-Route::post('/checkRegister', 'HomeController@checkRegister');
+
 // SINGLE BOOK ROUTES
-Route::get('/books/{id}', 'BookController@single')->name('books.single');
+Route::get('/book/{id}', 'BookController@single')->name('books.single');
 Route::post('/reviews-store', 'ReviewController@store');
-Route::post('/reviews-edit', 'ReviewController@edit');
 
 // FOR ALL BOOKS, DISCOUNTED BOOKS, POPULAR BOOKS, RATED BOOKS, FREE BOOKS, AND SINGLE CATEGORY BOOKS USED SAME VIEW AND STYLES
 Route::get('/all_books', 'BookController@all')->name('books.all');
@@ -92,10 +86,6 @@ Route::post('/categories_store', 'CategoryController@webmaster_store');
 Route::post('/categories_update', 'CategoryController@webmaster_update');
 
 //--------------------------Webmaster Routes--------------------------------
-
-//Remove in production
-Route::get('/login', 'LoginController@index')->name('login');
-Route::post('/auth', 'LoginController@store');
 
 require __DIR__.'/auth.php';
 

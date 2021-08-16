@@ -8,13 +8,13 @@
    <div class="primary-container owl-carousel-container">
 
       <div class="owl-navs-container">
-         <a href="{{route('categories.popular')}}">{{__('Популярные книги наших дней')}}</a>
+         <a href="{{route('categories.popular')}}">Серхондатарин китобҳои ҷаҳон</a>
          <span class="owl-navs owl-nav-prev" onclick="prevSlide()">‹</span>
          <span class="owl-navs" onclick="nextSlide()">›</span>
       </div>
 
       <div class="owl-carousel">
-         @foreach ($popularBooks as $book)
+         @foreach ($mostReadable as $book)
             <div class="item" style="background-color: {{$book->bgColor}}; color: {{$book->txtColor}}">
                <h1>{{$book->name}}</h1>
                <div class="owl-item-inner">
@@ -36,7 +36,7 @@
                   </div>
 
                   <div class="owl-img-container">
-                     <img src="{{asset('img/thumbs/' . $book->photo)}}" alt="{{$book->name}}" style="box-shadow: 0 0px 10px {{$book->bgColor}}">
+                     <img src="{{asset('img/books/thumbs/' . $book->photo)}}" alt="{{$book->name}}" style="box-shadow: 0 0px 10px {{$book->bgColor}}">
                   </div>
 
                </div>
@@ -49,24 +49,24 @@
    <div class="books-main-container">
       {{-- SEARCH STARTS --}}
       <div class="search-container">
-         <h1>{{__('Найдите нужную книгу')}}</h1>
+         <h1>Пайдо кардани китобҳои лозима</h1>
          <form class="search-inner" method="GET" action="/search">
             <select class="jq-select" name="category">
-               <option value="all">{{__('Все категории')}}</option>
+               <option value="all">Ҳамаи дастабандиҳо</option>
                @foreach ($categories as $category)
                   <option value="{{$category->id}}">{{$category->name}}</option>
                @endforeach
             </select>
 
             <select class="jq-select search-year" name="year">
-               <option value="all">{{__('Год')}}</option>
+               <option value="all">Сол</option>
                @for($i = 1990; $i < 2022; $i++)
                   <option value="{{$i}}">{{$i}}</option>
                @endfor
             </select>
 
-            <input id="bookName" name="keyword" type="text" minlength="3" placeholder="{{__('Название книги или имя автора')}}"/>
-            <button class="primary-btn primary-btn-shadow" type="submit">{{__('Поиск')}}</button>
+            <input id="bookName" name="keyword" type="text" minlength="3" placeholder="Номи китоб ва ё номи муаллиф"/>
+            <button class="primary-btn primary-btn-shadow" type="submit">Ҷустуҷӯ</button>
          </form>
       </div>
       {{-- SEARCH END --}}
@@ -76,12 +76,12 @@
          <div class="sidebar">
             <a href="{{route('categories.discounts')}}">
                <p class="discount-books-link">
-                  {{-- {{__('Актуальные скидки')}}--}}{{__('Рекомендуемые книги')}} 
+                  Китобҳои тавсияшуда
                </p>
             </a>
-            @foreach ($discountedBooks as $book)
+            @foreach ($empfohlenBooks as $book)
                 <div class="sidebar-book-block">
-                   <a class="sidebar-link" href="{{route('books.single', $book->id)}}"><img src="{{asset('img/thumbs/' . $book->photo)}}" alt="{{$book->name}}"></a>
+                   <a class="sidebar-link" href="{{route('books.single', $book->id)}}"><img src="{{asset('img/books/thumbs/' . $book->photo)}}" alt="{{$book->name}}"></a>
                    <div class="sidebar-book-info">
                       <a href="{{route('books.single', $book->id)}}">{{$book->name}}</a>
                       <p>
@@ -93,8 +93,6 @@
                         ?>
                         {{substr($authors, 0, -3)}}
                      </p>
-                      {{-- <span class="book-price-stroked">{{$book->price}} сом.</span>
-                      <span class="book-price">{{$book->discountPrice}} сом.</span> --}}
                    </div>
                 </div>
             @endforeach
@@ -103,13 +101,13 @@
 
          {{-- LATEST RELEASE START --}}
          <div class="latest-release">
-            <a class="all-books" href="{{route('books.all')}}">{{__('Недавно добавленные')}}</a>
+            <a class="all-books" href="{{route('books.all')}}">Китобҳои тозанашр</a>
 
             <div class="books-list">
                @foreach ($latestBooks as $book)
                   <div class="books-list-single">
                      <a href="{{route('books.single', $book->id)}}">
-                        <img src="{{asset('img/thumbs/' . $book->photo)}}" alt="{{$book->name}}">
+                        <img src="{{asset('img/books/thumbs/' . $book->photo)}}" alt="{{$book->name}}">
                         <h2>{{$book->name}}</h2>
                      </a>
                      <p>
@@ -121,15 +119,6 @@
                         ?>
                         {{substr($authors, 0, -3)}}
                      </p>
-
-                     {{-- @if($book->isFree)
-                     <span class="book-price">{{__('Бесплатная')}}</span>
-                     @elseif($book->discountPrice == 0)
-                     <span class="book-price">{{$book->price}} сом.</span>
-                     @else
-                     <span class="book-price-stroked">{{$book->price}} сом.</span>
-                     <span class="book-price">{{$book->discountPrice}} сом.</span>
-                     @endif --}}
                   </div>   
                @endforeach
             </div>
@@ -142,26 +131,21 @@
    <div class="top5">
       <div class="primary-container top5-inner">
          <div class="top5-title">
-            @if(app()->getLocale() == 'ru')
-               <h3>{{__('Наш')}}</h3>
-               <h2>{{__('ТОП 5')}}</h2>
-            @else
-               <h5>Серхонандатаринҳо</h3>
-            @endif
-            <p>{{__('Самые лучшие книги среди всех')}}</p>
+            <h5>Серхонандатарин</h5>
+            <p>китобҳои сомона</p>
          </div>
-         @foreach ($topBooks as $top)
+         @foreach ($topBooks as $book)
              <div class="top-book-singe">
-                <a href="{{route('books.single', $top->book->id)}}">
-                  <img src="{{asset('img/thumbs/' . $top->book->photo)}}" alt="{{$top->book->name}}" style="box-shadow: 0px 0px 5px -2px {{$top->book->bgColor}};">
-                  <h2>{{$top->book->name}}</h2>
+                <a href="{{route('books.single', $book->id)}}">
+                  <img src="{{asset('img/books/thumbs/' . $book->photo)}}" alt="{{$book->name}}" style="box-shadow: 0px 0px 5px -2px {{$book->bgColor}};">
+                  <h2>{{$book->name}}</h2>
                 </a>
                 <p>
                    <i class="fas fa-user-circle"></i>
                   {{-- GENERATE AUTHORS NAME AND CUT LAST ' & ' FROM STRING (LAST 3 SYMBOLS) --}}
                   <?php 
                      $authors = '';
-                     foreach($top->book->authors as $author)
+                     foreach($book->authors as $author)
                         $authors = $authors . $author->name . ' & ';
                   ?>
                   {{substr($authors, 0, -3)}}

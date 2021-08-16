@@ -35,18 +35,6 @@ class CategoryController extends Controller
         return view('categories.single', compact('category', 'books'));
     }
 
-    public function discounts()
-    {
-        $books = Book::where('discountPrice', '!=', 0)
-                    ->select('id', 'name', 'photo')
-                    ->with(['authors' => function($query) {
-                        $query->select('id', 'name'); }])
-                    ->latest()
-                    ->paginate(30);
-        
-        return view('categories.single', compact('books'));
-    }
-
     public function popular()
     {
         $books = Book::where('isPopular', true)

@@ -16,10 +16,10 @@ class CreateBooksTable extends Migration
         Schema::create('books', function (Blueprint $table) {
             $table->id();
             $table->text('name');
-            $table->boolean('isFree')->default(false); 
-            $table->float('price')->default(0);;
-            $table->float('discountPrice')->default(0); //скидочная цена
+            $table->boolean('free')->default(true); 
+            $table->float('price')->nullable();
             $table->text('description');
+            $table->text('language');
             $table->string('filename');
             $table->string('photo');
             $table->string('screenshot1')->nullable();
@@ -28,14 +28,14 @@ class CreateBooksTable extends Migration
             $table->string('publisher');    
             $table->integer('year');
             $table->integer('pages');
-            $table->boolean('isPopular')->default(false);
+            $table->boolean('most_readable')->default(false);
             $table->string('txtColor')->nullable();
             $table->string('bgColor')->nullable();
             $table->string('btnColor')->nullable();
+            $table->integer('number_of_readings')->default(0);
             $table->integer('marksCount')->default(0); 
             $table->float('averageMark')->default(0); //total average marks
-            $table->string('marksTemplate')->default('0'); //(Laravel Blade) Marks Template 
-            $table->integer('sales')->default(0);
+            $table->string('marksTemplate')->default('0'); //(Laravel Blade) Marks Template
             $table->timestamps();
         });
     }

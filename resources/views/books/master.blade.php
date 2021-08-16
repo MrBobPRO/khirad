@@ -58,12 +58,10 @@
 </head>
 <body>
    
-   @include('templates.navbar')
+   @include('templates.header')
    {{-- SCROLL TOP BUTTON --}}
    <button id="scrollTop"><i class="fa fa-angle-double-up"></i></button>
    @yield('content')
-   @include('templates.login-modal')
-   @include('templates.register-modal')
    @include('templates.footer')
 
    {{-- JQery 3.6.0 --}}
@@ -81,8 +79,8 @@
 
    {{-- JQ Gallery Plugin --}}
    <script src="{{ asset('js/simplelightbox-master/dist/simple-lightbox.jquery.min.js') }}"></script>
-   {{-- Screenshots disabled for free books --}}
-   @if(!$book->isFree)
+
+   @if($book->screenshot1 != '' || $book->screenshot2 != '' || $book->screenshot3 != '')
       <script>  var gallery = $('.gallery a').simpleLightbox({ });  </script>
    @endif
 

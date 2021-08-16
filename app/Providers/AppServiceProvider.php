@@ -11,6 +11,7 @@ use App\Models\Author;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Schema;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -35,17 +36,12 @@ class AppServiceProvider extends ServiceProvider
 
         Paginator::useBootstrap();
 
-        \Schema::defaultStringLength(191);
+        Schema::defaultStringLength(191);
 
-        //share appp locale & route name with all views
-        View::share('appLocale', App::currentLocale());
-
-        //Share all book names & author names for search
-        //Share navbar categories
-        view()->composer('templates.navbar', function ($view) {
+        //Share all book names & author names for search & share navbar categories
+        view()->composer('templates.header', function ($view) {
             $appLocale = App::currentLocale();
-            $navCats = Category::select($appLocale . 'Name as name', 'id')->
-                    orderBy('name', 'asc')->get();
+            $navCats = Category::orderBy('name', 'asc')->get();
 
             $view->with('allBooksNames', Book::orderBy('name', 'asc')->pluck('name'))
             ->with('allAuthorsNames', Author::orderBy('name', 'asc')->pluck('name'))
@@ -54,6 +50,7 @@ class AppServiceProvider extends ServiceProvider
             ->with('user', Auth::user());
         });
 
+        //share route name
         view()->composer(['templates.styles', 'templates.scripts', 'webmaster.master'], function ($view) {
             $view->with('route', Route::currentRouteName());
         });
