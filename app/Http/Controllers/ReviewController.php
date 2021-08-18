@@ -22,6 +22,7 @@ class ReviewController extends Controller
         if($mark == 0) $mark == 1;
 
         Review::create([
+            'user_name' => $request->user_name,
             'book_id' => $request->book_id,
             'mark' => $mark,
             'body' => $request->body

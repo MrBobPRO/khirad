@@ -154,6 +154,7 @@ header {
 .nav-links-container {
    display: flex;
    padding-top: 40px;
+   align-items: flex-start;
 }
 .nav-links {
    color: #7151ed;
@@ -301,7 +302,7 @@ header {
    padding: 0 40px 60px 0px;
 }
 .footer-left p {
-   margin: 20px 0 30px;
+   margin: 20px 0 25px;
    color: #989191;
    line-height: 1.7;
    font-size: 17px;
@@ -311,7 +312,7 @@ header {
    gap: 20px;
 }
 .footer-social img {
-   height: 25px;
+   height: 22px;
 }
 .footer-middle {
    border-right: 1px solid #e5e6ea;

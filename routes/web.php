@@ -16,18 +16,17 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', 'HomeController@index')->name('home');
 
 // SINGLE BOOK ROUTES
-Route::get('/book/{id}', 'BookController@single')->name('books.single');
+Route::get('/book/{name}', 'BookController@single')->name('books.single');
 Route::post('/reviews-store', 'ReviewController@store');
 
 // FOR ALL BOOKS, DISCOUNTED BOOKS, POPULAR BOOKS, RATED BOOKS, FREE BOOKS, AND SINGLE CATEGORY BOOKS USED SAME VIEW AND STYLES
 Route::get('/all_books', 'BookController@all')->name('books.all');
-Route::get('/categories/{id}', 'CategoryController@single')->name('categories.single');
-Route::get('/discounts', 'CategoryController@discounts')->name('categories.discounts');
-Route::get('/popular_books', 'CategoryController@popular')->name('categories.popular');
+Route::get('/categories/{name}', 'CategoryController@single')->name('categories.single');
 Route::get('/books_by_rating', 'CategoryController@by_rating')->name('categories.rating');
-Route::get('/bestsellers', 'CategoryController@bestsellers')->name('categories.bestsellers');
-Route::get('/free-books', 'CategoryController@free')->name('categories.free');
-// SEARCH STYLES AND VIEW ARE ALMOST SAME AS ALL BOOKS, DISCOUNTED BOOKS, POPULAR BOOKS, RATED BOOKS, FREE BOOKS,  AND SINGLE CATEGORY BOOKS
+Route::get('/world_most_readable', 'CategoryController@world_most_readable')->name('categories.world_most_readable');
+Route::get('/site_most_readable', 'CategoryController@site_most_readable')->name('categories.site_most_readable');
+Route::get('/foreign_books', 'CategoryController@foreign_books')->name('categories.foreign_books');
+// SEARCH STYLES AND VIEW ARE ALMOST SAME AS ALL BOOKS, BOOKS BY RATING, FOREIGN BOOKS ETC
 Route::get('/search', 'BookController@search')->name('books.search');
 
 //READ BOOKS
@@ -36,7 +35,7 @@ Route::get('/read_book', 'BookController@read')->name('books.read');
 //AUTGORS
 Route::get('/authors', 'AuthorController@index')->name('authors');
 Route::get('/popular_authors', 'AuthorController@popular')->name('authors.popular');
-Route::get('/authors/{id}', 'AuthorController@single')->name('authors.single');
+Route::get('/authors/{name}', 'AuthorController@single')->name('authors.single');
 
 //ARCHIVE
 Route::get('/archive', 'ArchiveController@index')->name('archive');

@@ -12,7 +12,7 @@
    
    <?php $lang = \App::currentLocale(); ?>
    {{-- var $category isnt compucted in some routes (popular/free etc) --}}
-   <title>Хирад@if(isset($category)) | {{$lang == 'tj' ? $category->name : $category->russian_name}}@endif</title>
+   <title>Хирад@if(isset($category)) | {{$category->name}}@endif</title>
 
    {{-- Opengraph --}}
    <?php $shareText = 'Книга — один из видов печатной продукции: непериодическое издание, состоящее из сброшюрованных или отдельных бумажных листов (страниц) или тетрадей, на которых нанесе...'; ?>
@@ -20,11 +20,11 @@
    <meta property="og:description" content="{{$shareText}}">
    <meta property="og:locale" content="ru_RU" />
    <meta property="og:type" content="object" />
-   <meta property="og:title" content="Хирад@if(isset($category)) | {{$lang == 'tj' ? $category->name : $category->russian_name}}@endif" />
+   <meta property="og:title" content="Хирад@if(isset($category)) | {{$category->name}}@endif" />
    <meta property="og:site_name" content="Хирад" />
    <meta property="og:image" content="{{ asset('img/main/logo-share.png') }}">
    <meta name="twitter:card" content="summary_large_image">
-   <meta name="twitter:title" content="Хирад@if(isset($category)) | {{$lang == 'tj' ? $category->name : $category->russian_name}}@endif" />
+   <meta name="twitter:title" content="Хирад@if(isset($category)) | {{$category->name}}@endif" />
    <meta name="twitter:image" content="{{ asset('img/main/logo-share.png') }}">
    
    <link rel="icon" href="{{ asset('img/main/cropped-favi-32x32.png') }}" sizes="32x32">
@@ -57,12 +57,10 @@
 </head>
 <body>
    
-   @include('templates.navbar')
+   @include('templates.header')
    {{-- SCROLL TOP BUTTON --}}
    <button id="scrollTop"><i class="fa fa-angle-double-up"></i></button>
    @yield('content')
-   @include('templates.login-modal')
-   @include('templates.register-modal')
    @include('templates.footer')
 
    {{-- JQery 3.6.0 --}}

@@ -3,7 +3,7 @@
 
 <div class="authors-prime-container">
 
-   <h1>Муаллифон</h1>
+   <h1>Муаллифони машҳур</h1>
 
    {{-- Authors seach start --}}
    <div class="select2_single_container authors_search_container">

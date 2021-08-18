@@ -8,7 +8,7 @@
    <div class="primary-container owl-carousel-container">
 
       <div class="owl-navs-container">
-         <a href="{{route('categories.popular')}}">Серхондатарин китобҳои ҷаҳон</a>
+         <a href="{{route('categories.world_most_readable')}}">Серхондатарин китобҳои ҷаҳон</a>
          <span class="owl-navs owl-nav-prev" onclick="prevSlide()">‹</span>
          <span class="owl-navs" onclick="nextSlide()">›</span>
       </div>
@@ -32,7 +32,7 @@
                      <p class="owl-marks">@include('marks.' . $book->marksTemplate)
                         &nbsp;&nbsp;{{$book->marksCount}} отзыва</p>
                      <p class="owl-book-desc">{{$book->description}}</p>
-                     <a href="{{route('books.single', $book->id)}}" style="color: {{$book->btnColor}}">Подробнее <i class="fas fa-long-arrow-alt-right"></i></a>
+                     <a href="{{route('books.single', $book->latin_name)}}" style="color: {{$book->btnColor}}">Муфассал <i class="fas fa-long-arrow-alt-right"></i></a>
                   </div>
 
                   <div class="owl-img-container">
@@ -74,16 +74,16 @@
       <div class="primary-container books-with-sidebar">
          {{-- SIDEBAR START --}}
          <div class="sidebar">
-            <a href="{{route('categories.discounts')}}">
+            <a>
                <p class="discount-books-link">
                   Китобҳои тавсияшуда
                </p>
             </a>
             @foreach ($empfohlenBooks as $book)
                 <div class="sidebar-book-block">
-                   <a class="sidebar-link" href="{{route('books.single', $book->id)}}"><img src="{{asset('img/books/thumbs/' . $book->photo)}}" alt="{{$book->name}}"></a>
+                   <a class="sidebar-link" href="{{route('books.single', $book->latin_name)}}"><img src="{{asset('img/books/thumbs/' . $book->photo)}}" alt="{{$book->name}}"></a>
                    <div class="sidebar-book-info">
-                      <a href="{{route('books.single', $book->id)}}">{{$book->name}}</a>
+                      <a href="{{route('books.single', $book->latin_name)}}">{{$book->name}}</a>
                       <p>
                         {{-- GENERATE AUTHORS NAME AND CUT LAST ' & ' FROM STRING (LAST 3 SYMBOLS) --}}
                         <?php 
@@ -106,7 +106,7 @@
             <div class="books-list">
                @foreach ($latestBooks as $book)
                   <div class="books-list-single">
-                     <a href="{{route('books.single', $book->id)}}">
+                     <a href="{{route('books.single', $book->latin_name)}}">
                         <img src="{{asset('img/books/thumbs/' . $book->photo)}}" alt="{{$book->name}}">
                         <h2>{{$book->name}}</h2>
                      </a>
@@ -136,7 +136,7 @@
          </div>
          @foreach ($topBooks as $book)
              <div class="top-book-singe">
-                <a href="{{route('books.single', $book->id)}}">
+                <a href="{{route('books.single', $book->latin_name)}}">
                   <img src="{{asset('img/books/thumbs/' . $book->photo)}}" alt="{{$book->name}}" style="box-shadow: 0px 0px 5px -2px {{$book->bgColor}};">
                   <h2>{{$book->name}}</h2>
                 </a>

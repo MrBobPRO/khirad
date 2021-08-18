@@ -12,22 +12,22 @@ class BookController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth')->except('single');
+        $this->middleware('auth')->except('single', 'read');
     }
 
     public function all()
     {
-        $books = Book::select('id', 'name', 'photo')
+        $books = Book::select('id', 'name', 'photo', 'latin_name')
                 ->with(['authors' => function($query) {
                     $query->select('id', 'name'); }])
-                ->latest()->paginate(30);
+                ->latest()->paginate(40);
 
         return view('categories.single', compact('books'));
     }
 
-    public function single($id)
+    public function single($name)
     {
-        $book = Book::find($id);
+        $book = Book::where('latin_name', $name)->first();
         $reviews = Review::where('book_id', $book->id)->orderBy('updated_at', 'desc')->get();
 
         // FOR OPENGRAPH
@@ -103,7 +103,9 @@ class BookController extends Controller
 
     public function read(Request $request)
     {
-        $book = Book::find($request->id);
+        $book = Book::where('latin_name', $request->n)->first();
+        $book->number_of_readings = $book->number_of_readings + 1;
+        $book->save();
         // FOR OPENGRAPH
         $shareText = $book->description;
         $shareText = mb_strlen($shareText) < 170 ? $shareText : mb_substr($shareText, 0, 166) . '...';

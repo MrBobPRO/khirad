@@ -7,8 +7,7 @@ class SecondaryController extends Controller
 
     public function __construct()
     {
-        //Remove in production
-        $this->middleware('maintance');
+        $this->middleware('auth');
     }
 
     public function questions()

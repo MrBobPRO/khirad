@@ -21,7 +21,7 @@
          
          <p class="average-rating">
             @include('marks.' . $book->marksTemplate)
-            &nbsp;&nbsp;{{$book->marksCount}} отзыва
+            &nbsp;&nbsp;{{$book->marksCount}} мулоҳиза
          </p>
 
          <p class="description">{{$book->description}}</p>
@@ -29,48 +29,55 @@
          {{-- BOOK PROPERTIES START --}}
          <div class="book-properties">
             <div class="book-properties-single">
-               <div class="key">Цена</div>
+               <div class="key">Нарх</div>
                <div class="value">
-                  <span class="book-price">{{$book->free ? 'Бепул' : $book->price . ' сомонӣ'}}</span>
+                  <span class="book-price">{{$book->free ? 'Ройгон' : $book->price . ' сомонӣ'}}</span>
                </div>
             </div>
 
             <div class="book-properties-single">
-               <div class="key">Автор</div>
+               <div class="key">
+                  {{ count($book->authors) > 1 ? 'Муаллифон' : 'Муаллиф'}}
+               </div>
                <div class="value">
                   @foreach ($book->authors as $author)
-                     <a href="{{route('authors.single', $author->id)}}">{{$author->name}}</a>
+                     <a href="{{route('authors.single', $author->latin_name)}}">{{$author->name}}</a>
                   @endforeach
                </div>
             </div>
 
             <div class="book-properties-single">
-               <div class="key">Издатель</div>
+               <div class="key">Ношир</div>
                <div class="value">{{$book->publisher}}</div>
             </div>
 
             <div class="book-properties-single">
-               <div class="key">Год выпуска</div>
-               <div class="value">{{$book->year}} года</div>
+               <div class="key">Соли табъ</div>
+               <div class="value">{{$book->year}} сол</div>
             </div>
 
             <div class="book-properties-single">
-               <div class="key">Категория</div>
+               <div class="key">Дастабандӣ</div>
                <div class="value">
                   @foreach ($book->categories as $category)
-                        <a href="{{route('categories.single', $category->id)}}">{{$category->name}}</a>
+                        <a href="{{route('categories.single', $category->latin_name)}}">{{$category->name}}</a>
                   @endforeach
                </div>
             </div>
 
             <div class="book-properties-single">
-               <div class="key">Количество страниц</div>
-               <div class="value">{{$book->pages}} страниц</div>
+               <div class="key">Шумори саҳифаҳо</div>
+               <div class="value">{{$book->pages}} саҳифа</div>
+            </div>
+
+            <div class="book-properties-single">
+               <div class="key">Шумори мутолиа</div>
+               <div class="value">{{$book->number_of_readings}} маротиба</div>
             </div>
 
             {{-- Share container --}}
             <div class="book-properties-single">
-               <div class="key">Поделиться</div>
+               <div class="key">Ба иштирок гузоштан</div>
                <div class="value">
                   <div class="ya-share2" data-access-token:facebook="fb-token" 
                      data-curtain data-color-scheme="blackwhite"
@@ -79,9 +86,8 @@
                </div>
             </div>
 
-            {{-- CHECK SINGLE_OLD.BLADE.PHP--}}
-            <a href="/read_book?id={{$book->id}}" class="primary-btn read-book" target="_blank">
-               <i class="fab fa-readme"></i> &nbsp; {{$book->free ? 'Читать книгу' : 'Читать фрагмент книги'}}
+            <a href="/read_book?n={{$book->latin_name}}" class="primary-btn read-book" target="_blank">
+               <i class="fab fa-readme"></i> &nbsp; {{$book->free ? 'Хондани китоб' : 'Хондани қисмате аз китоб'}}
             </a>
          </div>
          {{-- BOOK PROPERTIES END --}}
@@ -116,24 +122,24 @@
 
          {{-- REVIEWS CONTAINER START --}}
          <div class="reviews-container">
-            <h1>Отзывы и оценки о товаре</h1>
+            <h1>Баррасӣ ва арзёбии китоб</h1>
 
             {{-- AVERAGE RATING START --}}   
             <div class="reviews-average-rating">
                <p>Средняя оценка пользователей :</p>
                <p>
                   @include('marks.' . $book->marksTemplate)
-                  &nbsp;&nbsp;{{$book->marksCount}} отзыва
+                  &nbsp;&nbsp;{{$book->marksCount}} мулоҳиза
                </p>
             </div>
             {{-- AVERAGE RATING END --}}   
 
             {{-- IF THERE ARE NO REVIEWS --}}
-            @if($book->marksCount == 0) <p class="no-reviews">Отзывы о товаре отсуствуют.</p> @endif
+            @if($book->marksCount == 0) <p class="no-reviews">Андешаю мулоҳиза дар мавриди китобҳо вуҷуд надорад.</p> @endif
             {{-- ADD NEW REVIEW--}}
             <div class="add-review">
                <a data-bs-toggle="collapse" href="#reviews-collapse" role="button" aria-expanded="false" aria-controls="reviews-collapse" class="collapsed">
-               <i class="fa fa-plus"></i> Добавить свой отзыв</a>
+               <i class="fa fa-plus"></i> Илова кардани мулоҳизаи нав</a>
             </div>   
 
             {{-- ADD REVIEW FORM --}}
@@ -142,11 +148,13 @@
                   @csrf
                   <input type="hidden" name="book_id" value="{{$book->id}}">
                   <input class="d-none" name="mark" value="1">
-                  <label>Ваша оценка<span>*</span></label>
+                  <label>Баҳои Шумо<span>*</span></label>
                   <p id="add-review-stars">@include('marks.select')</p>
-                  <label>Ваш отзыв</label>
+                  <label>Номи Шумо</label>
+                  <input type="text" name="user_name"></input>
+                  <label>Мулоҳизаи Шумо</label>
                   <textarea name="body" rows="5"></textarea>
-                  <button type="submit" id="review_store_btn" class="primary-btn"><i class="fa fa-send"></i> Отправить</button>
+                  <button type="submit" id="review_store_btn" class="primary-btn"><i class="fa fa-send"></i> &nbsp;Фиристодан</button>
                </form>
             </div>
             
@@ -154,10 +162,10 @@
             @foreach ($reviews as $review)
             <div class="review-single-block">
                <div class="review-header" @if($review->body == '') style="margin: 0" @endif>
-                  <h6>Гость</h6>
+                  <h6>{{$review->user_name == '' ? 'Пользователь' : $review->user_name}}</h6>
                   <p>
                      <?php $date = \Carbon\Carbon::parse($review->updated_at)->locale('ru');
-                     $formatted = $date->isoFormat('DD MMMM YYYY') ?>
+                     $formatted = $date->isoFormat('DD.MM.YYYY') ?>
                      <span class="review-date">{{$formatted}}</span>
                      @include('marks.' . $review->mark)
                   </p>

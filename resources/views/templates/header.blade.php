@@ -15,8 +15,8 @@
                   <h2>Илова бар ин</h2>
                   <a href="{{route('books.all')}}">Ҳамаи китобҳо</a>
                   <a href="{{route('categories.rating')}}">Китобҳои бо баҳои баланд</a>
-                  <a href="{{route('categories.bestsellers')}}">Серхондатарин китобҳои ҷаҳон</a>
-                  <a href="{{route('categories.popular')}}">Серхондатарин китобҳои сомона</a>
+                  <a href="{{route('categories.world_most_readable')}}">Серхондатарин китобҳои ҷаҳон</a>
+                  <a href="{{route('categories.site_most_readable')}}">Серхондатарин китобҳои сомона</a>
                   <a href="{{route('authors.popular')}}">Муаллифони машҳур</a>
                   <div class="nav-seperator"></div>
                   <a href="{{route('questions')}}">{{ __("Вопрос - ответ") }}</a>
@@ -27,7 +27,7 @@
                   <div class="mega-menu-right-inner">
                      {{-- $navCats DEFINED ON APPSERVICEPROVIDER --}}
                      @foreach($navCats as $category)
-                        <a href="{{route('categories.single', $category->id)}}">{{$category->name}}</a>
+                        <a href="{{route('categories.single', $category->latin_name)}}">{{$category->name}}</a>
                      @endforeach
                   </div>
                </div>
@@ -35,7 +35,7 @@
             </div>
          </div> {{-- Category mega menu end --}}
          
-         <a class="nav-links" href="{{route('categories.free')}}">Китобҳои хориҷӣ</a>
+         <a class="nav-links" href="{{route('categories.foreign_books')}}">Китобҳои хориҷӣ</a>
          <a class="nav-links" href="{{route('authors')}}">Муаллифон</a>
          {{-- <a class="nav-btm-links" href="{{route('questions')}}">Вопрос - ответ</a> --}}
          <a class="nav-links" href="{{route('contacts')}}">Тамос</a>

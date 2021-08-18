@@ -187,10 +187,21 @@
    border: 5px solid #F9FAFC;
    border-top: 0;
 }
+#reviews-collapse input {
+   width: 100%;
+   border: none;
+   padding: 8px 20px;
+   border-radius: 6px;
+   font-size: 17px;
+   line-height: 1.8;
+   color: rgb(76, 76, 76);
+   background: #F9FAFC;
+   margin: 5px 0 15px;
+}
 #reviews-collapse textarea {
    width: 100%;
    border: none;
-   padding: 10px 25px;
+   padding: 10px 20px;
    border-radius: 6px;
    font-size: 17px;
    line-height: 1.8;

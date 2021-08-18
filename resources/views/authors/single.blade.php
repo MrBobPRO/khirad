@@ -16,16 +16,15 @@
 
 {{-- AUTHORS BOOKS START --}}
 <div class="authors-books-container">
-   <h1>Книги автора</h1>
+   <h1>Китобҳои муаллиф</h1>
    <div class="authors-books-list">
       @foreach ($author->books as $book)
          <div class="books-list-single">
-            <a href="{{route('books.single', $book->id)}}">
-               <img src="{{asset('img/thumbs/' . $book->photo)}}" alt="{{$book->name}}">
+            <a href="{{route('books.single', $book->latin_name)}}">
+               <img src="{{asset('img/books/thumbs/' . $book->photo)}}" alt="{{$book->name}}">
                <h2>{{$book->name}}</h2>
             </a>
             <p>
-               {{-- <i class="fa fa-user"></i> &nbsp; --}}
                {{-- GENERATE AUTHORS NAME AND CUT LAST ' & ' FROM STRING (LAST 3 SYMBOLS) --}}
                <?php 
                   $authors = '';
@@ -34,15 +33,6 @@
                ?>
                {{substr($authors, 0, -3)}}
             </p>
-            
-            {{-- @if($book->isFree)
-            <span class="book-price">Бесплатная</span>
-            @elseif($book->discountPrice == 0)
-            <span class="book-price">{{$book->price}} сом.</span>
-            @else
-            <span class="book-price-stroked">{{$book->price}} сом.</span>
-            <span class="book-price">{{$book->discountPrice}} сом.</span>
-            @endif --}}
          </div>   
       @endforeach
 

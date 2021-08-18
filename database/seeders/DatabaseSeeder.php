@@ -20,16 +20,13 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
 
-        $names = ['Admin', 'Maestro Magic', 'Ботан 001', 'Александр Чумаков', 'Фарида'];
-        $emails = ['admin@mail.ru', 'maestro@mail.ru', 'botan@mail.ru', 'alex@mail.ru', 'fasadulloeva@gmail.com'];
+        $names = ['Admin', 'Moderator'];
+        $emails = ['admin@mail.ru', 'moderator@mail.ru'];
 
         for($i =0; $i<count($names); $i++) {
             $user = new User;
-            if($i == 0) $user->isAdmin = true;
-            else $user->isAdmin = false;
             $user->name = $names[$i];
-            if($i == 0) $user->password = bcrypt('kn12345');
-            else $user->password = bcrypt('12345');
+            $user->password = bcrypt('kn12345');
             $user->email = $emails[$i];
             $user->save();
         }
@@ -42,8 +39,9 @@ class DatabaseSeeder extends Seeder
         {
             $author = new Author;
             $author->name = $authors[$i];
+            $author->latin_name = $this->transliterateIntoLatin($authors[$i]);
             $author->photo = ($i+1) . '.jpg';
-            if(($i+1) % 2 == 0) $author->isPopular = true;
+            if(($i+1) % 2 == 0) $author->popular = true;
             $author->description = 'Абуабдулло Рудаки родился в середине IX в. в селе Пандж Руд (вблизи Пенджикента) в крестьянской семье. О жизни этого замечательного поэта, и особенно о его детстве, сохранилось очень мало данных.<br><br>
             Рудаки в юности стал популярен благодаря своему прекрасному голосу, поэтическому таланту и мастерской игре на музыкальном инструменте руде. Он был приглашен Насром II ибн Ахмадом Саманидом (914-943 гг.) ко двору, где и прошла большая часть жизни. Как говорит Абу-л-Фазл Балами, «Рудаки в свое время был первым среди своих современников в области стихотворства, и ни у арабов, ни у персов нет ему подобного»; он считался не только мастером стиха, но и прекрасным исполнителем, музыкантом, певцом.';
             $author->save();
@@ -59,6 +57,7 @@ class DatabaseSeeder extends Seeder
         {
             $book = new Book;
             $book->name = $books[$i];
+            $book->latin_name = $this->transliterateIntoLatin($books[$i]);
             $book->free = true;
             if($i == 0 || $i == 18) {
                 $book->free = false;
@@ -82,7 +81,7 @@ class DatabaseSeeder extends Seeder
             if($i == 4) {
                 $book->screenshot1 = '5a.jpg';
                 $book->screenshot2 = '5b.jpg';
-                $book->screenshot3 = 'bc.jpg';
+                $book->screenshot3 = '5c.jpg';
             }
             if($i == 18) {
                 $book->screenshot1 = '19a.jpg';
@@ -110,9 +109,13 @@ class DatabaseSeeder extends Seeder
         //CATEGORIES
         $categories = ['Адабиёт', 'Донишномаҳо', 'Забоншиносӣ', 'Зиндагинома', 'Иқтисодиёт', 'Кӯдакон ва наврасон', 'Луғатнома', 'Мантиқ', 'Педагогика', 'Равоншиносӣ', 'Риёзӣ', 'Санъати сухан', 'Сиёсӣ', 'Табиатшиносӣ', 'Тарбиявӣ - ахлоқӣ', 'Ташаккули шахсият', 'Таърих', 'Технологияи иттилоотӣ', 'Тиб', 'Фалсафа', 'Фарҳангшиносӣ', 'Физика', 'Химия', 'Ҳуқуқ', 'Ҷомеашиносӣ'];
 
+        $dd = 'Книга — один из видов печатной продукции: непериодическое издание, состоящее из сброшюрованных или отдельных бумажных листов (страниц) или тетрадей, на которых нанесена типографским или рукописным способом текстовая и графическая (иллюстрации) информация, имеющее, как правило, твёрдый переплёт';
+
         foreach($categories as $cat) {
             Category::create([
                 'name' => $cat,
+                'description' => $dd,
+                'latin_name' => $this->transliterateIntoLatin($cat)
             ]);
         }
 
@@ -195,4 +198,29 @@ class DatabaseSeeder extends Seeder
         $book->save();
 
     }
+
+    private function transliterateIntoLatin($string)
+    {
+        $cyr = [
+            'а','б','в','г','д','е','ё','ж','з','и','й','к','л','м','н','о','п',
+            'р','с','т','у','ф','х','ц','ч','ш','щ','ъ','ы','ь','э','ю','я',
+            'А','Б','В','Г','Д','Е','Ё','Ж','З','И','Й','К','Л','М','Н','О','П',
+            'Р','С','Т','У','Ф','Х','Ц','Ч','Ш','Щ','Ъ','Ы','Ь','Э','Ю','Я', ' ',
+            'ӣ', 'ӯ', 'ҳ', 'қ', 'ҷ', 'ғ', 'Ғ', 'Ӣ', 'Ӯ', 'Ҳ', 'Қ', 'Ҷ'
+        ];
+
+        $lat = [
+            'a','b','v','g','d','e','io','zh','z','i','y','k','l','m','n','o','p',
+            'r','s','t','u','f','h','ts','ch','sh','shb','a','i','y','e','yu','ya',
+            'a','b','v','g','d','e','io','zh','z','i','y','k','l','m','n','o','p',
+            'r','s','t','u','f','h','ts','ch','sh','shb','a','i','y','e','yu','ya', '_',
+            'i', 'u', 'h', 'q', 'j', 'g', 'g', 'i', 'u', 'h', 'q', 'j'
+        ];
+        //Trasilate url
+        $transilation = str_replace($cyr, $lat, $string);
+
+        //return lowercased url
+        return strtolower($transilation);
+    }
+
 }

@@ -11,76 +11,76 @@ class CategoryController extends Controller
 
     public function __construct()
     {
-        //Remove in production
-        $this->middleware('maintance');
         //webmaster routes
-        $this->middleware('webmaster')->only(['webmaster_index', 'webmaster_single', 'webmaster_create', 'webmaster_store', 'webmaster_update']);
+        $this->middleware('auth')->only(['webmaster_index', 'webmaster_single', 'webmaster_create', 'webmaster_store', 'webmaster_update']);
     }
 
-    public function single($id)
+    public function single($name, Request $request)
     {
-        $category = Category::find($id);
-        // $books = Book::whereHas('categories', function($q) use ($id) {
-        //     $q->where('id', $id); })
-        //     ->latest()
-        //     ->paginate(30);
+        if($request->page && $request->page > 1) 
+            $show_description = true;
 
-        $books = $category->books()
-                    ->select('id', 'name', 'photo')
+        $category = Category::where('latin_name', $name)->first();
+        $books = Book::whereHas('categories', function ($q) use ($name) {
+                        $q->where('latin_name', $name); })
+                    ->select('id', 'name', 'photo', 'latin_name')
                     ->with(['authors' => function($query) {
                         $query->select('id', 'name'); }])
                     ->latest()
-                    ->paginate(30);
+                    ->paginate(40);
 
         return view('categories.single', compact('category', 'books'));
     }
 
-    public function popular()
-    {
-        $books = Book::where('isPopular', true)
-                ->select('id', 'name', 'photo')
-                ->with(['authors' => function($query) {
-                    $query->select('id', 'name'); }])
-                ->latest()
-                ->paginate(30);
-        
-        return view('categories.single', compact('books'));
-    }
 
     public function by_rating()
     {
-        $books = Book::where('averageMark', '>=', 3.5)
-                    ->select('id', 'name', 'photo', 'marksTemplate', 'marksCount', 'averageMark')
+        $books = Book::where('averageMark', '>=', 3.0)
+                    ->select('id', 'name', 'photo', 'marksTemplate', 'marksCount', 'averageMark', 'latin_name')
                     ->with(['authors' => function($query) {
                         $query->select('id', 'name'); }])
                     ->orderBy('averageMark', 'desc')
-                    ->paginate(30);
+                    ->paginate(40);
         
         return view('categories.single', compact('books'));
     }
 
-    public function bestsellers()
+
+    public function world_most_readable()
     {
-        $books = Book::where('sales', '>', 20)
-                    ->select('id', 'name', 'photo', 'sales')
+        $books = Book::where('most_readable', true)
+                    ->select('id', 'name', 'photo', 'latin_name')
                     ->with(['authors' => function($query) {
                         $query->select('id', 'name'); }])
-                    ->orderBy('sales', 'desc')->paginate(30);
+                    ->orderBy('name', 'asc')
+                    ->paginate(40);
         
         return view('categories.single', compact('books'));
     }
 
-    public function free()
+
+    public function site_most_readable()
     {
-        $books = Book::where('isFree', '=', true)
-                    ->select('id', 'name', 'photo')
+        $books = Book::where('number_of_readings', '>', 1)
+                    ->select('id', 'name', 'photo', 'number_of_readings', 'latin_name')
                     ->with(['authors' => function($query) {
                         $query->select('id', 'name'); }])
-                    ->paginate(30);
+                    ->orderBy('number_of_readings', 'desc')
+                    ->paginate(40);
         
         return view('categories.single', compact('books'));
     }
 
+    public function foreign_books() {
+        $books = Book::where('language', '!=', 'tj')
+                    ->select('id', 'name', 'photo', 'latin_name')
+                    ->with(['authors' => function($query) {
+                        $query->select('id', 'name'); }])
+                    ->orderBy('name', 'asc')
+                    ->paginate(40);
+
+        return view('categories.single', compact('books'));
+    }
 
     //---------------------------------------------Webmaster Routes--------------------------------------------
     public function webmaster_index()

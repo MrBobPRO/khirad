@@ -56,12 +56,10 @@
 </head>
 <body>
    
-   @include('templates.navbar')
+   @include('templates.header')
    {{-- SCROLL TOP BUTTON --}}
    <button id="scrollTop"><i class="fa fa-angle-double-up"></i></button>
    @yield('content')
-   @include('templates.login-modal')
-   @include('templates.register-modal')
    @include('templates.footer')
 
    {{-- JQery 3.6.0 --}}

@@ -1,4 +1,6 @@
-
+.pagination {
+   margin-top: 0px;
+}
 .content-wrapper {
    padding: 40px 50px;
    flex-direction: column;
@@ -8,6 +10,15 @@
    text-align: center;
    font-family: 'Cuprum', sans-serif;
    font-size: 32px;
+   margin-bottom: 0;
+}
+.category-description {
+   padding: 30px;
+   max-width: 800px;
+   margin: 0 auto;
+   text-align: center;
+   color: #989191;
+   line-height: 1.7;
 }
 .books-list {
    display: flex;
@@ -36,10 +47,11 @@
    font-size: 16px;
    font-weight: 500;
    color: black;
+   transition: 0.3s;
 }
 .books-list-single p {
    font-size: 16px;
-   margin-bottom: 8px;
+   margin-bottom: 5px;
    font-weight: 300;
 } 
 .book-price {

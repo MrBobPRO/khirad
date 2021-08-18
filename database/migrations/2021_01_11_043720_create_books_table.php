@@ -16,6 +16,7 @@ class CreateBooksTable extends Migration
         Schema::create('books', function (Blueprint $table) {
             $table->id();
             $table->text('name');
+            $table->text('latin_name'); //used in ROUTE URL
             $table->boolean('free')->default(true); 
             $table->float('price')->nullable();
             $table->text('description');

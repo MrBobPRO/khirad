@@ -11,27 +11,24 @@ class AuthorController extends Controller
 
     public function __construct()
     {
-        //Remove in production
-        $this->middleware('maintance');
-        //webmaster routes
-        $this->middleware('webmaster')->except(['index', 'single', 'popular']);
+        $this->middleware('auth');
     }
 
     public function index()
     {
         // ALL AUTHORS USED FOR SEARCH
-        $allAuthors = Author::select('id', 'name')
+        $allAuthors = Author::select('name', 'latin_name')
                             ->orderBy('name', 'asc')->get();
 
-        $authors = Author::select('id', 'name', 'photo')
-                            ->orderBy('name', 'asc')->paginate(30);
+        $authors = Author::select('name', 'photo', 'latin_name')
+                            ->orderBy('name', 'asc')->paginate(40);
 
         return view('authors.index', compact('authors', 'allAuthors'));
     }
 
-    public function single($id)
+    public function single($name)
     {
-        $author = Author::find($id);
+        $author = Author::where('latin_name', $name)->first();
 
         // FOR OPENGRAPH
         $shareText = $author->description;
@@ -43,10 +40,14 @@ class AuthorController extends Controller
     public function popular()
     {
         // ALL AUTHORS USED FOR SEARCH
-        $allAuthors = Author::orderBy('name', 'asc')->get();
-        $authors = Author::where('isPopular', '=', true)->paginate(30);
+        $allAuthors = Author::where('popular', true)
+                            ->select('name', 'latin_name')
+                            ->orderBy('name', 'asc')->get();
+        $authors = Author::where('popular', true)
+                            ->select('name', 'photo', 'latin_name')
+                            ->orderBy('name', 'asc')->paginate(40);
 
-        return view('authors.index', compact('authors', 'allAuthors'));
+        return view('authors.popular', compact('authors', 'allAuthors'));
     }
 
 

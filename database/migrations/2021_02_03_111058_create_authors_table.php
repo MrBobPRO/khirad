@@ -16,9 +16,10 @@ class CreateAuthorsTable extends Migration
         Schema::create('authors', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
+            $table->string('latin_name'); //for route url
             $table->string('photo');
             $table->text('description');
-            $table->boolean('isPopular')->default(false);
+            $table->boolean('popular')->default(false);
         });
     }
 
