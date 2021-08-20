@@ -41,8 +41,12 @@ class DatabaseSeeder extends Seeder
             $author->name = $authors[$i];
             $author->latin_name = $this->transliterateIntoLatin($authors[$i]);
             $author->photo = ($i+1) . '.jpg';
+            $author->foreign = false;
+            if($i == 0 || $i == 15) {
+                $author->foreign = true; 
+            }
             if(($i+1) % 2 == 0) $author->popular = true;
-            $author->description = 'Абуабдулло Рудаки родился в середине IX в. в селе Пандж Руд (вблизи Пенджикента) в крестьянской семье. О жизни этого замечательного поэта, и особенно о его детстве, сохранилось очень мало данных.<br><br>
+            $author->biography = 'Абуабдулло Рудаки родился в середине IX в. в селе Пандж Руд (вблизи Пенджикента) в крестьянской семье. О жизни этого замечательного поэта, и особенно о его детстве, сохранилось очень мало данных.<br><br>
             Рудаки в юности стал популярен благодаря своему прекрасному голосу, поэтическому таланту и мастерской игре на музыкальном инструменте руде. Он был приглашен Насром II ибн Ахмадом Саманидом (914-943 гг.) ко двору, где и прошла большая часть жизни. Как говорит Абу-л-Фазл Балами, «Рудаки в свое время был первым среди своих современников в области стихотворства, и ни у арабов, ни у персов нет ему подобного»; он считался не только мастером стиха, но и прекрасным исполнителем, музыкантом, певцом.';
             $author->save();
         }
@@ -70,6 +74,9 @@ class DatabaseSeeder extends Seeder
             $book->year = rand(1990, 2021);
             $book->pages = rand(4, 80);
             $book->language = 'tj';
+            if($i == 12 || $i == 10) {
+                $book->language = 'en';
+            }
             $book->txtColor = $txtColor[$i];
             $book->btnColor = $btnColor[$i];
             $book->bgColor = $bgColor[$i];
@@ -101,7 +108,9 @@ class DatabaseSeeder extends Seeder
             if($i ==14) $book->number_of_readings = 3;
     
             $book->save();
-            $book->categories()->attach(rand(1, 25));
+            $book->categories()->attach(rand(1, 8));
+            $book->categories()->attach(rand(9, 17));
+            $book->categories()->attach(rand(18, 25));
             $book->authors()->attach($i+1);
         }
 
@@ -122,24 +131,28 @@ class DatabaseSeeder extends Seeder
         $review = new Review;
         $review->book_id = 1;
         $review->mark = 5;
+        $review->new = true;
         $review->body = 'Однозначно рекомендую к покупке! Сам сделал ошибку, купив несколько лет назад бюджетные версии романов, теперь те книги придётся или подарить, или продать за бесценок. А этот набор, несомненно, станет украшением любой библиотеки. Если бы мне подарили нечто подобное, я был бы доволен как слон.)';
         $review->save();
 
         $review = new Review;
         $review->book_id = 1;
         $review->mark = 1;
+        $review->new = true;
         $review->body = 'Однозначно НЕ рекомендую к покупке! Фуфло полнейшее! Деньги на ветер... Лучше купить 10 пачек чипсов, чем эту фигню!';
         $review->save();
 
         $review = new Review;
         $review->book_id = 1;
         $review->mark = 5;
+        $review->new = true;
         $review->body = 'Норм книга. Этот набор, несомненно, станет украшением любой библиотеки. Если бы мне подарили нечто подобное, я был бы доволен как слон!';
         $review->save();
 
         $review = new Review;
         $review->book_id = 1;
         $review->mark = 3;
+        $review->new = true;
         $review->body = 'Понравилось только облошка. А так самаю худшая книга, которую я когда либо читал. ';
         $review->save();
 
@@ -152,12 +165,14 @@ class DatabaseSeeder extends Seeder
         $review = new Review;
         $review->book_id = 2;
         $review->mark = 1;
+        $review->new = true;
         $review->body = 'Понравилось только облошка. А так самаю худшая книга, которую я когда либо читал. ';
         $review->save();
 
         $review = new Review;
         $review->book_id = 2;
         $review->mark = 5;
+        $review->new = true;
         $review->body = 'Держи пятюху брат!';
         $review->save();
 
@@ -170,6 +185,7 @@ class DatabaseSeeder extends Seeder
         $review = new Review;
         $review->book_id = 5;
         $review->mark = 5;
+        $review->new = true;
         $review->body = 'Какой-то очень хороший и можно сказать очень длинный и скучный отзыв про кнмгу и можно сказать очень длинный и скучный отзыв про кнмгу и можно сказать очень длинный и скучный отзыв про кнмгу и можно сказать очень длинный и скучный отзыв про кнмгу.';
         $review->save();
 
@@ -182,12 +198,14 @@ class DatabaseSeeder extends Seeder
         $review = new Review;
         $review->book_id = 18;
         $review->mark = 3;
+        $review->new = true;
         $review->body = 'Какой-то очень плохой но очень прикольный отзыв про книгу.';
         $review->save();
 
         $review = new Review;
         $review->book_id = 18;
         $review->mark = 5;
+        $review->new = true;
         $review->body = 'Какой-то очень хороший и очень интересный отзыв про книгу.';
         $review->save();
 

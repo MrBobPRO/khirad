@@ -15,7 +15,12 @@
    <title>Хирад@if(isset($category)) | {{$category->name}}@endif</title>
 
    {{-- Opengraph --}}
-   <?php $shareText = 'Книга — один из видов печатной продукции: непериодическое издание, состоящее из сброшюрованных или отдельных бумажных листов (страниц) или тетрадей, на которых нанесе...'; ?>
+   @if(!@isset($shareText))
+       <?php 
+         $shareText = 'Описание сайта. Книга — один из видов печатной продукции: непериодическое издание, состоящее из сброшюрованных или отдельных бумажных листов (страниц) или тетрадей, на которых нанесе...';
+       ?>
+   @endif
+
    <meta name="description" content="{{$shareText}}">
    <meta property="og:description" content="{{$shareText}}">
    <meta property="og:locale" content="ru_RU" />
@@ -50,7 +55,6 @@
    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
    <link href="{{ asset('css/main/styles.css') }}" rel="stylesheet">
-   <link href="{{ asset('css/main/modal.css') }}" rel="stylesheet">
 
    <link href="{{ asset('css/categories/styles.css') }}" rel="stylesheet">
 

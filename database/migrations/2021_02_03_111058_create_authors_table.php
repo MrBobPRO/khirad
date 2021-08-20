@@ -17,8 +17,9 @@ class CreateAuthorsTable extends Migration
             $table->id();
             $table->string('name')->unique();
             $table->string('latin_name'); //for route url
+            $table->boolean('foreign');
             $table->string('photo');
-            $table->text('description');
+            $table->text('biography');
             $table->boolean('popular')->default(false);
         });
     }

@@ -25,7 +25,8 @@ class ReviewController extends Controller
             'user_name' => $request->user_name,
             'book_id' => $request->book_id,
             'mark' => $mark,
-            'body' => $request->body
+            'body' => $request->body,
+            'new' => true
         ]);
 
         //INCREMENT BOOK MARKS COUNT

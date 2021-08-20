@@ -30,7 +30,7 @@
                         {{substr($authors, 0, -3)}}
                      </p>
                      <p class="owl-marks">@include('marks.' . $book->marksTemplate)
-                        &nbsp;&nbsp;{{$book->marksCount}} отзыва</p>
+                        &nbsp;&nbsp;{{$book->marksCount}} мулоҳиза</p>
                      <p class="owl-book-desc">{{$book->description}}</p>
                      <a href="{{route('books.single', $book->latin_name)}}" style="color: {{$book->btnColor}}">Муфассал <i class="fas fa-long-arrow-alt-right"></i></a>
                   </div>

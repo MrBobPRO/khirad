@@ -17,6 +17,16 @@
    </div>
    {{-- Authors seach end --}}
 
+   <div class="filter-by-alphabet primary-container">
+         <h6>Фильтр по алфавиту : </h6>
+         <ul>
+            @foreach ($alphabet as $item)
+               <li><a class="{{$item == $letter ? 'active' : ''}}" href="{{route('authors.by_letter',  $item)}}">{{$item}}</a></li>
+            @endforeach
+         </ul>
+   </div>
+
+
    <div class="authors-list-container">
       <div class="authors-list">
          @foreach($authors as $author)

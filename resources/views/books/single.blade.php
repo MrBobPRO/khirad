@@ -86,16 +86,24 @@
                </div>
             </div>
 
-            <a href="/read_book?n={{$book->latin_name}}" class="primary-btn read-book" target="_blank">
-               <i class="fab fa-readme"></i> &nbsp; {{$book->free ? 'Хондани китоб' : 'Хондани қисмате аз китоб'}}
-            </a>
+            @if($book->free)
+               <a href="/read_book?name={{$book->latin_name}}" class="primary-btn read-book" target="_blank">
+                  <i class="fas fa-book-open"></i> &nbsp; Хондани китоб
+               </a>
+            @else
+               <a href="/read_book?name={{$book->latin_name}}" class="primary-btn read-book" target="_blank">
+                  <i class="fas fa-book-open"></i> &nbsp; Хондани қисмате аз китоб
+               </a>
+
+               <button class="primary-btn" data-bs-toggle="modal" data-bs-target="#buyModal"><i class="fas fa-coins"></i> &nbsp; Харидани китоб</button>
+            @endif
          </div>
          {{-- BOOK PROPERTIES END --}}
    
          {{-- SCREENSHOTS START--}}
          @if($book->screenshot1 != '' || $book->screenshot2 != '' || $book->screenshot3 != '')
             <div class="gallery-container">
-               <h1>Скриншоты страниц книги</h1>
+               <h1>Намобардориҳои саҳифаҳои китоб</h1>
                <div class="gallery">
                   @if($book->screenshot1 != '')
                      <a href="{{asset('img/screenshots/' .  $book->screenshot1)}}" class="big">
@@ -126,7 +134,7 @@
 
             {{-- AVERAGE RATING START --}}   
             <div class="reviews-average-rating">
-               <p>Средняя оценка пользователей :</p>
+               <p>Баҳогузории миёнаи корбарон :</p>
                <p>
                   @include('marks.' . $book->marksTemplate)
                   &nbsp;&nbsp;{{$book->marksCount}} мулоҳиза
@@ -135,7 +143,7 @@
             {{-- AVERAGE RATING END --}}   
 
             {{-- IF THERE ARE NO REVIEWS --}}
-            @if($book->marksCount == 0) <p class="no-reviews">Андешаю мулоҳиза дар мавриди китобҳо вуҷуд надорад.</p> @endif
+            @if($book->marksCount == 0) <p class="no-reviews">Андешаю мулоҳиза дар мавриди китоб вуҷуд надорад.</p> @endif
             {{-- ADD NEW REVIEW--}}
             <div class="add-review">
                <a data-bs-toggle="collapse" href="#reviews-collapse" role="button" aria-expanded="false" aria-controls="reviews-collapse" class="collapsed">
@@ -178,6 +186,33 @@
       </div>  {{-- BOOK INFO END --}}
    </div>  {{-- PRIMARY CONTAINER END --}}
 </div>  {{-- BOOKS MAIN CONTAINER END --}}
+
+
+
+<!-- Disliked Modal -->
+<div class="modal fade grades-modal" id="buyModal" tabindex="-1" aria-labelledby="buyModalLabel" aria-hidden="true">
+   <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h5 class="modal-title" id="buyModalLabel">Харидани китоб</h5>
+         </div>
+         <form action="/order_book" method="POST">
+            <div class="modal-body">
+               <p>Маълумоти хешро ба мо ирсол намоед ва мо барои барррасии минбаъда бо Шумо дар тамос хоҳем шуд !</p>
+               <label for="user_name"><i class="fas fa-user"></i> &nbsp;Номи шумо</label>
+               <input type="text" name="name" id="user_name">
+               <label for="user_mobile"><i class="fas fa-phone"></i> &nbsp;Рақамҳои мобилии Шумо</label>
+               <input type="text" name="user_mobile" id="user_mobile">
+            </div>
+   
+            <div class="modal-footer">
+               <button type="button" class="cancel-btn" data-bs-dismiss="modal">Закрыть</button>
+               <button type="submit" class="primary-btn">Фиристодан</button>
+            </div>
+         </form>
+      </div>
+   </div>
+</div>
 
 
 @endsection

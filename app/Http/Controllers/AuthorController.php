@@ -20,21 +20,29 @@ class AuthorController extends Controller
         $allAuthors = Author::select('name', 'latin_name')
                             ->orderBy('name', 'asc')->get();
 
-        $authors = Author::select('name', 'photo', 'latin_name')
-                            ->orderBy('name', 'asc')->paginate(40);
+        $authors = Author::orderBy('foreign')->orderBy('name', 'asc')->paginate(40);
 
-        return view('authors.index', compact('authors', 'allAuthors'));
+        //used to highlight active letter in alphabet (authors.by_letter route) 
+        $letter = '0';
+
+        $alphabet = ['а', 'б', 'в', 'г', 'ғ', 'д', 'е', 'ё', 'ж', 'з', 'и', 'й', 'ӣ', 'к', 'қ', 'л', 'м', 'н', 'о', 'п', 'р', 'с', 'т', 'у', 'ӯ', 'ф', 'х', 'ҳ', 'ч', 'ҷ', 'ш', 'ъ', 'э', 'ю', 'я'];
+
+        return view('authors.index', compact('authors', 'allAuthors', 'letter', 'alphabet'));
     }
 
-    public function single($name)
+    public function by_letter($letter)
     {
-        $author = Author::where('latin_name', $name)->first();
+        // ALL AUTHORS USED FOR SEARCH
+        $allAuthors = Author::select('name', 'latin_name')
+                            ->orderBy('name', 'asc')->get();
+                            
+        $authors = Author::where('name', 'LIKE', $letter . '%')->orderBy('foreign')
+                            ->orderBy('name', 'asc')
+                            ->paginate(40);
 
-        // FOR OPENGRAPH
-        $shareText = $author->description;
-        $shareText = mb_strlen($shareText) < 170 ? $shareText : mb_substr($shareText, 0, 166) . '...';
+        $alphabet = ['а', 'б', 'в', 'г', 'ғ', 'д', 'е', 'ё', 'ж', 'з', 'и', 'й', 'ӣ', 'к', 'қ', 'л', 'м', 'н', 'о', 'п', 'р', 'с', 'т', 'у', 'ӯ', 'ф', 'х', 'ҳ', 'ч', 'ҷ', 'ш', 'ъ', 'э', 'ю', 'я'];
 
-        return view('authors.single', compact('author', 'shareText'));
+        return view('authors.index', compact('authors', 'allAuthors', 'letter', 'alphabet'));
     }
 
     public function popular()
@@ -43,11 +51,23 @@ class AuthorController extends Controller
         $allAuthors = Author::where('popular', true)
                             ->select('name', 'latin_name')
                             ->orderBy('name', 'asc')->get();
+
         $authors = Author::where('popular', true)
                             ->select('name', 'photo', 'latin_name')
                             ->orderBy('name', 'asc')->paginate(40);
 
         return view('authors.popular', compact('authors', 'allAuthors'));
+    }
+
+    public function single($name)
+    {
+        $author = Author::where('latin_name', $name)->first();
+
+        // FOR OPENGRAPH
+        $shareText = $author->biography;
+        $shareText = mb_strlen($shareText) < 170 ? $shareText : mb_substr($shareText, 0, 166) . '...';
+
+        return view('authors.single', compact('author', 'shareText'));
     }
 
 

@@ -1,7 +1,6 @@
 
 .authors-prime-container {
    padding: 50px 0 90px;
-   background: #F9FAFC;
 }
 .authors-prime-container h1 {
    text-align: center;
@@ -14,7 +13,7 @@
    width: 700px;
    max-width: 700px;
    display: flex;
-   margin: 40px auto 30px;
+   margin: 30px auto;
    position: relative;
    box-shadow: 0px 3px 10px 0px rgb(0 0 0 / 10%);
 }
@@ -57,6 +56,41 @@
 }
 /* Search styles end */
 
+/* Filter by alphabet start */
+.filter-by-alphabet {
+   display: flex;
+   align-items: center;
+   padding: 15px 50px;
+   width: 100%;
+}
+.filter-by-alphabet h6 {
+   font-weight: 400;
+   text-transform: uppercase;
+   font-size: 16px;
+   margin: 0;
+}
+.filter-by-alphabet ul {
+   display: flex;
+   margin: 0;
+   gap: 16px;
+}
+.filter-by-alphabet ul li {
+   list-style: none;
+}
+.filter-by-alphabet ul li a {
+   text-transform: uppercase;
+   text-decoration: none;
+   color: black;
+   font-weight: 300;
+}
+.filter-by-alphabet ul li a.active {
+   font-weight: bold;
+   color: #7151ed;
+}
+/* Filter by alphabet end */
+
+
+
 /* AUTHOR LIST START */
 .authors-list-container {
    max-width: 1550px;
@@ -66,14 +100,14 @@
 .authors-list {
    display: flex;
    flex-wrap: wrap;
-   margin: 0 -1.5%;
+   gap: 30px;
 }
 .authors-list a {
-   width: 17%;
-   margin: 0 1.5% 40px;
+   width: calc(20% - 24px);
    color: black;
    text-decoration: none;
    padding: 30px 30px 28px;
+   box-shadow: 0 0 30px 0 rgb(0 0 0 / 7%);
    background: white;
 }
 .authors-list div {
@@ -94,11 +128,3 @@
 }
 /* AUTHOR LIST END */
 
-
-/* FOOTER STYLES */
-.footer {
-   background: white;
-}
-.copyright {
-   background: #F9FAFC;
-}

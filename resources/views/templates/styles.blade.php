@@ -11,7 +11,7 @@
       <link href="{{ asset('css/books_search/styles.css') }}" rel="stylesheet">
     @break
 
-    @case('authors') @case('authors.popular')
+    @case('authors') @case('authors.popular') @case('authors.by_letter')
       <link href="{{ asset('css/authors/styles.css') }}" rel="stylesheet">
     @break
 

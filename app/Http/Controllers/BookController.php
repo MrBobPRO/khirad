@@ -28,7 +28,7 @@ class BookController extends Controller
     public function single($name)
     {
         $book = Book::where('latin_name', $name)->first();
-        $reviews = Review::where('book_id', $book->id)->orderBy('updated_at', 'desc')->get();
+        $reviews = $book->reviews()->orderBy('updated_at', 'desc')->get();
 
         // FOR OPENGRAPH
         $shareText = $book->description;
@@ -103,7 +103,7 @@ class BookController extends Controller
 
     public function read(Request $request)
     {
-        $book = Book::where('latin_name', $request->n)->first();
+        $book = Book::where('latin_name', $request->name)->first();
         $book->number_of_readings = $book->number_of_readings + 1;
         $book->save();
         // FOR OPENGRAPH

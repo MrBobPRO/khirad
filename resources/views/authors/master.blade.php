@@ -49,7 +49,6 @@
    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
    <link href="{{ asset('css/main/styles.css') }}" rel="stylesheet">
-   <link href="{{ asset('css/main/modal.css') }}" rel="stylesheet">
    
    <link href="{{ asset('css/authors_single/styles.css') }}" rel="stylesheet">
 

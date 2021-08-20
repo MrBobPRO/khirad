@@ -36,6 +36,7 @@ Route::get('/read_book', 'BookController@read')->name('books.read');
 Route::get('/authors', 'AuthorController@index')->name('authors');
 Route::get('/popular_authors', 'AuthorController@popular')->name('authors.popular');
 Route::get('/authors/{name}', 'AuthorController@single')->name('authors.single');
+Route::get('/authors/by_letter/{letter}', 'AuthorController@by_letter')->name('authors.by_letter');
 
 //ARCHIVE
 Route::get('/archive', 'ArchiveController@index')->name('archive');

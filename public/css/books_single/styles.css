@@ -32,14 +32,17 @@
    margin-bottom: 30px;
 }
 .book-info button, .book-info .read-book {
-   padding: 14px 25px;
+   padding: 16px 25px;
    font-size: 15px;  
    margin-top: 10px;
    text-decoration: none;
    display: inline-block;
 }
+.book-info .read-book {
+   margin-right: 10px;
+}
 .book-properties {
-   width: 70%;
+   width: 80%;
 }
 .book-properties-single {
    display: flex;
@@ -47,12 +50,12 @@
    font-size: 17px;
 }
 .book-properties .key {
-   width: 50%;
+   width: 45%;
    font-weight: bold;
    color: black;
 }
 .book-properties .value {
-   width: 50%;
+   width: 55%;
    font-weight: 300;
 }
 .book-properties .value a {
@@ -262,5 +265,67 @@
    margin: 0px;
 }
 /* REVIEWS SINGLE BLOCK END */
-
 /* REVIEWS CONTAINER EMD */
+
+/* Modal start */
+.modal-header {
+   border: none;
+   padding: 20px 20px 0;
+}
+.modal-header h5 {
+   width: 100%;
+   font-weight: 500;
+   color: #000000c4;
+   font-size: 24px;
+   text-align: center;
+   font-family: 'Cuprum', sans-serif;
+}
+.modal-body {
+   padding: 20px;
+}
+.modal-body label {
+   width: 100%;
+   color: #000000c4;
+   margin-bottom: 2px;
+   font-weight: 500;
+   font-family: 'Cuprum', sans-serif;
+   font-size: 17px;
+}
+.modal-body label i {
+   color: #7151ed;
+}
+.modal-body input {
+   width: 100%;
+   color: #828282;
+   border: 1px solid #607d8b40;
+   padding: 7px 12px;
+   margin-bottom: 15px;
+   border-radius: 5px;
+}
+.modal-body p {
+   margin-bottom: 20px;
+   font-weight: 300;
+}
+.modal-footer {
+   border: none;
+   padding: 0 20px 20px;
+}
+.modal .primary-btn {
+   padding: 13px 25px;
+}
+.modal .primary-btn:hover {
+   background: linear-gradient(rgb(95, 69, 235), rgb(126, 91, 239)) rgb(95, 69, 235);
+   color: rgb(249, 250, 252);
+   border: 1px solid rgb(126, 91, 239);
+}
+.modal .cancel-btn {
+   background: rgb(249, 250, 252);
+   border: 1px solid rgb(126, 91, 239);
+   color: rgb(126, 91, 239);
+   border-radius: 6px;
+   line-height: 1;
+   font-weight: 400;
+   margin: 0 10px 0 0;
+   padding: 13px 25px;
+}
+/* Modal end */

@@ -8,7 +8,7 @@
       <img src="{{asset('img/authors/' . $author->photo)}}" alt="{{$author->name}}">
       <div>
          <h1>{{$author->name}}</h1>
-         <p>{!!$author->description!!}</p>
+         <p>{!!$author->biography!!}</p>
       </div>
    </div>
    {{-- AUTHORS INFO END --}}

@@ -29,7 +29,12 @@ class CategoryController extends Controller
                     ->latest()
                     ->paginate(40);
 
-        return view('categories.single', compact('category', 'books'));
+
+        // FOR OPENGRAPH
+        $shareText = $category->description;
+        $shareText = mb_strlen($shareText) < 170 ? $shareText : mb_substr($shareText, 0, 166) . '...';
+
+        return view('categories.single', compact('category', 'books', 'shareText'));
     }
 
 
