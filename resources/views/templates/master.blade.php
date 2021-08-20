@@ -43,11 +43,7 @@
    <script src="https://kit.fontawesome.com/0f5643e341.js" crossorigin="anonymous"></script>
    {{-- Bootstrap v5.0 --}}
    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
-   {{-- JQueryFormStyler --}}
-   <link href="{{ asset('css/jqformstyler/jquery.formstyler.css') }}" rel="stylesheet">
-   <link href="{{ asset('css/jqformstyler/jquery.formstyler.theme.css') }}" rel="stylesheet">
-   {{-- Select2 --}}
-   <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
 
    <link href="{{ asset('css/main/styles.css') }}" rel="stylesheet">
 
@@ -66,10 +62,6 @@
    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
    {{-- Bootstrap v5.0 --}}
    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
-   {{-- JQueryFormStyler --}}
-   <script src=" {{asset('js/JQueryFormStyler/jquery.formstyler.min.js') }}"></script>
-   {{-- Select2 --}}
-   <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
    <script src="{{ asset('js/main.js') }}"></script>
 

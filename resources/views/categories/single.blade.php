@@ -8,7 +8,7 @@
       {{-- CHANGE MAIN TITLE ACCORDING TO ROUTE NAME --}}
       @if($route == 'categories.single') {{$category->name}}
       @elseif($route == 'books.all') Ҳамаи китобҳо
-      @elseif($route == 'categories.rating') Китобҳои бо баҳои баланд
+      @elseif($route == 'categories.rating') Китобҳои дорои баҳои баланд
       @elseif($route == 'categories.world_most_readable') Серхондатарин китобҳои ҷаҳон
       @elseif($route == 'categories.site_most_readable') Серхондатарин китобҳои сомона
       @elseif($route == 'categories.foreign_books') Китобҳои хориҷӣ

@@ -40,12 +40,12 @@
    margin-right: 8px;
 }
 .owl-item {
-   max-width: 485px;
+   max-width: 472px;
    cursor: grab;
 }
 .owl-carousel .item {
    border-radius: 12px;
-   padding: 25px 30px 35px;
+   padding: 25px 25px 35px;
    display: flex;
    margin-bottom: 100px;
    flex-direction: column;
@@ -105,7 +105,6 @@
    margin-left: 10px;
 }
 .owl-img-container {
-   width: 38%;
    width: 40%;
    margin-bottom: -75px;
    display: flex;
@@ -318,3 +317,50 @@
    font-weight: 300;
 }
 /* TOP BOOKS END */
+
+
+/*! JQ SELECT STYLES START*/
+.jq-selectbox {
+   width: 100%;
+ }
+ .jq-selectbox.focused .jq-selectbox__select {
+    border-color: #d2d2d2;
+ }
+ .jq-selectbox__select:hover {
+   background: white;
+}
+ .jq-selectbox li.selected {
+   background-color: #7151ed;
+   color: #FFF;
+ }
+ .jq-selectbox li:hover {
+   background-color: #7151ed;
+   color: #FFF;
+ }
+ .jq-selectbox li {
+   padding: 8px 20px 9px;
+   color: black;
+   font-family: 'Roboto', sans-serif;
+   font-size: 15px;
+   font-weight: 300;
+ }
+ .jq-selectbox__dropdown {
+    box-shadow: none;
+ }
+ .jq-selectbox__select-text {
+   color: black;
+   font-family: 'Roboto', sans-serif;
+   width: 100% !important;
+   font-size: 15px;
+   min-width: 100px;
+   font-weight: 300;
+ }
+ .jq-selectbox__select {
+   font-family: 'Roboto', sans-serif;
+   height: auto;
+   border: 1px solid #d0d0d0b3;
+   background: white;
+   padding: 0px 45px 0px 20px;
+   box-shadow: none;
+ }
+ /*! JQ SELECT STYLES END*/

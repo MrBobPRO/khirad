@@ -65,7 +65,7 @@
                @endfor
             </select>
 
-            <input id="bookName" name="keyword" type="text" minlength="3" placeholder="Номи китоб ва ё номи муаллиф"/>
+            <input id="bookName" name="keyword" type="text" placeholder="Номи китоб ва ё номи муаллиф"/>
             <button class="primary-btn primary-btn-shadow" type="submit">Ҷустуҷӯ</button>
          </form>
       </div>

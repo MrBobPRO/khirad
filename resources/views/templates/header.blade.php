@@ -14,7 +14,7 @@
                <div class="mega-menu-left">
                   <h2>Илова бар ин</h2>
                   <a href="{{route('books.all')}}">Ҳамаи китобҳо</a>
-                  <a href="{{route('categories.rating')}}">Китобҳои бо баҳои баланд</a>
+                  <a href="{{route('categories.rating')}}">Китобҳои дорои баҳои баланд</a>
                   <a href="{{route('categories.world_most_readable')}}">Серхондатарин китобҳои ҷаҳон</a>
                   <a href="{{route('categories.site_most_readable')}}">Серхондатарин китобҳои сомона</a>
                   <a href="{{route('authors.popular')}}">Муаллифони машҳур</a>
@@ -45,7 +45,7 @@
 
       {{-- global seach start --}}
       <form action="/search" method="get" class="searchbar" id="searchbar">
-         <input type="text" list="search_keys" autocomplete="off" name="keyword" placeholder="Ҷустуҷӯ..." id="search_input">
+         <input type="text" list="search_keys" autocomplete="off" name="keyword" placeholder="Ҷустуҷӯ..." id="search_input" minlength="3" required>
          <datalist id="search_keys">
             @foreach ($allBooksNames as $n)
                <option value="{{$n}}">

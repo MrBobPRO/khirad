@@ -95,7 +95,7 @@
                   <i class="fas fa-book-open"></i> &nbsp; Хондани қисмате аз китоб
                </a>
 
-               <button class="primary-btn" data-bs-toggle="modal" data-bs-target="#buyModal"><i class="fas fa-coins"></i> &nbsp; Харидани китоб</button>
+               <button class="primary-btn" data-bs-toggle="modal" data-bs-target="#buyModal"><i class="fas fa-coins"></i> &nbsp; Фармоиши китоб</button>
             @endif
          </div>
          {{-- BOOK PROPERTIES END --}}
@@ -170,7 +170,7 @@
             @foreach ($reviews as $review)
             <div class="review-single-block">
                <div class="review-header" @if($review->body == '') style="margin: 0" @endif>
-                  <h6>{{$review->user_name == '' ? 'Пользователь' : $review->user_name}}</h6>
+                  <h6>{{$review->user_name == '' ? 'Хонанда' : $review->user_name}}</h6>
                   <p>
                      <?php $date = \Carbon\Carbon::parse($review->updated_at)->locale('ru');
                      $formatted = $date->isoFormat('DD.MM.YYYY') ?>
@@ -194,22 +194,25 @@
    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
       <div class="modal-content">
          <div class="modal-header">
-            <h5 class="modal-title" id="buyModalLabel">Харидани китоб</h5>
+            <h5 class="modal-title" id="buyModalLabel">Фармоиш додани китоб</h5>
          </div>
+
          <form action="/order_book" method="POST">
+            @csrf
             <div class="modal-body">
                <p>Маълумоти хешро ба мо ирсол намоед ва мо барои барррасии минбаъда бо Шумо дар тамос хоҳем шуд !</p>
                <label for="user_name"><i class="fas fa-user"></i> &nbsp;Номи шумо</label>
-               <input type="text" name="name" id="user_name">
+               <input type="text" name="name" id="user_name" required>
                <label for="user_mobile"><i class="fas fa-phone"></i> &nbsp;Рақамҳои мобилии Шумо</label>
-               <input type="text" name="user_mobile" id="user_mobile">
+               <input type="text" name="phone" id="user_mobile" required>
             </div>
    
             <div class="modal-footer">
-               <button type="button" class="cancel-btn" data-bs-dismiss="modal">Закрыть</button>
+               <button type="button" class="cancel-btn" data-bs-dismiss="modal">Пӯшидан</button>
                <button type="submit" class="primary-btn">Фиристодан</button>
             </div>
          </form>
+
       </div>
    </div>
 </div>

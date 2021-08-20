@@ -1,10 +1,11 @@
+$('.jq-select').styler();  //JQ FORM STYLER
 
 // OWL CAROUSEL START
 $('.owl-carousel').owlCarousel({
-   margin:30,
+   margin:15,
    loop:true,
    autoWidth:true,
-   items: 4,
+   items: 3,
    dots: false
 })
 

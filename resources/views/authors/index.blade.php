@@ -18,7 +18,7 @@
    {{-- Authors seach end --}}
 
    <div class="filter-by-alphabet primary-container">
-         <h6>Фильтр по алфавиту : </h6>
+         <h6>Полоиш аз рӯйи алифбо : </h6>
          <ul>
             @foreach ($alphabet as $item)
                <li><a class="{{$item == $letter ? 'active' : ''}}" href="{{route('authors.by_letter',  $item)}}">{{$item}}</a></li>

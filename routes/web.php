@@ -18,6 +18,7 @@ Route::get('/', 'HomeController@index')->name('home');
 // SINGLE BOOK ROUTES
 Route::get('/book/{name}', 'BookController@single')->name('books.single');
 Route::post('/reviews-store', 'ReviewController@store');
+Route::post('/order_book', 'OrderController@create');
 
 // FOR ALL BOOKS, DISCOUNTED BOOKS, POPULAR BOOKS, RATED BOOKS, FREE BOOKS, AND SINGLE CATEGORY BOOKS USED SAME VIEW AND STYLES
 Route::get('/all_books', 'BookController@all')->name('books.all');
@@ -38,23 +39,11 @@ Route::get('/popular_authors', 'AuthorController@popular')->name('authors.popula
 Route::get('/authors/{name}', 'AuthorController@single')->name('authors.single');
 Route::get('/authors/by_letter/{letter}', 'AuthorController@by_letter')->name('authors.by_letter');
 
-//ARCHIVE
-Route::get('/archive', 'ArchiveController@index')->name('archive');
-//ARCHIVE BOOKS DOWNLOAD
-Route::post('/archive/download', 'ArchiveController@download');
 
 //QUESTIONS-ANSWERS PAGE
 Route::get('/questions', 'SecondaryController@questions')->name('questions');
 //CONTACTS PAGE
 Route::get('/contacts', 'SecondaryController@contacts')->name('contacts');
-
-//BASKET PAGE
-Route::get('/basket', 'BasketController@index')->name('basket');
-Route::post('/add_into_basket', 'BasketController@store');
-Route::post('/remove_from_basket', 'BasketController@remove');
-Route::post('/empty_basket', 'BasketController@empty');
-//CHEKOUT
-Route::post('/checkout', 'CheckoutController@checkout');
 
 
 //--------------------------Webmaster Routes--------------------------------
