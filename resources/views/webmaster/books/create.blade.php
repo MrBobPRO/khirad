@@ -33,6 +33,16 @@
    </div>
 
    <div class="form-single-block">
+      <label>Язык</label>
+      <input class="wm-radio" type="radio" name="language" id="lang_tj" value="tj" checked />
+      <label class="radio-labels mr-20px" for="lang_tj">Таджикский</label>
+      <input class="wm-radio" type="radio" name="language" id="lang_ru" value="ru" />
+      <label class="radio-labels mr-20px" for="lang_ru">Русский</label>
+      <input class="wm-radio" type="radio" name="language" id="lang_en" value="en" />
+      <label class="radio-labels" for="lang_en">Английский</label>
+   </div>
+
+   <div class="form-single-block">
       <label>Обложка книги (файл). Необходимый размер 700x980</label>
       <input name="photo" type="file" accept=".png, .jpeg, .jpg" class="upload-file" id="photo" required>
    </div>
@@ -55,15 +65,15 @@
 
    <div class="form-single-block">
       <label>Тип книги</label>
-      <input class="wm-radio" type="radio" name="isFree" id="book_is_free" value="1"/>
+      <input class="wm-radio" type="radio" name="free" id="book_is_free" value="1" checked />
       <label class="radio-labels mr-20px" for="book_is_free">Бесплатная</label>
-      <input class="wm-radio" type="radio" name="isFree" id="book_isnt_free" value="0" checked/>
+      <input class="wm-radio" type="radio" name="free" id="book_isnt_free" value="0"/>
       <label class="radio-labels" for="book_isnt_free">Платная</label>
    </div>
 
    <div class="form-single-block" id="paid_books_inputs" data-form-action="create">
       <label>Цена (только цифры).</label>
-      <input name="price" type="number" min="0" step="any" value="0" required>
+      <input name="price" id="price_input" type="number" min="0" step="any" value="0">
    </div>
 
    <div class="form-single-block">
@@ -93,14 +103,14 @@
    </div>
 
    <div class="form-single-block">
-      <label>Добавить книгу к популярным книгам?</label>
-      <input class="wm-radio" type="radio" name="isPopular" id="book_is_popular" value="1"/>
-      <label class="radio-labels mr-20px" for="book_is_popular">Да</label>
-      <input class="wm-radio" type="radio" name="isPopular" id="book_isnt_popular" value="0" checked/>
-      <label class="radio-labels" for="book_isnt_popular">Нет</label>
+      <label>Добавить книгу в самые читаемые книги мира ?</label>
+      <input class="wm-radio" type="radio" name="most_readable" id="book_is_most_readable" value="1"/>
+      <label class="radio-labels mr-20px" for="book_is_most_readable">Да</label>
+      <input class="wm-radio" type="radio" name="most_readable" id="book_isnt_most_readable" value="0" checked/>
+      <label class="radio-labels" for="book_isnt_most_readable">Нет</label>
    </div>
 
-   <div class="form-single-block" id="popular_books_inputs">
+   <div class="form-single-block" id="most_readable_books_inputs">
       <label>Цвет текста в слайдере популярных книг</label>
       <input name="txtColor" class="color-picker" value="black">
 

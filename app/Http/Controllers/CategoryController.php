@@ -81,7 +81,7 @@ class CategoryController extends Controller
                     ->select('id', 'name', 'photo', 'latin_name')
                     ->with(['authors' => function($query) {
                         $query->select('id', 'name'); }])
-                    ->orderBy('name', 'asc')
+                    ->latest()
                     ->paginate(40);
 
         return view('categories.single', compact('books'));

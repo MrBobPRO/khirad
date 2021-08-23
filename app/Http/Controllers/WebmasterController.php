@@ -67,11 +67,10 @@ class WebmasterController extends Controller
     {
         $book = new Book;
         $book->name = $request->name;
-        $book->isFree = $request->isFree;
-        // $book->price = $request->isFree ? 0 : $request->price;
-        // $book->discountPrice = $request->isFree ? 0 : $request->discountPrice;
-        $book->price = 0;
-        $book->discountPrice = 0;
+        $book->latin_name = $this->transliterateIntoLatin($request->name);
+        $book->free = $request->free;
+        $book->language = $request->language;
+        $book->price = $request->free ? 0 : $request->price;
         $book->description = $request->description;
         //needed in books with errors page
         $book->filename = 'Ошибка';
@@ -79,50 +78,43 @@ class WebmasterController extends Controller
         $book->publisher = $request->publisher;
         $book->year = $request->year;
         $book->pages = $request->pages;
-        $book->isPopular = $request->isPopular;
-        //only popular books display in main slider
-        if($request->isPopular) {
+        $book->most_readable = $request->most_readable;
+        //only most_readable books display in main slider
+        if($request->most_readable) {
             $book->txtColor = $request->txtColor;
             $book->bgColor = $request->bgColor;
             $book->btnColor = $request->btnColor;
         }
         $book->save();
 
-        //only paidBooks have screenshots
-        if(!$request->isFree) {
-            $sc1 = $request->file('screenshot1');
-            if($sc1) {
-                $sc1Filename = $book->id . 'a.' . $sc1->getClientOriginalExtension();
-                $sc1->move(public_path('img/screenshots'), $sc1Filename);
-                $book->screenshot1 = $sc1Filename;
-            }
-
-            $sc2 = $request->file('screenshot2');
-            if($sc2) {
-                $sc2Filename = $book->id . 'b.' . $sc2->getClientOriginalExtension();
-                $sc2->move(public_path('img/screenshots'), $sc2Filename);
-                $book->screenshot2 = $sc2Filename;
-            }
-
-            $sc3 = $request->file('screenshot3');
-            if($sc3) {
-                $sc3Filename = $book->id . 'c.' . $sc3->getClientOriginalExtension();
-                $sc3->move(public_path('img/screenshots'), $sc3Filename);
-                $book->screenshot3 = $sc3Filename;
-            }
+        //upload screenshots
+        $sc1 = $request->file('screenshot1');
+        if($sc1) {
+            $sc1Filename = $book->id . 'a.' . $sc1->getClientOriginalExtension();
+            $sc1->move(public_path('img/screenshots'), $sc1Filename);
+            $book->screenshot1 = $sc1Filename;
         }
 
+        $sc2 = $request->file('screenshot2');
+        if($sc2) {
+            $sc2Filename = $book->id . 'b.' . $sc2->getClientOriginalExtension();
+            $sc2->move(public_path('img/screenshots'), $sc2Filename);
+            $book->screenshot2 = $sc2Filename;
+        }
+
+        $sc3 = $request->file('screenshot3');
+        if($sc3) {
+            $sc3Filename = $book->id . 'c.' . $sc3->getClientOriginalExtension();
+            $sc3->move(public_path('img/screenshots'), $sc3Filename);
+            $book->screenshot3 = $sc3Filename;
+        }
+
+        //upload pdf file
         $file = $request->file('book');
-        $filename = $book->id . '.' . $file->getClientOriginalExtension();
+        $filename = $book->latin_name . '.' . $file->getClientOriginalExtension();
         //move book into public folder if its free
-        if($book->isFree) $file->move(public_path('free_books'), $filename);
-        else {
-            //else move book into private folder
-            $file->storeAs('books', $filename, 'private');
-            //move piece of book into public folder. Only paid books have piece of book
-            $piece = $request->file('piece');
-            $piece->move(public_path('free_books'), $filename);
-        } 
+        $file->move(public_path('books'), $filename);
+        
         //change books filename in db
         $book->filename = $filename;
         $book->save();
@@ -139,7 +131,7 @@ class WebmasterController extends Controller
             $constraint->aspectRatio();
         });
         //save created image
-        $thumb->save(public_path('img/thumbs/' . $photoName));
+        $thumb->save(public_path('img/books/thumbs/' . $photoName));
 
         //change books photo in db
         $book->photo = $photoName;
@@ -318,6 +310,31 @@ class WebmasterController extends Controller
         $book->delete();
 
         return redirect()->route('webmaster.index');
+    }
+
+
+    private function transliterateIntoLatin($string)
+    {
+        $cyr = [
+            'а','б','в','г','д','е','ё','ж','з','и','й','к','л','м','н','о','п',
+            'р','с','т','у','ф','х','ц','ч','ш','щ','ъ','ы','ь','э','ю','я',
+            'А','Б','В','Г','Д','Е','Ё','Ж','З','И','Й','К','Л','М','Н','О','П',
+            'Р','С','Т','У','Ф','Х','Ц','Ч','Ш','Щ','Ъ','Ы','Ь','Э','Ю','Я', ' ',
+            'ӣ', 'ӯ', 'ҳ', 'қ', 'ҷ', 'ғ', 'Ғ', 'Ӣ', 'Ӯ', 'Ҳ', 'Қ', 'Ҷ'
+        ];
+
+        $lat = [
+            'a','b','v','g','d','e','io','zh','z','i','y','k','l','m','n','o','p',
+            'r','s','t','u','f','h','ts','ch','sh','shb','a','i','y','e','yu','ya',
+            'a','b','v','g','d','e','io','zh','z','i','y','k','l','m','n','o','p',
+            'r','s','t','u','f','h','ts','ch','sh','shb','a','i','y','e','yu','ya', '_',
+            'i', 'u', 'h', 'q', 'j', 'g', 'g', 'i', 'u', 'h', 'q', 'j'
+        ];
+        //Trasilate url
+        $transilation = str_replace($cyr, $lat, $string);
+
+        //return lowercased url
+        return strtolower($transilation);
     }
 
 }

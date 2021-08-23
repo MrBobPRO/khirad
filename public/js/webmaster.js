@@ -90,13 +90,13 @@ $('.select2_single_linked').on('select2:select', function (e) {
 //----------------Linked Select2--------------------------
 
 //global variables
-var popular_books_inputs = document.getElementById('popular_books_inputs');
+var most_readable_books_inputs = document.getElementById('most_readable_books_inputs');
 var paid_books_inputs = document.getElementById('paid_books_inputs');
 var spinner = document.getElementById('spinner-container');
-var piece = document.getElementById('piece'); //piece of book for paid books
+var price = document.getElementById('price_input'); //piece of book for paid books
 
 window.onload = function () {
-   $('.wm-select').styler(); //JQ FORM STYLER
+   $('.jq-select').styler(); //JQ FORM STYLER
    $('.wm-radio').styler(); //JQ Radio
    $('.upload-file').styler(); //JQ FORM STYLER
 
@@ -109,15 +109,15 @@ window.onload = function () {
 
 //-----------------On RadioButton Changes---------------------
 //Show or hide aaditional inputs On Popular Book answer change
-$('#book_is_popular').on('change', function () {
+$('#book_is_most_readable').on('change', function () {
    if ($(this).is(':checked')) {
-      popular_books_inputs.style.display = 'block';
+      most_readable_books_inputs.style.display = 'block';
    }
 });
 
-$('#book_isnt_popular').on('change', function () {
+$('#book_isnt_most_readable').on('change', function () {
    if ($(this).is(':checked')) {
-      popular_books_inputs.style.display = 'none';
+      most_readable_books_inputs.style.display = 'none';
    }
 });
 
@@ -126,9 +126,8 @@ $('#book_is_free').on('change', function () {
    if ($(this).is(':checked')) {
       paid_books_inputs.style.display = 'none';
 
-      //make piece of book field unrequired on create paid books
-      if (paid_books_inputs.dataset.formAction == 'create')
-         piece.required = false;
+      //make price of book field unrequired
+      price.required = false;
    }
 });
 
@@ -136,9 +135,8 @@ $('#book_isnt_free').on('change', function () {
    if ($(this).is(':checked')) {
       paid_books_inputs.style.display = 'block';
 
-      //make piece of book field unrequired on create paid books
-      if (paid_books_inputs.dataset.formAction == 'create')
-         piece.required = true;
+      //make price of book field required
+      price.required = true;
    }
 });
 //-----------------On RadioButton Changes---------------------
@@ -196,16 +194,7 @@ function ajax_books_store(post_url) {
       success: function (response) {
          //redirect to webmaster.home if its books_store method
          if (post_url == '/books_store') location.replace(response);
-            
-         //alert error message on errors
-         else if (response == 'no book fragment') {
-            //hide spinner
-            spinner.style.visibility = 'hidden';
-            alert('Пожалуйста, выберите фрагмент для просмотра платной книги, после того как поменяли бесплатную книгу на платную !');
-         }
-            
-         else if (response == 'success')
-            location.reload();
+         else if (response == 'success') location.reload();
       },
       error: function () {
          alert('Упс, что-то пошло не так. Проверьте список ошибочных книг!');

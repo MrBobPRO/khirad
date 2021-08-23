@@ -352,7 +352,10 @@ form input {
    max-width: 50%;
    margin-top: 10px;
 }
-#popular_books_inputs {
+#most_readable_books_inputs {
+   display: none;
+}
+#paid_books_inputs {
    display: none;
 }
 /* Form syles End*/
