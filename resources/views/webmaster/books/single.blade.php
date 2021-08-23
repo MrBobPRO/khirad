@@ -35,7 +35,7 @@
    </div>
 
    <div class="form-single-block">
-      <label>Картинка (файл). Необходимый размер 700x980 : {{$book->photo == 'Ошибка' ? 'Пожалуйста выберите файл!!!' : $book->photo}}</label>
+      <label>Обложка книги (файл). Необходимый размер 700x980 : {{$book->photo == 'Ошибка' ? 'Пожалуйста выберите файл!!!' : $book->photo}}</label>
       <input name="photo" type="file" accept=".png, .jpeg, .jpg" class="upload-file" id="photo">
       <img class="form-img" src="{{asset('img/books/' . $book->photo)}}">
    </div>

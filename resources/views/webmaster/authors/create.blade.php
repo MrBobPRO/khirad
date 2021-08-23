@@ -22,7 +22,7 @@
    </div>
 
    <div class="form-single-block">
-      <label>Описание</label>
+      <label>Биография</label>
       <textarea name="description"  rows="7" required></textarea>
    </div>
 

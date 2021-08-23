@@ -1,12 +1,3 @@
-----------------Временные изменения--------------------
-Весь нужный код комментирован
-
-Цены, скидочные центы, итд что связано с ценами скроем или удалим
-Главная / Актуальные скидки -> поменяли на Рекомендуемые книги
-Меню - корзина и архив ссылки отключены
-----------------Временные изменения--------------------
-
-
 
 Laravel v8.21.0 (PHP v7.4.5)
 Authentication -> Laravel Breeze -> all routes have been disabled except Logout (/routes/auth.php)
@@ -61,7 +52,7 @@ Use php artisan migrate:fresh
 May help: comment code in boot method of AppServiceProvider, mgirate and restore boot method
 
 
------------Storage-----------
+-----------Storage (removed)-----------
 For the secure reasons of paid books, books are stored on private folder
 -> Created new private disk (config/filesystems.php)
 -> path: storage/app/private/books
@@ -78,7 +69,7 @@ Added  ->   protected $namespace = 'App\Http\Controllers';    on RouteServicePro
 old type of routing like ->   Route::get('/', 'HomeController@index')->name('home');
 
 
------------Localiztion-----------
+-----------Localiztion (removed)-----------
 Tajik translations are written on \resources\lang\tj.json file
 
 1)Locale & fallback_locale (default languages) setted as 'tj' (config/app.php)
@@ -93,7 +84,7 @@ protected $middlewareGroups = [
 session(['my_locale' => 'tj']);
 
 
------------Webmaster Middleware-----------
+-----------Webmaster Middleware (removed)-----------
 Only Admins can enter dashboard
 1) Created & preaperad Webmaster middleware
 2) Added into $routeMiddleware (App/Http/KerneL)
@@ -109,10 +100,3 @@ Paginator::useBootstrap();
 -----------Styles and Views-----------
 For all books, discounted books, popular books, rated books and single category books used same view and styles 
 Search styles and view are almost same as all books, discounted books, popular books, rated books and single category books
-
-
------------Maintance-----------
-!!!REMOVE ALL MAINTANCE MIDDLEWARES IN PRODUCTION!!!
-Created Maintance Middleware/Controller/View
-Added into KerneL
-Added into all Controllers

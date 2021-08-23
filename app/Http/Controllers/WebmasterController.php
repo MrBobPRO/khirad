@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use App\Models\Book;
 use App\Models\Category;
 use App\Models\Author;
-use Illuminate\Support\Facades\App;
 use Image;
 
 use function PHPUnit\Framework\fileExists;
@@ -15,7 +14,7 @@ class WebmasterController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('webmaster');
+        $this->middleware('auth');
     }
 
     public function index()
@@ -39,7 +38,7 @@ class WebmasterController extends Controller
         $authors = Author::select('id', 'name')
                         ->orderBy('name', 'asc')->get();
 
-        $categories = Category::orderBy('tjName', 'asc')->get();
+        $categories = Category::orderBy('name', 'asc')->get();
         
         return view('webmaster.books.single', compact('book', 'authors', 'categories'));
     }
@@ -59,7 +58,7 @@ class WebmasterController extends Controller
         $authors = Author::select('id', 'name')
                         ->orderBy('name', 'asc')->get();
 
-        $categories = Category::orderBy('tjName', 'asc')->get();
+        $categories = Category::orderBy('name', 'asc')->get();
 
         return view('webmaster.books.create', compact('categories', 'authors'));
     }

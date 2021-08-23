@@ -33,7 +33,7 @@
    </div>
 
    <div class="form-single-block">
-      <label>Картинка (файл). Необходимый размер 700x980</label>
+      <label>Обложка книги (файл). Необходимый размер 700x980</label>
       <input name="photo" type="file" accept=".png, .jpeg, .jpg" class="upload-file" id="photo" required>
    </div>
 
@@ -42,7 +42,7 @@
       <div class="select2_multiple_container">
          <select name="categories" class="select2_multiple" data-dropdown-css-class="select2_multiple_dropdown" multiple required>
             @foreach ($categories as $category)
-               <option value="{{$category->id}}">{{$category->tjName}}</option>
+               <option value="{{$category->id}}">{{$category->name}}</option>
             @endforeach
          </select>
       </div>
@@ -62,15 +62,11 @@
    </div>
 
    <div class="form-single-block" id="paid_books_inputs" data-form-action="create">
-      {{-- <label>Цена (только цифры).</label>
+      <label>Цена (только цифры).</label>
       <input name="price" type="number" min="0" step="any" value="0" required>
+   </div>
 
-      <label class="mt-20px">Скидочная цена (только цифры). Оставьте 0 если у книги нету скидочной цены!</label>
-      <input name="discountPrice" type="number" min="0" step="any" value="0" required> --}}
-
-      <label>Фрагмент книги для просмотра (файл)</label>
-      <input name="piece" type="file" accept=".pdf" class="upload-file" id="piece" required>
-
+   <div class="form-single-block">
       <label class="mt-20px">Скриншот 1. Все 3 скриншота должны иметь одинаковые размеры!</label>
       <input name="screenshot1" type="file" accept=".png, .jpeg, .jpg" class="upload-file">
 

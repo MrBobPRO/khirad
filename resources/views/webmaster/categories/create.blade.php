@@ -2,7 +2,7 @@
 @extends('webmaster.master')
 @section('content')
 
-<h3>Добавить автора</h3>
+<h3>Добавить категорию</h3>
 
 <div class="content-info">
     <span><i class="fas fa-info-circle"></i>

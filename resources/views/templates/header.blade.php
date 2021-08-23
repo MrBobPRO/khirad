@@ -19,7 +19,7 @@
                   <a href="{{route('categories.site_most_readable')}}">Серхондатарин китобҳои сомона</a>
                   <a href="{{route('authors.popular')}}">Муаллифони машҳур</a>
                   <div class="nav-seperator"></div>
-                  <a href="{{route('questions')}}">{{ __("Вопрос - ответ") }}</a>
+                  <a href="{{route('questions')}}">Савол - ҷавоб</a>
                </div>
    
                <div class="mega-menu-right">
