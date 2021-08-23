@@ -35,8 +35,8 @@
                      <a href="{{route('books.single', $book->latin_name)}}" style="color: {{$book->btnColor}}">Муфассал <i class="fas fa-long-arrow-alt-right"></i></a>
                   </div>
 
-                  <div class="owl-img-container">
-                     <img src="{{asset('img/books/thumbs/' . $book->photo)}}" alt="{{$book->name}}" style="box-shadow: 0 0px 10px {{$book->bgColor}}">
+                  <div class="owl-img-container shiny">
+                     <figure><img src="{{asset('img/books/thumbs/' . $book->photo)}}" alt="{{$book->name}}" style="box-shadow: 0 0px 10px {{$book->bgColor}}"></figure>
                   </div>
 
                </div>
@@ -60,7 +60,7 @@
 
             <select class="jq-select search-year" name="year">
                <option value="all">Сол</option>
-               @for($i = 1990; $i < 2022; $i++)
+               @for($i = date('Y'); $i >= 1950; $i--)
                   <option value="{{$i}}">{{$i}}</option>
                @endfor
             </select>
@@ -80,8 +80,10 @@
                </p>
             </a>
             @foreach ($empfohlenBooks as $book)
-                <div class="sidebar-book-block">
-                   <a class="sidebar-link" href="{{route('books.single', $book->latin_name)}}"><img src="{{asset('img/books/thumbs/' . $book->photo)}}" alt="{{$book->name}}"></a>
+                <div class="sidebar-book-block shiny">
+                   <a class="sidebar-link" href="{{route('books.single', $book->latin_name)}}">
+                     <figure><img src="{{asset('img/books/thumbs/' . $book->photo)}}" alt="{{$book->name}}"></figure>
+                  </a>
                    <div class="sidebar-book-info">
                       <a href="{{route('books.single', $book->latin_name)}}">{{$book->name}}</a>
                       <p>
@@ -103,11 +105,11 @@
          <div class="latest-release">
             <a class="all-books" href="{{route('books.all')}}">Китобҳои тозанашр</a>
 
-            <div class="books-list">
+            <div class="books-list shiny">
                @foreach ($latestBooks as $book)
                   <div class="books-list-single">
                      <a href="{{route('books.single', $book->latin_name)}}">
-                        <img src="{{asset('img/books/thumbs/' . $book->photo)}}" alt="{{$book->name}}">
+                        <figure><img src="{{asset('img/books/thumbs/' . $book->photo)}}" alt="{{$book->name}}"></figure>
                         <h2>{{$book->name}}</h2>
                      </a>
                      <p>
@@ -135,9 +137,9 @@
             <p>китобҳои сомона</p>
          </div>
          @foreach ($topBooks as $book)
-             <div class="top-book-singe">
+             <div class="top-book-singe shiny">
                 <a href="{{route('books.single', $book->latin_name)}}">
-                  <img src="{{asset('img/books/thumbs/' . $book->photo)}}" alt="{{$book->name}}" style="box-shadow: 0px 0px 5px -2px {{$book->bgColor}};">
+                  <figure><img src="{{asset('img/books/thumbs/' . $book->photo)}}" alt="{{$book->name}}" style="box-shadow: 0px 0px 5px -2px {{$book->bgColor}};"></figure>
                   <h2>{{$book->name}}</h2>
                 </a>
                 <p>

@@ -64,7 +64,7 @@ class ReviewController extends Controller
         else if($averageMark >= 3.5 && $averageMark < 4) $marksTemplate = '3,5';
         else if($averageMark >= 4 && $averageMark < 4.5) $marksTemplate = '4';
         else if($averageMark >= 4.5 && $averageMark < 5) $marksTemplate = '4,5';
-        else if($averageMark == 5) $marksTemplate = '4,5';
+        else if($averageMark == 5) $marksTemplate = '5';
 
         //SET NEW VALUE FOR MAKRS TEMPLATE
         $book->marksTemplate = $marksTemplate;

@@ -28,7 +28,7 @@ class BookController extends Controller
     public function single($name)
     {
         $book = Book::where('latin_name', $name)->first();
-        $reviews = $book->reviews()->orderBy('updated_at', 'desc')->get();
+        $reviews = $book->reviews()->orderBy('updated_at', 'desc')->get();  
 
         // FOR OPENGRAPH
         $shareText = $book->description;

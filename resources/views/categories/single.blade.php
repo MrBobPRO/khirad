@@ -19,11 +19,11 @@
       <p class="category-description">{{$category->description}}</p>
    @endif
 
-   <div class="books-list">
+   <div class="books-list shiny">
       @foreach ($books as $book)
       <div class="books-list-single">
          <a href="{{route('books.single', $book->latin_name)}}">
-            <img src="{{asset('img/books/thumbs/' . $book->photo)}}" alt="{{$book->name}}">
+            <figure><img src="{{asset('img/books/thumbs/' . $book->photo)}}" alt="{{$book->name}}"></figure>
             <h2>{{$book->name}}</h2>
          </a>
          <p>

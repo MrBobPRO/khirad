@@ -91,7 +91,7 @@
                   <i class="fas fa-book-open"></i> &nbsp; Хондани китоб
                </a>
             @else
-               <a href="/read_book?name={{$book->latin_name}}" class="primary-btn read-book" target="_blank">
+               <a href="/read_book?name={{$book->latin_name}}" class="primary-btn read-payed-book" target="_blank">
                   <i class="fas fa-book-open"></i> &nbsp; Хондани қисмате аз китоб
                </a>
 
@@ -170,15 +170,15 @@
             @foreach ($reviews as $review)
             <div class="review-single-block">
                <div class="review-header" @if($review->body == '') style="margin: 0" @endif>
-                  <h6>{{$review->user_name == '' ? 'Хонанда' : $review->user_name}}</h6>
                   <p>
+                     @include('marks.' . $review->mark)
                      <?php $date = \Carbon\Carbon::parse($review->updated_at)->locale('ru');
                      $formatted = $date->isoFormat('DD.MM.YYYY') ?>
-                     <span class="review-date">{{$formatted}}</span>
-                     @include('marks.' . $review->mark)
                   </p>
+                  <h6>{{$review->user_name == '' ? 'Хонанда' : $review->user_name}}</h6>
                </div>
-               <p>{{$review->body}}</p>
+               <span class="review-date">{{$formatted}}</span>
+               <p class="review-body">{{$review->body}}</p>
             </div>
             @endforeach
          </div> {{-- REVIEWS CONTAINER END --}}

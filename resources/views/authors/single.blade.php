@@ -17,11 +17,11 @@
 {{-- AUTHORS BOOKS START --}}
 <div class="authors-books-container">
    <h1>Китобҳои муаллиф</h1>
-   <div class="authors-books-list">
+   <div class="authors-books-list shiny">
       @foreach ($author->books as $book)
          <div class="books-list-single">
             <a href="{{route('books.single', $book->latin_name)}}">
-               <img src="{{asset('img/books/thumbs/' . $book->photo)}}" alt="{{$book->name}}">
+               <figure><img src="{{asset('img/books/thumbs/' . $book->photo)}}" alt="{{$book->name}}"></figure>
                <h2>{{$book->name}}</h2>
             </a>
             <p>
