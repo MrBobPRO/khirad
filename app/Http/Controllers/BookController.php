@@ -112,5 +112,5 @@ class BookController extends Controller
 
         return view('books.read', compact('book', 'shareText'));
     }
-
+    
 }

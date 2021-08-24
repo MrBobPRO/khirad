@@ -1,21 +1,9 @@
  
 //Escape more than one time form submit
 if ($('#review_store')[0]) $('#review_store')[0].onsubmit = disableSubmitBtn1;
-if ($('#add_into_basket')[0]) $('#add_into_basket')[0].onsubmit = disableSubmitBtn2;
-if ($('#reviews_edit')[0]) $('#reviews_edit')[0].onsubmit = disableSubmitBtn3;
-if ($('#remove_from_basket')[0]) $('#remove_from_basket')[0].onsubmit = disableSubmitBtn4;
 
 function disableSubmitBtn1() {
   $('#review_store_btn').attr('disabled', true);
-}
-function disableSubmitBtn2() {
-  $('#add_into_basket_btn').attr('disabled', true);
-}
-function disableSubmitBtn3() {
-  $('#reviews_edit_btn').attr('disabled', true);
-}
-function disableSubmitBtn4() {
-  $('#remove_from_basket_btn').attr('disabled', true);
 }
 
 // --------------------ADD REVIEW SCRIPT START--------------------------

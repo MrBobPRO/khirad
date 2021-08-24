@@ -200,7 +200,7 @@
          <form action="/order_book" method="POST">
             @csrf
             <div class="modal-body">
-               <p>Маълумоти хешро ба мо ирсол намоед ва мо барои барррасии минбаъда бо Шумо дар тамос хоҳем шуд !</p>
+               <p>Маълумоти хешро ба мо ирсол намоед ва мо барои баррасии минбаъда бо Шумо дар тамос хоҳем шуд !</p>
                <label for="user_name"><i class="fas fa-user"></i> &nbsp;Номи шумо</label>
                <input type="text" name="name" id="user_name" required>
                <label for="user_mobile"><i class="fas fa-phone"></i> &nbsp;Рақамҳои мобилии Шумо</label>

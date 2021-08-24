@@ -8,8 +8,6 @@ use App\Models\Category;
 use App\Models\Author;
 use Image;
 
-use function PHPUnit\Framework\fileExists;
-
 class WebmasterController extends Controller
 {
     public function __construct()
@@ -38,7 +36,8 @@ class WebmasterController extends Controller
         $authors = Author::select('id', 'name')
                         ->orderBy('name', 'asc')->get();
 
-        $categories = Category::orderBy('name', 'asc')->get();
+        $categories = Category::select('id', 'name')
+                        ->orderBy('name', 'asc')->get();
         
         return view('webmaster.books.single', compact('book', 'authors', 'categories'));
     }
@@ -58,7 +57,8 @@ class WebmasterController extends Controller
         $authors = Author::select('id', 'name')
                         ->orderBy('name', 'asc')->get();
 
-        $categories = Category::orderBy('name', 'asc')->get();
+        $categories = Category::select('id', 'name')
+                        ->orderBy('name', 'asc')->get();
 
         return view('webmaster.books.create', compact('categories', 'authors'));
     }
@@ -75,8 +75,8 @@ class WebmasterController extends Controller
         $book->name = $request->name;
         $book->latin_name = $this->transliterateIntoLatin($request->name);
         $book->free = $request->free;
-        $book->language = $request->language;
         $book->price = $request->free ? 0 : $request->price;
+        $book->language = $request->language;
         $book->description = $request->description;
         //needed in books with errors page
         $book->filename = 'Ошибка';
@@ -158,12 +158,22 @@ class WebmasterController extends Controller
     {
         $book = Book::find($request->id);
 
+        // return error if book with requested name already exists
+        //check if books name changed
+        $new_name = $this->transliterateIntoLatin($request->name);
+        if($book->latin_name != $new_name) {
+            $exists = Book::where('name', $request->name)
+            ->orwhere('latin_name', $new_name)
+            ->first();
+
+            if($exists) return 'duplicate_name';
+        }
+
         $book->name = $request->name;
-        $book->isFree = $request->isFree;
-        // $book->price = $request->isFree ? 0 : $request->price;
-        // $book->discountPrice = $request->isFree ? 0 : $request->discountPrice;
-        $book->price = 0;
-        $book->discountPrice = 0;
+        $book->latin_name = $this->transliterateIntoLatin($request->name);
+        $book->free = $request->free;
+        $book->price = $request->free ? 0 : $request->price;
+        $book->language = $request->language;
         $book->description = $request->description;
         //needed in books with errors page
         if($request->file('book')) $book->filename = 'Ошибка';
@@ -171,58 +181,49 @@ class WebmasterController extends Controller
         $book->publisher = $request->publisher;
         $book->year = $request->year;
         $book->pages = $request->pages;
-        $book->isPopular = $request->isPopular;
-        //only popular books display in main slider
-        if($request->isPopular) {
+        $book->most_readable = $request->most_readable;
+        //only most_readable books display in main slider
+        if($request->most_readable) {
             $book->txtColor = $request->txtColor;
             $book->bgColor = $request->bgColor;
             $book->btnColor = $request->btnColor;
         }
         $book->save();
 
-        //only paidBooks have screenshots
-        if(!$request->isFree) {
-            $sc1 = $request->file('screenshot1');
-            if($sc1) {
-                $sc1Filename = $book->id . 'a.' . $sc1->getClientOriginalExtension();
-                $sc1->move(public_path('img/screenshots'), $sc1Filename);
-                $book->screenshot1 = $sc1Filename;
-            }
+        //upload screenshots
+        $sc1 = $request->file('screenshot1');
+        if($sc1) {
+            $sc1Filename = $book->id . 'a.' . $sc1->getClientOriginalExtension();
+            $sc1->move(public_path('img/screenshots'), $sc1Filename);
+            $book->screenshot1 = $sc1Filename;
+        }
 
-            $sc2 = $request->file('screenshot2');
-            if($sc2) {
-                $sc2Filename = $book->id . 'b.' . $sc2->getClientOriginalExtension();
-                $sc2->move(public_path('img/screenshots'), $sc2Filename);
-                $book->screenshot2 = $sc2Filename;
-            }
+        $sc2 = $request->file('screenshot2');
+        if($sc2) {
+            $sc2Filename = $book->id . 'b.' . $sc2->getClientOriginalExtension();
+            $sc2->move(public_path('img/screenshots'), $sc2Filename);
+            $book->screenshot2 = $sc2Filename;
+        }
 
-            $sc3 = $request->file('screenshot3');
-            if($sc3) {
-                $sc3Filename = $book->id . 'c.' . $sc3->getClientOriginalExtension();
-                $sc3->move(public_path('img/screenshots'), $sc3Filename);
-                $book->screenshot3 = $sc3Filename;
-            }
+        $sc3 = $request->file('screenshot3');
+        if($sc3) {
+            $sc3Filename = $book->id . 'c.' . $sc3->getClientOriginalExtension();
+            $sc3->move(public_path('img/screenshots'), $sc3Filename);
+            $book->screenshot3 = $sc3Filename;
         }
         $book->save();
 
+
+        //upload pdf file
         $file = $request->file('book');
         if($file) {
-            $filename = $book->id . '.' . $file->getClientOriginalExtension();
+            $filename = $book->latin_name . '.' . $file->getClientOriginalExtension();
             //move book into public folder if its free
-            if($book->isFree) $file->move(public_path('free_books'), $filename);
-            //else move book into private folder
-            else $file->storeAs('books', $filename, 'private'); 
+            $file->move(public_path('books'), $filename);
+            
             //change books filename in db
             $book->filename = $filename;
             $book->save();
-        }
-
-        //piece of book for paid books
-        $piece = $request->file('piece');
-        if($piece && $request->isFree == false) {
-            $filename = $book->id . '.' . $piece->getClientOriginalExtension();
-            //move book into public folder if its free
-            $piece->move(public_path('free_books'), $filename);
         }
 
         //books photo
@@ -230,7 +231,7 @@ class WebmasterController extends Controller
         if($photo) {
             $photoName = $book->id . '.' . $photo->getClientOriginalExtension();
             $photo->move(public_path('img/books'), $photoName);
-
+    
             //create image thumb
             $thumb = Image::make(public_path('img/books/' . $photoName));
             //Set image width 250 and height auto (saving ration)
@@ -238,8 +239,8 @@ class WebmasterController extends Controller
                 $constraint->aspectRatio();
             });
             //save created image
-            $thumb->save(public_path('img/thumbs/' . $photoName));
-
+            $thumb->save(public_path('img/books/thumbs/' . $photoName));
+    
             //change books photo in db
             $book->photo = $photoName;
             $book->save();
@@ -262,16 +263,12 @@ class WebmasterController extends Controller
         $book = Book::find($request->id);
 
         // delete files
-        $path = public_path('free_books/' . $book->filename);
-        $storage_path = storage_path('app/private/books/'  . $book->filename);
-        if($book->filename != '') {
-            if (file_exists($path)) unlink($path);
-            if (file_exists($storage_path)) unlink($storage_path);
-        }
-
+        $path = public_path('books/' . $book->filename);
+        if($book->filename != '') if (file_exists($path)) unlink($path);
+        
         //delete images
         $path = public_path('img/books/' . $book->photo);
-        $thumb_path = public_path('img/thumbs/' . $book->photo);
+        $thumb_path = public_path('img/books/thumbs/' . $book->photo);
         if($book->photo != '') {
             if (file_exists($path)) unlink($path);
             if (file_exists($thumb_path)) unlink($thumb_path);

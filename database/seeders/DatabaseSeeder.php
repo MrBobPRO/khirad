@@ -33,14 +33,14 @@ class DatabaseSeeder extends Seeder
 
 
         // AUTHORS
-        $authors = ['Абдулҳафиз Қодирӣ', 'Ю. Аҳмадзода', 'Шарифи Маҳмадёр', 'Ҳайдар Алиев', 'Дилафрӯз Қурбонӣ', 'Диловари Мирзо', 'Гулназар', 'Бобораҷаби Сабурӣ', 'Субҳон Ҳабибулло', 'Фарангис Шарифова', 'Фарзона', 'Аброр Зоҳир', 'А Чароғабдол', 'Зулфия Атоӣ', 'Гёте И.В.', 'Баҳманёр Сармаддеҳ', 'Ҷахони Азонзод', 'Шаҳло', 'Ҳоҷи Содиқ', 'Ҳамроҳ Усмон'];
+        $authors = ['Абдулҳафиз Қодирӣ', 'Ю. Аҳмадзода', 'Шарифи Маҳмадёр', 'Ҳайдар Алиев', 'Дилафрӯз Қурбонӣ', 'Диловари Мирзо', 'Гулназар', 'Бобораҷаби Сабурӣ', 'Субҳон Ҳабибулло', 'Фарангис Шарифова', 'Фарзона', 'Аброр Зоҳир', 'А Чароғабдол', 'Зулфия Атоӣ', 'Гёте И.В.', 'Баҳманёр Сармаддеҳ', 'Ҷахони Азонзод', 'Шаҳло', 'Ҳоҷи Содиқ', 'Ҳамроҳ Усмон', 'Ҷеймс Коллинз', 'Исфандиёр Носиров', 'Шоҳмансури Шоҳмирзо', 'Ронда Берн', 'Шиҳобуддин Яҳёи Суҳравардӣ'];
 
         for($i = 0; $i < count($authors); $i++)
         {
             $author = new Author;
             $author->name = $authors[$i];
             $author->latin_name = $this->transliterateIntoLatin($authors[$i]);
-            $author->photo = ($i+1) . '.jpg';
+            $author->photo = $this->transliterateIntoLatin($authors[$i]) . '.jpg';
             $author->foreign = false;
             if($i == 0 || $i == 15) {
                 $author->foreign = true; 
@@ -53,10 +53,6 @@ class DatabaseSeeder extends Seeder
 
         $books = ['Дар олами афсона', 'Чор дарвеш', 'Шамоли саҳфагардон', 'Шахсият ва замон', 'Китоби орзуҳо', 'Хунёгар', 'Туву хубиву раънои', 'Ибтидо', 'Кӯҳи абр', 'Таҳаввули ҷумлаи содаи забони тоҷикӣ', 'Дарёи сузон', 'Бозгашт', 'Сабоҳи мардон', 'Девони зулф', 'Девони ғарбӣ-шарқӣ', 'Шоҳаншоҳ', 'Витаминҳо', 'Тифлаки анбарсиришт', 'Тӯй болои тӯй', 'Ҳисори нанг'];
 
-        $txtColor = ['#fff', '#fff', '#fff', '#fff', '#fff', '#fff', '#fff', '#fff', '#fff', '#fff', '#fff', '#fff', '#fff', '#fff', '#fff', '#fff', '#fff', '#000', '#fff', '#fff'];
-        $btnColor = ['#342578', '#342578', '#309a1a', '#342578', '#342578', '#905612', '#342578', '#342578', '#000', '#342578', '#342578', '#406693', '#342578', '#342578', '#13226b', '#342578', '#342578', '#000', '#342578', '#342578'];
-        $bgColor = ['#342578', '#342578', '#309a1a', '#342578', '#342578', '#905612', '#342578', '#342578', '#9a3f2a', '#342578', '#342578', '#406693', '#342578', '#342578', '#13226b', '#342578', '#342578', '#F1EE9D', '#342578', '#342578'];
-
         for($i = 0; $i < count($books); $i++)
         {
             $book = new Book;
@@ -68,8 +64,8 @@ class DatabaseSeeder extends Seeder
                 $book->price = 45;
             }
             $book->description = 'Книга — один из видов печатной продукции: непериодическое издание, состоящее из сброшюрованных или отдельных бумажных листов (страниц) или тетрадей, на которых нанесена типографским или рукописным способом текстовая и графическая (иллюстрации) информация, имеющее, как правило, твёрдый переплёт';
-            $book->photo = ($i+1) . '.jpg';
-            $book->filename = ($i+1) . '.pdf';
+            $book->photo = $this->transliterateIntoLatin($books[$i]) . '.jpg';
+            $book->filename = $this->transliterateIntoLatin($books[$i]) . '.pdf';
             $book->publisher = 'ООО Ориёнфарм';
             $book->year = rand(1990, 2021);
             $book->pages = rand(4, 80);
@@ -77,9 +73,6 @@ class DatabaseSeeder extends Seeder
             if($i == 12 || $i == 10) {
                 $book->language = 'en';
             }
-            $book->txtColor = $txtColor[$i];
-            $book->btnColor = $btnColor[$i];
-            $book->bgColor = $bgColor[$i];
             if($i == 0) {
                 $book->screenshot1 = '1a.jpg';
                 $book->screenshot2 = '1b.jpg';
@@ -95,8 +88,6 @@ class DatabaseSeeder extends Seeder
                 $book->screenshot2 = '19b.jpg';
                 $book->screenshot3 = '19c.jpg';
             }
-
-            if(($i+1) % 3 == 0) $book->most_readable = true;
 
             if($i ==7) $book->number_of_readings = 59;
             if($i ==2) $book->number_of_readings = 53;
@@ -214,6 +205,41 @@ class DatabaseSeeder extends Seeder
         $book->averageMark = 4;
         $book->marksTemplate = '4';
         $book->save();
+
+
+        $zz = ['ӣ', 'ӯ', 'ҳ', 'қ', 'ҷ', 'ғ', 'Ғ', 'Ӣ', 'Ӯ', 'Ҳ', 'Қ', 'Ҷ'];
+        //add most readable books
+        $mr_books = ['Аз хуб ба олӣ', 'Аз худ шурӯъ намо', 'Боғи шафтолу', 'Динам ишқ аст', 'Роз', 'Сафири Симурғ'];
+        $txtColor = ['#fff', '#000', '#000', '#fff', '#fff', '#fff'];
+        $btnColor = ['#4c1b0f', '#000', '#000', '#342578', '#920007', '#905612'];
+        $bgColor = ['#4c1b0f', '#e2cca5', '#e4e10b', '#342578', '#920007', '#905612'];
+
+        for($i = 0; $i < count($mr_books); $i++) {
+            $b = new Book;
+            $b->created_at = date_create_from_format('Y-m-d H:i:s', date('Y-m-d',strtotime("-1 days")) . ' 12:01:0' . $i);
+            $b->name = $mr_books[$i];
+            $b->latin_name = $this->transliterateIntoLatin($mr_books[$i]);
+            $b->free = true;
+            $b->description = 'Книга — один из видов печатной продукции: непериодическое издание, состоящее из сброшюрованных или отдельных бумажных листов (страниц) или тетрадей, на которых нанесена типографским или рукописным способом текстовая и графическая (иллюстрации) информация, имеющее, как правило, твёрдый переплёт';
+            $b->photo = $this->transliterateIntoLatin($mr_books[$i]) . '.jpg';
+            $b->filename = $this->transliterateIntoLatin($mr_books[$i]) . '.pdf';
+            $b->publisher = 'ООО Ориёнфарм';
+            $b->year = rand(1990, 2021);
+            $b->pages = rand(4, 80);
+            $b->language = 'tj';
+            $b->txtColor = $txtColor[$i];
+            $b->btnColor = $btnColor[$i];
+            $b->bgColor = $bgColor[$i];
+            $b->most_readable = true;    
+            $b->save();
+            $b->categories()->attach(rand(1, 8));
+            $b->categories()->attach(rand(9, 17));
+            $b->categories()->attach(rand(18, 25));
+            if($i <= 2)
+                $b->authors()->attach(21 + $i);
+            else 
+                $b->authors()->attach(20 + $i);
+        }
 
     }
 

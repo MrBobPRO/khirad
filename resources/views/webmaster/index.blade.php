@@ -10,7 +10,7 @@
 
 {{-- Books seach start --}}
 <div class="select2_single_container">
-   <select class="select2_single" data-placeholder="Найдите нужную книгу" data-dropdown-css-class="select2_single_dropdown">
+   <select class="select2_single select2_single_linked" data-placeholder="Найдите нужную книгу" data-dropdown-css-class="select2_single_dropdown">
       <option></option>
       @foreach($allBooks as $book)
          <option value="{{ route('webmaster.books.single', $book->id)}}">{{$book->name}}</option>   
@@ -24,7 +24,6 @@
    <div class="width-25">Автор</div>
    <div class="width-25">Дата добавления</div>
    <div class="width-25">Цена</div>
-   {{-- <div class="width-20">Количество покупок</div> --}}
 </div>
 
 @foreach ($books as $book)
@@ -40,17 +39,10 @@
          $formatted = $date->isoFormat('DD MMMM YYYY') ?>
          {{$formatted}}
       </div>
-      <div class="width-25">
-         @if($book->isFree) <span class="free">Бесплатная</span>
-         {{-- @elseif($book->discountPrice != 0) {{$book->discountPrice}} сом  --}}
-         {{-- @else{{$book->price}} сом --}}
-         @else Платная
-         @endif
-      </div>
-      {{-- <div class="width-20">{{$book->isFree ? '' : $book->sales}}</div> --}}
+      <div class="width-25">{{$book->free ? 'Бесплатная' : $book->price . ' сом.'}}</div>
 
-      @if($book->isPopular)
-         <span class="list-items-tag">Популярный</span>
+      @if($book->most_readable)
+         <span class="list-items-tag">Самые читаемые</span>
       @endif
    </a>
 @endforeach

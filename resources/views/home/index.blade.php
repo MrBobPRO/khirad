@@ -35,8 +35,8 @@
                      <a href="{{route('books.single', $book->latin_name)}}" style="color: {{$book->btnColor}}">Муфассал <i class="fas fa-long-arrow-alt-right"></i></a>
                   </div>
 
-                  <div class="owl-img-container shiny">
-                     <figure><img src="{{asset('img/books/thumbs/' . $book->photo)}}" alt="{{$book->name}}" style="box-shadow: 0 0px 10px {{$book->bgColor}}"></figure>
+                  <div class="owl-img-container shiny" style="box-shadow: 0px 0px 25px {{$book->bgColor}}">
+                     <figure><img src="{{asset('img/books/thumbs/' . $book->photo)}}" alt="{{$book->name}}"></figure>
                   </div>
 
                </div>

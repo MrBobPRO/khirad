@@ -71,7 +71,7 @@
       <label class="radio-labels" for="book_isnt_free">Платная</label>
    </div>
 
-   <div class="form-single-block" id="paid_books_inputs" data-form-action="create">
+   <div class="form-single-block" id="paid_books_inputs">
       <label>Цена (только цифры).</label>
       <input name="price" id="price_input" type="number" min="0" step="any" value="0">
    </div>

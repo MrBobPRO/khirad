@@ -149,9 +149,13 @@ $.ajaxSetup({
    }
 });
 
+
 //Preapare and send data to the server on form submit (Used for books store & update requests)
 function ajax_books_store(post_url) {
    event.preventDefault();
+
+   //Escape more than one time form submit
+   $('#store_book_form').attr('disabled', true);
 
    //display file sizes if inputs contain files
    var file1 = document.getElementById('book').files[0];
@@ -196,6 +200,8 @@ function ajax_books_store(post_url) {
          if (response == 'duplicate_name') {
             spinner.style.visibility = 'hidden';
             alert('Книга с таким именем уже существует! Пожалуйста выберите другое имя!');
+            //Enable submit button
+            $('#store_book_form').attr('disabled', false);
          } 
          else if (post_url == '/books_store') location.replace(response);
          else if (response == 'success') location.reload();

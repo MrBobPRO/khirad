@@ -61,6 +61,7 @@
 }
 .owl-item-inner {
    display: flex;
+   align-items: flex-end;
 }
 .owl-book-info {
    width: 60%;
