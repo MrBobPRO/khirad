@@ -192,8 +192,12 @@ function ajax_books_store(post_url) {
       timeout: 600000,
       //reload page on success
       success: function (response) {
-         //redirect to webmaster.home if its books_store method
-         if (post_url == '/books_store') location.replace(response);
+         //escape errors and redirect on success
+         if (response == 'duplicate_name') {
+            spinner.style.visibility = 'hidden';
+            alert('Книга с таким именем уже существует! Пожалуйста выберите другое имя!');
+         } 
+         else if (post_url == '/books_store') location.replace(response);
          else if (response == 'success') location.reload();
       },
       error: function () {

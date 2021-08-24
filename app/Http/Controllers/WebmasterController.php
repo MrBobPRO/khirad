@@ -65,6 +65,12 @@ class WebmasterController extends Controller
 
     public function books_store(Request $request)
     {
+        // return error if book with requested name already exists
+        $exists = Book::where('name', $request->name)
+                        ->orwhere('latin_name', $this->transliterateIntoLatin($request->name))
+                        ->first();
+        if($exists) return 'duplicate_name';
+
         $book = new Book;
         $book->name = $request->name;
         $book->latin_name = $this->transliterateIntoLatin($request->name);
@@ -151,27 +157,6 @@ class WebmasterController extends Controller
     public function books_update(Request $request)
     {
         $book = Book::find($request->id);
-
-        // check if book priece type changed
-        if($book->isFree != $request->isFree) {
-            //if paid book changed into free book - move original book file from private storage into public folder
-            if($request->isFree == true) {
-                //first delete paind book piece
-                $piece = public_path('free_books/' . $book->filename);
-                if(fileExists($piece)) unlink($piece);
-                // remove original file
-                rename(storage_path('app/private/books/'  . $book->filename), public_path('free_books/' . $book->filename));
-            }
-            //else if free book changed into paid book - move original book file from public folder into private storage 
-            else {
-                //first check if  piece book field isn`t empty
-                $piece = $request->file('piece');
-                if(!$piece) return 'no book fragment';
-                // remove original file
-                rename(public_path('free_books/' . $book->filename), storage_path('app/private/books/'  . $book->filename));
-            }
-
-        }
 
         $book->name = $request->name;
         $book->isFree = $request->isFree;
