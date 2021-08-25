@@ -90,7 +90,7 @@
    height: 100%;
 }
 .authors_search_container .primary-btn:hover {
-   background: linear-gradient(rgb(95, 69, 235), rgb(126, 91, 239)) rgb(95, 69, 235);
+   background: var(--color-scheme);
    color: white;
 }
 .authors_search_container .select2-selection--single {
