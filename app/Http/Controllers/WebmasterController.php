@@ -127,7 +127,7 @@ class WebmasterController extends Controller
 
         //books photo
         $photo = $request->file('photo');
-        $photoName = $book->id . '.' . $photo->getClientOriginalExtension();
+        $photoName = $book->latin_name . '.' . $photo->getClientOriginalExtension();
         $photo->move(public_path('img/books'), $photoName);
 
         //create image thumb
@@ -158,8 +158,8 @@ class WebmasterController extends Controller
     {
         $book = Book::find($request->id);
 
+        //-------------------check if books name changed start---------------------
         // return error if book with requested name already exists
-        //check if books name changed
         $new_name = $this->transliterateIntoLatin($request->name);
         if($book->latin_name != $new_name) {
             $exists = Book::where('name', $request->name)
@@ -167,7 +167,38 @@ class WebmasterController extends Controller
             ->first();
 
             if($exists) return 'duplicate_name';
+
+            else {
+                //rename books photo and pdf files in explorer and database because of new name
+                $public_path = public_path() . '/';
+                //if new photo selected, books photo and photo_name in db will automatically change on upload
+                if(!$request->file('photo')) {
+                    $ext = pathinfo($public_path .'img/books/' . $book->photo , PATHINFO_EXTENSION);
+
+                    if(file_exists($public_path .'img/books/' . $book->photo))
+                        rename($public_path . 'img/books/' . $book->photo, $public_path . 'img/books/' . $new_name . '.' . $ext);
+                        
+                    if(file_exists($public_path . 'img/books/thumbs/' . $book->photo))
+                        rename($public_path . 'img/books/thumbs/' . $book->photo, $public_path . 'img/books/thumbs/' . $new_name . '.' . $ext);
+
+                    $book->photo = $new_name . '.' . $ext;
+                    $book->save();
+                }
+
+                //if new pdf_file selected, books pdf_file and filename in db will automatically change on upload
+                if(!$request->file('book')) {
+                    $ext = pathinfo($public_path . 'books/' . $book->filename, PATHINFO_EXTENSION);
+
+                    if(file_exists($public_path . 'books/' . $book->filename))
+                        rename($public_path . 'books/' . $book->filename, $public_path . 'books/' . $new_name . '.' . $ext);
+
+                    $book->filename = $new_name . '.' . $ext;
+                    $book->save();
+                }
+            }
         }
+        //-------------------check if books name changed end---------------------
+
 
         $book->name = $request->name;
         $book->latin_name = $this->transliterateIntoLatin($request->name);
@@ -302,7 +333,8 @@ class WebmasterController extends Controller
             'р','с','т','у','ф','х','ц','ч','ш','щ','ъ','ы','ь','э','ю','я',
             'А','Б','В','Г','Д','Е','Ё','Ж','З','И','Й','К','Л','М','Н','О','П',
             'Р','С','Т','У','Ф','Х','Ц','Ч','Ш','Щ','Ъ','Ы','Ь','Э','Ю','Я', ' ',
-            'ӣ', 'ӯ', 'ҳ', 'қ', 'ҷ', 'ғ', 'Ғ', 'Ӣ', 'Ӯ', 'Ҳ', 'Қ', 'Ҷ'
+            'ӣ', 'ӯ', 'ҳ', 'қ', 'ҷ', 'ғ', 'Ғ', 'Ӣ', 'Ӯ', 'Ҳ', 'Қ', 'Ҷ',
+            '/', '\\', '|'
         ];
 
         $lat = [
@@ -310,7 +342,8 @@ class WebmasterController extends Controller
             'r','s','t','u','f','h','ts','ch','sh','shb','a','i','y','e','yu','ya',
             'a','b','v','g','d','e','io','zh','z','i','y','k','l','m','n','o','p',
             'r','s','t','u','f','h','ts','ch','sh','shb','a','i','y','e','yu','ya', '_',
-            'i', 'u', 'h', 'q', 'j', 'g', 'g', 'i', 'u', 'h', 'q', 'j'
+            'i', 'u', 'h', 'q', 'j', 'g', 'g', 'i', 'u', 'h', 'q', 'j',
+            '_', '_', '_'
         ];
         //Trasilate url
         $transilation = str_replace($cyr, $lat, $string);

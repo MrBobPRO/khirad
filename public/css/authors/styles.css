@@ -49,7 +49,7 @@
   font-weight: 300;
 }
 .select2_single_dropdown .select2-results__option--selected {
-  background-color: #7151ed;
+  background-color: var(--color-scheme);
   color: white;
 }
 .select2_single_dropdown .select2-results__option--highlighted.select2-results__option--selectable {
@@ -146,7 +146,7 @@
 }
 .filter-by-alphabet ul li a.active {
    font-weight: bold;
-   color: #7151ed;
+   color: var(--color-scheme);
 }
 /* Filter by alphabet end */
 

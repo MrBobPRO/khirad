@@ -20,7 +20,7 @@
    font-weight: bold;
 }
 .average-rating {
-   color: #7151ed;
+   color: var(--color-scheme);
    font-size: 17px;
    margin: 20px 0 15px;
 }
@@ -39,9 +39,9 @@
    display: inline-block;
 }
 .read-payed-book, .read-payed-book:hover {
-   background: rgb(249, 250, 252);
-   border: 1px solid rgb(126, 91, 239);
-   color: rgb(126, 91, 239);
+   background: white;
+   border: 1px solid var(--color-scheme);
+   color: var(--color-scheme);
    margin-right: 12px;
 }
 .book-properties {
@@ -69,7 +69,7 @@
    margin-top: 0 !important;
 }
 .ya-share2__badge {
-   background-color: #7151ed !important;
+   background-color: var(--color-scheme) !important;
 }
 .ya-share2__container_size_m .ya-share2__badge .ya-share2__icon {
    height: 22px !important;
@@ -77,13 +77,8 @@
    background-size: 22px 22px !important;
 }
 .book-price {
-   color: #7151ed;
+   color: var(--color-scheme);
    font-weight: 500;
-}
-.book-price-stroked {
-   color: #7151ed;
-   text-decoration: line-through;
-   opacity: 0.7;
 }
 .gallery-container {
    border-top: 1px solid #d0d0d0b3;
@@ -136,7 +131,7 @@
 .reviews-average-rating {
    display: flex;
    margin-bottom: 30px;
-   color: #7151ed;
+   color: var(--color-scheme);
 }
 .reviews-average-rating p {
    margin: 0;
@@ -153,7 +148,7 @@
 }
 .login-to-vote a {
    font-weight: 500;
-   color: #7151ed;
+   color: var(--color-scheme);
 }
 .no-reviews {
    margin-bottom: 30px;
@@ -172,7 +167,7 @@
    font-weight: 400;
 }
 .add-review a i {
-   color: #7151ed;
+   color: var(--color-scheme);
    margin-right: 8px;
 }
 .add-review .collapsed {
@@ -216,7 +211,7 @@
    margin-top: 5px;
 }
 #reviews-collapse textarea:focus {
-   border-color: #7151ed;
+   border-color: var(--color-scheme);
 }
 #reviews-collapse button {
    margin-top: 25px;
@@ -229,7 +224,7 @@
    color: red;
 }
 #reviews-collapse p {
-   color: #7151ed;
+   color: var(--color-scheme);
    font-size: 22px;
 }
 /* REVIEWS COLLAPSE END*/
@@ -255,7 +250,7 @@
    margin-left: 15px;
 }
 .review-header p {
-   color: rgb(113, 81, 237);
+   color: var(--color-scheme);
    font-size: 17px;
    margin: 0;
 }
@@ -300,7 +295,7 @@
    font-size: 17px;
 }
 .modal-body label i {
-   color: #7151ed;
+   color: var(--color-scheme);
 }
 .modal-body input {
    width: 100%;
@@ -322,14 +317,14 @@
    padding: 13px 25px;
 }
 .modal .primary-btn:hover {
-   background: linear-gradient(rgb(95, 69, 235), rgb(126, 91, 239)) rgb(95, 69, 235);
+   background: var(--color-scheme);
    color: rgb(249, 250, 252);
-   border: 1px solid rgb(126, 91, 239);
+   border: 1px solid var(--color-scheme);
 }
 .modal .cancel-btn {
    background: rgb(249, 250, 252);
-   border: 1px solid rgb(126, 91, 239);
-   color: rgb(126, 91, 239);
+   border: 1px solid var(--color-scheme);
+   color: var(--color-scheme);
    border-radius: 6px;
    line-height: 1;
    font-weight: 400;

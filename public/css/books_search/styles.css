@@ -23,7 +23,7 @@
    color: black;
 }
 .books-list-single a:hover h2 {
-   color: #7151ed;
+   color: var(--color-scheme);
 }
 .books-list-single img {
    max-width: 100%;
@@ -42,15 +42,6 @@
    margin-bottom: 8px;
    font-weight: 300;
 } 
-.book-price {
-   color: #7151ed;
-   font-weight: 500;
-}
-.book-price-stroked {
-   color: #7151ed;
-   text-decoration: line-through;
-   opacity: 0.7;
-}
 /* SINGLE DIFFERENCE BETWEEN CATEGORIES STYLES */
 .search-results {
    text-align: center;

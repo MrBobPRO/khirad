@@ -1,6 +1,6 @@
 <header>
    <nav class="primary-container main-navbar">
-      <a href="/" class="nav-logo"><img src="{{asset('img/main/logo-nav.png')}}" alt="Хирад лого"></a>
+      <a href="/" class="nav-logo"><img src="{{asset('img/main/logo.png')}}" alt="Хирад лого"></a>
 
       {{-- Navbar links start --}}
       <div class="nav-links-container">

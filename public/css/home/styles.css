@@ -25,7 +25,7 @@
    font-size: 44px;
    font-weight: bold;
    font-style: normal;
-   color: #7151ed;
+   color: var(--color-scheme);
    cursor: pointer;
    line-height: 0;
    -webkit-touch-callout: none; /* iOS Safari */
@@ -250,7 +250,7 @@
    color: black;
 }
 .books-list-single a:hover h2 {
-   color: #7151ed;
+   color: var(--color-scheme);
 }
 .books-list-single img {
    max-width: 100%;
@@ -276,7 +276,7 @@
 
 /* TOP BOOKS START */
 .top5 {
-   background: #6A4CCC;
+   background: var(--color-scheme);
 }
 .top5-title {
    display: flex;
@@ -331,11 +331,11 @@
    background: white;
 }
  .jq-selectbox li.selected {
-   background-color: #7151ed;
+   background-color: var(--color-scheme);
    color: #FFF;
  }
  .jq-selectbox li:hover {
-   background-color: #7151ed;
+   background-color: var(--color-scheme);
    color: #FFF;
  }
  .jq-selectbox li {
