@@ -89,15 +89,24 @@ class AuthorController extends Controller
 
     public function webmaster_store(Request $request)
     {
+        // return error if author with requested name already exists
+        $exists = Author::where('name', $request->name)
+        ->orwhere('latin_name', $this->transliterateIntoLatin($request->name))
+        ->first();
+
+        if($exists) return '<h1>Автор с таким именем уже существует. Пожалуйста поменяйте имя !</h1>';
+        
         $author = Author::create([
             'name' => $request->name,
-            'description' => $request->description,
-            'isPopular' => $request->isPopular,
+            'latin_name' => $this->transliterateIntoLatin($request->name),
+            'biography' => $request->biography,
+            'popular' => $request->popular,
+            'foreign' => $request->foreign,
             'photo' => 'Ошибка'
         ]);
 
         $photo = $request->file('photo');
-        $photoName = $author->id . '.' . $photo->getClientOriginalExtension();
+        $photoName = $author->latin_name . '.' . $photo->getClientOriginalExtension();
         $photo->move(public_path('img/authors'), $photoName);
 
         //create image thumb
@@ -127,15 +136,48 @@ class AuthorController extends Controller
     public function webmaster_update(Request $request)
     {
         $author = Author::find($request->id);
+
+        //-------------------check if authors name changed start---------------------
+        // return error if author with requested name already exists
+        $new_name = $this->transliterateIntoLatin($request->name);
+        if($author->latin_name != $new_name) {
+            $exists = Author::where('name', $request->name)
+            ->orwhere('latin_name', $new_name)
+            ->first();
+
+            if($exists) return '<h1>Автор с таким именем уже существует. Пожалуйста поменяйте имя !</h1>';
+
+            else {
+                //rename authors photo in explorer and database because of new name
+                $public_path = public_path() . '/';
+                //if new photo selected, authors photo and photo_name in db will automatically change on upload
+                if(!$request->file('photo')) {
+                    $ext = pathinfo($public_path .'img/authors/' . $author->photo , PATHINFO_EXTENSION);
+
+                    if(file_exists($public_path .'img/authors/' . $author->photo))
+                        rename($public_path . 'img/authors/' . $author->photo, $public_path . 'img/authors/' . $new_name . '.' . $ext);
+                        
+                    if(file_exists($public_path . 'img/authors/thumbs/' . $author->photo))
+                        rename($public_path . 'img/authors/thumbs/' . $author->photo, $public_path . 'img/authors/thumbs/' . $new_name . '.' . $ext);
+
+                    $author->photo = $new_name . '.' . $ext;
+                    $author->save();
+                }
+            }
+        }
+        //-------------------check if books name changed end---------------------
+
         $author->name = $request->name;
-        $author->description = $request->description;
-        $author->isPopular = $request->isPopular;
+        $author->latin_name = $this->transliterateIntoLatin($request->name);
+        $author->biography = $request->biography;
+        $author->popular = $request->popular;
+        $author->foreign = $request->foreign;
         $author->save();
 
         //authors photo
         $photo = $request->file('photo');
         if($photo) {
-            $photoName = $author->id . '.' . $photo->getClientOriginalExtension();
+            $photoName = $author->latin_name . '.' . $photo->getClientOriginalExtension();
             $photo->move(public_path('img/authors'), $photoName);
     
             //create image thumb
@@ -177,5 +219,31 @@ class AuthorController extends Controller
     }
 
     //---------------------------------------Webmaster Routes------------------------------------------------
+
+    private function transliterateIntoLatin($string)
+    {
+        $cyr = [
+            'а','б','в','г','д','е','ё','ж','з','и','й','к','л','м','н','о','п',
+            'р','с','т','у','ф','х','ц','ч','ш','щ','ъ','ы','ь','э','ю','я',
+            'А','Б','В','Г','Д','Е','Ё','Ж','З','И','Й','К','Л','М','Н','О','П',
+            'Р','С','Т','У','Ф','Х','Ц','Ч','Ш','Щ','Ъ','Ы','Ь','Э','Ю','Я', ' ',
+            'ӣ', 'ӯ', 'ҳ', 'қ', 'ҷ', 'ғ', 'Ғ', 'Ӣ', 'Ӯ', 'Ҳ', 'Қ', 'Ҷ',
+            '/', '\\', '|'
+        ];
+
+        $lat = [
+            'a','b','v','g','d','e','io','zh','z','i','y','k','l','m','n','o','p',
+            'r','s','t','u','f','h','ts','ch','sh','shb','a','i','y','e','yu','ya',
+            'a','b','v','g','d','e','io','zh','z','i','y','k','l','m','n','o','p',
+            'r','s','t','u','f','h','ts','ch','sh','shb','a','i','y','e','yu','ya', '_',
+            'i', 'u', 'h', 'q', 'j', 'g', 'g', 'i', 'u', 'h', 'q', 'j',
+            '_', '_', '_'
+        ];
+        //Trasilate url
+        $transilation = str_replace($cyr, $lat, $string);
+
+        //return lowercased url
+        return strtolower($transilation);
+    }
 
 }

@@ -19,15 +19,17 @@
 {{-- Authors seach end --}}
 
 <div class="list-titles">
-   <div class="width-50">Имя автора</div>
-   <div class="width-50">Количество книг</div>
+   <div class="width-33">Имя автора</div>
+   <div class="width-33">Национальность</div>
+   <div class="width-33">Количество книг</div>
 </div>
 
 @foreach ($authors as $author)
     <a class="list-item" href="{{route('webmaster.authors.single', $author->id)}}">
-      <div class="width-50">{{$author->name}}</div>
-      <div class="width-50">{{count($author->books)}}</div>
-      @if($author->isPopular)
+      <div class="width-33">{{$author->name}}</div>
+      <div class="width-33">{{$author->foreign ? 'Зарубежный' : 'Таджик'}}</div>
+      <div class="width-33">{{count($author->books)}}</div>
+      @if($author->popular)
          <span class="list-items-tag">Популярный</span>
       @endif
    </a>

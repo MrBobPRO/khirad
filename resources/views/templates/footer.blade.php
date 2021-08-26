@@ -1,4 +1,4 @@
-<div class="footer">
+<footer class="footer">
    <div class="primary-container footer-inner">
 
       <div class="footer-left">
@@ -35,4 +35,4 @@
    <div class="copyright">
       © {{date('Y')}} Хирад. Ҳамаи ҳуқуқҳо ҳифз шудаанд.
    </div>
-</div>
+</footer>

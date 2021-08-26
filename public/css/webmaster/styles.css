@@ -1,6 +1,9 @@
 body {
    font-family: 'Roboto', sans-serif;
 }
+:root {
+   --color-scheme: #076F6F;
+}
 a:hover {
    text-decoration: none;
 }
@@ -52,7 +55,7 @@ button:focus {
    color: rgb(249, 250, 252);
    border: 1px solid var(--color-scheme);
    border-radius: 6px;
-   padding: 12px 25px;
+   padding: 14px 25px;
    line-height: 1;
    font-weight: 400;
    margin: 0;

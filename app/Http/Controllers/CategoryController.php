@@ -90,7 +90,7 @@ class CategoryController extends Controller
     //---------------------------------------------Webmaster Routes--------------------------------------------
     public function webmaster_index()
     {
-        $categories = Category::orderBy('tjName', 'asc')->get();
+        $categories = Category::orderBy('name', 'asc')->get();
         $categoriesCount = count($categories);
 
         return view('webmaster.categories.index', compact('categories', 'categoriesCount'));
@@ -103,9 +103,17 @@ class CategoryController extends Controller
 
     public function webmaster_store(Request $request)
     {
+        // return error if category with requested name already exists
+        $exists = Category::where('name', $request->name)
+        ->orwhere('latin_name', $this->transliterateIntoLatin($request->name))
+        ->first();
+
+        if($exists) return '<h1>Категория с таким названием уже существует. Пожалуйста поменяйте название !</h1>';
+
         Category::create([
-            'tjName' => $request->tjName,
-            'ruName' => $request->ruName
+            'name' => $request->name,
+            'latin_name' => $this->transliterateIntoLatin($request->name),
+            'description' => $request->description
         ]);
 
         return redirect()->route('webmaster.categories.index');
@@ -122,13 +130,53 @@ class CategoryController extends Controller
     public function webmaster_update(Request $request)
     {
         $category = Category::find($request->id);
-        $category->tjName = $request->tjName;
-        $category->ruName = $request->ruName;
+
+        //-------------------check if category name changed start---------------------
+        // return error if category with requested name already exists
+        $new_name = $this->transliterateIntoLatin($request->name);
+        if($category->latin_name != $new_name) {
+            $exists = Category::where('name', $request->name)
+            ->orwhere('latin_name', $new_name)
+            ->first();
+
+            if($exists) return '<h1>Категория с таким названием уже существует. Пожалуйста поменяйте название !</h1>';
+        }
+        //-------------------check if category name changed end---------------------
+
+        $category->name = $request->name;
+        $category->latin_name = $this->transliterateIntoLatin($request->name);
+        $category->description = $request->description;
         $category->save();
 
         return redirect()->back();
     }
 
     //---------------------------------------------Webmaster Routes--------------------------------------------
+
+    private function transliterateIntoLatin($string)
+    {
+        $cyr = [
+            'а','б','в','г','д','е','ё','ж','з','и','й','к','л','м','н','о','п',
+            'р','с','т','у','ф','х','ц','ч','ш','щ','ъ','ы','ь','э','ю','я',
+            'А','Б','В','Г','Д','Е','Ё','Ж','З','И','Й','К','Л','М','Н','О','П',
+            'Р','С','Т','У','Ф','Х','Ц','Ч','Ш','Щ','Ъ','Ы','Ь','Э','Ю','Я', ' ',
+            'ӣ', 'ӯ', 'ҳ', 'қ', 'ҷ', 'ғ', 'Ғ', 'Ӣ', 'Ӯ', 'Ҳ', 'Қ', 'Ҷ',
+            '/', '\\', '|'
+        ];
+
+        $lat = [
+            'a','b','v','g','d','e','io','zh','z','i','y','k','l','m','n','o','p',
+            'r','s','t','u','f','h','ts','ch','sh','shb','a','i','y','e','yu','ya',
+            'a','b','v','g','d','e','io','zh','z','i','y','k','l','m','n','o','p',
+            'r','s','t','u','f','h','ts','ch','sh','shb','a','i','y','e','yu','ya', '_',
+            'i', 'u', 'h', 'q', 'j', 'g', 'g', 'i', 'u', 'h', 'q', 'j',
+            '_', '_', '_'
+        ];
+        //Trasilate url
+        $transilation = str_replace($cyr, $lat, $string);
+
+        //return lowercased url
+        return strtolower($transilation);
+    }
 
 }

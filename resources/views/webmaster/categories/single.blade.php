@@ -2,7 +2,7 @@
 @extends('webmaster.master')
 @section('content')
 
-<h3>{{$category->tjName}}</h3>
+<h3>{{$category->name}}</h3>
 
 <form class="limited-width-form" action="/categories_update" method="POST">
    {{ csrf_field() }}
@@ -11,15 +11,15 @@
 
    <div class="form-single-block">
       <label>Имя</label>
-      <input name="tjName" type="text" value="{{$category->tjName}}" required>
+      <input name="name" type="text" value="{{$category->name}}" required>
    </div>
 
-    <div class="form-single-block">
-        <label>Имя на русском</label>
-        <input name="ruName" type="text" value="{{$category->ruName}}" required>
-    </div>  
+   <div class="form-single-block">
+      <label>Описание</label>
+      <textarea name="description" rows="7" required>{{$category->description}}</textarea>
+   </div>
 
-   <button type="submit" class="primary-btn">Изменить категорию</button>
+   <button type="submit" class="primary-btn">Сохранить изменения</button>
    
 </form>
 

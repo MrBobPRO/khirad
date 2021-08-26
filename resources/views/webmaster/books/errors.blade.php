@@ -14,8 +14,6 @@
    <div class="width-33">Название</div>
    <div class="width-33">Автор</div>
    <div class="width-33">Дата добавления</div>
-   {{-- <div class="width-20">Цена</div>
-   <div class="width-20">Количество покупок</div> --}}
 </div>
 
 @foreach ($books as $book)
@@ -31,13 +29,6 @@
          $formatted = $date->isoFormat('DD MMMM YYYY') ?>
          {{$formatted}}
       </div>
-      {{-- <div class="width-20">
-         @if($book->price == 0) <span class="free">Бесплатная</span>
-         @elseif($book->discountPrice != 0) {{$book->discountPrice}} сом 
-         @else{{$book->price}} сом
-         @endif
-      </div>
-      <div class="width-20">{{$book->isFree ? '' : $book->sales}}</div> --}}
 
       @if($book->isPopular)
          <span class="list-items-tag">Популярный</span>
