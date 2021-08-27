@@ -26,26 +26,87 @@
    <div class="width-25">Цена</div>
 </div>
 
-@foreach ($books as $book)
-    <a class="list-item" href="{{route('webmaster.books.single', $book->id)}}">
-      <div class="width-25">{{$book->name}}</div>
-      <div class="width-25">
-         @foreach ($book->authors as $author)
-             {{$author->name . ' '}}
-         @endforeach
-      </div>
-      <div class="width-25" style="text-transform: capitalize">
-         <?php $date = \Carbon\Carbon::parse($book->created_at)->locale('ru');
-         $formatted = $date->isoFormat('DD MMMM YYYY') ?>
-         {{$formatted}}
-      </div>
-      <div class="width-25">{{$book->free ? 'Бесплатная' : $book->price . ' сом.'}}</div>
+<form action="/books_remove_many" method="POST" id="delete_multiple_items_form">
+   @csrf
 
-      @if($book->most_readable)
-         <span class="list-items-tag">Самые читаемые</span>
-      @endif
-   </a>
-@endforeach
+   @foreach ($books as $book)
+      <div class="list-item">
+         {{-- checkboxes for multiple delete --}}
+         <label for="{{$book->id}}" class="checkbox-label">
+            <input id="{{$book->id}}" type="checkbox"  name="ids[]" value="{{$book->id}}">
+            <span class="checkmark"></span>
+         </label>
+
+         <div class="width-25">{{$book->name}}</div>
+         <div class="width-25">
+            @foreach ($book->authors as $author)
+                  {{$author->name . ' '}}
+            @endforeach
+         </div>
+         <div class="width-25" style="text-transform: capitalize">
+            <?php $date = \Carbon\Carbon::parse($book->created_at)->locale('ru');
+            $formatted = $date->isoFormat('DD MMMM YYYY') ?>
+            {{$formatted}}
+         </div>
+         <div class="width-25">{{$book->free ? 'Бесплатная' : $book->price . ' сом.'}}</div>
+
+         {{-- list item controls (delete and edit) --}}
+         <div class="list-item-controls">
+            <a href="{{route('webmaster.books.single', $book->id)}}" title="Редактировать"><i class="fas fa-pen"></i></a>
+            <button type="button" onclick="list_delete_button_click({{$book->id}})" title="Удалить"><i class="fas fa-trash"></i></button>
+         </div>
+      </div>
+   @endforeach
+
+   <button type="button" data-bs-toggle="modal" data-bs-target="#deleteMultipleModal" class="primary-btn mt-20px">Удалить отмеченные</button>
+</form>
+
+
+<!-- Delete Multiple Items Modal Start-->
+<div class="modal fade" id="deleteMultipleModal" tabindex="-1" aria-labelledby="deleteMultipleModalLabel" aria-hidden="true">
+   <div class="modal-dialog">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h5 class="modal-title" id="deleteMultipleModalLabel">Удалить</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+         </div>
+         <div class="modal-body">Вы уверены что хотите удалить отмеченные книги?</div>
+         <div class="modal-footer">
+            <button type="button" class="primary-btn" data-bs-dismiss="modal">Отмена</button>
+            <button type="button" class="primary-btn secondary-btn" id="modal_delete_multiple_button" 
+               onclick="$('#modal_delete_multiple_button').attr('disabled', true);
+               document.getElementById('delete_multiple_items_form').submit();"
+               >Удалить
+            </button>
+         </div>
+      </div>
+   </div>
+</div>
+<!-- Delete Multiple Items Modal End-->
+
+
+<!-- Delete Single Items Modal Start-->
+<div class="modal fade" id="deleteSingleModal" tabindex="-1" aria-labelledby="deleteSingleModalLabel" aria-hidden="true">
+   <div class="modal-dialog"> 
+      <div class="modal-content">
+         <div class="modal-header">
+            <h5 class="modal-title" id="deleteSingleModalLabel">Удалить</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+         </div>
+         <div class="modal-body">Вы уверены что хотите удалить книгу?</div>
+         <div class="modal-footer">
+            <button type="button" class="primary-btn" data-bs-dismiss="modal">Отмена</button>
+            <form action="/books_remove" method="POST" id="delete_single_item_form">
+               {{ csrf_field() }}
+               <input type="hidden" value="0" name="id" id="delete_single_item_input"/>
+               <button type="submit" class="primary-btn secondary-btn" id="modal_delete_single_button">Удалить</button>
+            </form>
+         </div>
+      </div>
+   </div>
+</div>
+<!-- Delete Single Items Modal End-->
+
 
 {{$books->links()}}
 

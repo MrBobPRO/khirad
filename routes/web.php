@@ -56,15 +56,17 @@ Route::get('/webmaster/errors/books', 'WebmasterController@books_errors')->name(
 Route::post('/books_store', 'WebmasterController@books_store');
 Route::post('/books_update', 'WebmasterController@books_update');
 Route::post('/books_remove', 'WebmasterController@books_remove');
+Route::post('/books_remove_many', 'WebmasterController@books_remove_many');
 
 //authors
 Route::get('/webmaster/authors', 'AuthorController@webmaster_index')->name('webmaster.authors.index');
 Route::get('/webmaster/authors/{id}', 'AuthorController@webmaster_single')->name('webmaster.authors.single');
 Route::get('/webmaster/authors_create', 'AuthorController@webmaster_create')->name('webmaster.authors.create');
 
-Route::post('/authors_store', 'AuthorController@webmaster_store');
-Route::post('/authors_update', 'AuthorController@webmaster_update');
-Route::post('/authors_remove', 'AuthorController@webmaster_remove');
+Route::post('/authors_store', 'AuthorController@store');
+Route::post('/authors_update', 'AuthorController@update');
+Route::post('/authors_remove', 'AuthorController@remove');
+Route::post('/authors_remove_multiple', 'AuthorController@remove_multiple');
 
 //categories
 Route::get('/webmaster/categories', 'CategoryController@webmaster_index')->name('webmaster.categories.index');

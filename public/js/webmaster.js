@@ -213,10 +213,24 @@ function ajax_books_store(post_url) {
    });
 }
 
+//On list item delete click (Only one modal used for all list items)
+function list_delete_button_click(id) {
+   document.getElementById('delete_single_item_input').value = id;
+   var delete_single_modal = new bootstrap.Modal(document.getElementById('deleteSingleModal'));
+   delete_single_modal.show();
+}
 
 //Escape more than one time DELETE MODAL FORM submit
-if ($('#modal_delete_form')[0]) $('#modal_delete_form')[0].onsubmit = disable_delete_button;
+//disable on single item delete on SINGLE PAGE OF ITEM
+if ($('#modal_delete_form')[0]) {
+   $('#modal_delete_form')[0].onsubmit = function () {
+      $('#modal_delete_button').attr('disabled', true);
+   }
+}
 
-function disable_delete_button() {
-  $('#modal_delete_button').attr('disabled', true);
+//disable on single item delete on INDEX PAGE OF ITEM
+if ($('#delete_single_item_form')[0]) {
+   $('#delete_single_item_form')[0].onsubmit = function () {
+      $('#modal_delete_single_button').attr('disabled', true);
+   }
 }

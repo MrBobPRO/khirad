@@ -291,7 +291,25 @@ class WebmasterController extends Controller
 
     public function books_remove(Request $request)
     {
-        $book = Book::find($request->id);
+        $this->delete_book($request->id);
+
+        return redirect()->route('webmaster.index');
+    }
+
+    public function books_remove_many(Request $request)
+    {   
+        if($request->ids) {
+            foreach($request->ids as $id) {
+                $this->delete_book($id);
+            }
+        }
+
+        return redirect()->back();
+    }
+
+
+    private function delete_book ($id) {
+        $book = Book::find($id);
 
         // delete files
         $path = public_path('books/' . $book->filename);
@@ -321,10 +339,7 @@ class WebmasterController extends Controller
 
         //delete book from db
         $book->delete();
-
-        return redirect()->route('webmaster.index');
     }
-
 
     private function transliterateIntoLatin($string)
     {

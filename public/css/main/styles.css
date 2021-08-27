@@ -114,13 +114,13 @@ header {
    align-items: flex-start;
 }
 .nav-links {
-   color: var(--color-scheme);
+   color: black;
    font-size: 18px;
    padding: 0 22px;
    text-decoration: none;
 }
 .nav-links:hover {
-   color: var(--color-scheme);
+   color: black;
 }
 .nav-links:first-child {
    padding-left: 0;
@@ -139,7 +139,7 @@ header {
    margin: 10px 0;
 }
 .category-mega-menu .mega-menu-toogler {
-   color: var(--color-scheme);
+   color: black;
    font-size: 18px;
    padding: 0 25px;
    text-decoration: none;

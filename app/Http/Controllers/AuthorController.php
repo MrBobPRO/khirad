@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Author;
+use App\Models\Book;
 use Illuminate\Http\Request;
 use Image;
 
@@ -87,7 +88,7 @@ class AuthorController extends Controller
         return view('webmaster.authors.create');
     }
 
-    public function webmaster_store(Request $request)
+    public function store(Request $request)
     {
         // return error if author with requested name already exists
         $exists = Author::where('name', $request->name)
@@ -133,7 +134,7 @@ class AuthorController extends Controller
         return view('webmaster.authors.single', compact('author'));
     }
 
-    public function webmaster_update(Request $request)
+    public function update(Request $request)
     {
         $author = Author::find($request->id);
 
@@ -197,9 +198,27 @@ class AuthorController extends Controller
         return redirect()->back();
     }
 
-    public function webmaster_remove(Request $request)
+    public function remove(Request $request)
     {
-        $author = Author::find($request->id);
+        $this->delete_author($request->id);
+
+        return redirect()->route('webmaster.authors.index');
+    }
+
+    public function remove_multiple(Request $request)
+    {   
+        if($request->ids) {
+            foreach($request->ids as $id) {
+                $this->delete_author($id);
+            }
+        }
+
+        return redirect()->back();
+    }
+
+    private function delete_author($id)
+    {
+        $author = Author::find($id);
 
         //delete images
         $path = public_path('img/authors/' . $author->photo);
@@ -210,12 +229,45 @@ class AuthorController extends Controller
         }
 
         //delete authors books
-        $author->books()->delete();
+        foreach($author->books as $book) {
+            $this->delete_book($book->id);
+        }
 
         //delete author from db
         $author->delete();
+    }
 
-        return redirect()->route('webmaster.authors.index');
+    private function delete_book ($id) {
+        $book = Book::find($id);
+
+        // delete files
+        $path = public_path('books/' . $book->filename);
+        if($book->filename != '') if (file_exists($path)) unlink($path);
+        
+        //delete images
+        $path = public_path('img/books/' . $book->photo);
+        $thumb_path = public_path('img/books/thumbs/' . $book->photo);
+        if($book->photo != '') {
+            if (file_exists($path)) unlink($path);
+            if (file_exists($thumb_path)) unlink($thumb_path);
+        }
+
+        //delete screenshots
+        $sc1 = public_path('img/screenshots/' . $book->screenshot1);
+        if($book->screenshot1 != '') {
+            if (file_exists($sc1)) unlink($sc1);
+        }
+        $sc2 = public_path('img/screenshots/' . $book->screenshot2);
+        if($book->screenshot2 != '') {
+            if (file_exists($sc2)) unlink($sc2);
+        }
+        $sc3 = public_path('img/screenshots/' . $book->screenshot3);
+        if($book->screenshot3 != '') {
+            if (file_exists($sc3)) unlink($sc3);
+        }
+
+        //delete book from db
+        $book->delete();
     }
 
     //---------------------------------------Webmaster Routes------------------------------------------------

@@ -254,11 +254,14 @@ h3 {
    margin-bottom: 0;
    cursor: pointer;
 }
+#modal_delete_multiple_button, #modal_delete_single_button {
+   margin-left: 8px;
+}
 /* Content Styles End */
 
 /* List Styles Start */
 .list-titles {
-   padding: 10px 20px;
+   padding: 10px 70px 10px 40px;
    background: white;
    font-size: 15px;
    margin: 15px 0;
@@ -266,7 +269,7 @@ h3 {
    font-weight: bold;
 }
 .list-item {
-   padding: 10px 20px;
+   padding: 10px 70px 10px 40px;
    background: white;
    font-size: 15px;
    display: flex;
@@ -291,13 +294,19 @@ h3 {
    color: black;
    padding: 0;
 }
-.list-items-tag {
+.list-item-controls {
    position: absolute;
-   right: 0px;
-   background: var(--color-scheme);
-   color: white;
-   font-size: 12px;
-   padding: 2px 5px;
+   right: 10px;
+   display: flex;
+   gap: 15px;
+   padding-right: 0 !important;
+}
+.list-item-controls button {
+   font-size: 18px;
+}
+.list-item-controls a {
+   font-size: 18px;
+   color: var(--color-scheme);
 }
 /* List Styles End */
 
@@ -455,6 +464,68 @@ form input {
    min-width: 32px;
 }
 /* Color picker styles end */
+
+/* CHECKBOX START */
+/* The container */
+.checkbox-label {
+   display: flex;
+   align-items: center;
+   padding-left: 23px;
+   margin-bottom: 12px !important;
+   cursor: pointer;
+   -webkit-user-select: none;
+   -moz-user-select: none;
+   -ms-user-select: none;
+   user-select: none;
+   margin-top: 10px;
+   position: absolute;
+   left: 10px;
+ }
+ /* Hide the browser's default checkbox */
+ .checkbox-label input {
+   position: absolute;
+   opacity: 0;
+   cursor: pointer;
+   height: 0;
+   width: 0;
+ }
+ /* Create a custom checkbox */
+ .checkmark {
+   position: absolute;
+   left: 0;
+   height: 17px;
+   width: 17px;
+   border: 1px solid #989898;
+   border-radius: 3px;
+ }
+ /* When the checkbox is checked, add a blue background */
+ .checkbox-label input:checked ~ .checkmark {
+   background-color: var(--color-scheme);
+ }
+ /* Create the checkmark/indicator (hidden when not checked) */
+ .checkmark:after {
+   content: "";
+   position: absolute;
+   display: none;
+ }
+ /* Show the checkmark when checked */
+   .checkbox-label input:checked ~ .checkmark:after {
+     display: block;
+   }
+ /* Style the checkmark/indicator */
+ .checkbox-label .checkmark:after {
+   left: 5px;
+   top: 2px;
+   width: 5px;
+   height: 10px;
+   border: solid white;
+   border-width: 0 2px 2px 0;
+   -webkit-transform: rotate(45deg);
+   -ms-transform: rotate(45deg);
+   transform: rotate(45deg);
+ }
+ /* CHECKBOX END */
+
 
 /* Select2 single styles start*/
  .select2_single_container {
