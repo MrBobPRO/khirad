@@ -26,7 +26,8 @@ class ReviewController extends Controller
             'book_id' => $request->book_id,
             'mark' => $mark,
             'body' => $request->body,
-            'new' => true
+            'new' => true,
+            'ip' => $request->ip()
         ]);
 
         //INCREMENT BOOK MARKS COUNT
@@ -71,4 +72,40 @@ class ReviewController extends Controller
 
         $book->save();
     }
+
+
+    #-------------------------Webmaster routes start------------------------------
+    public function webmaster_index()
+    {
+        $reviews = Review::latest()->paginate(40);
+        $allReviews = Review::orderBy('body', 'asc')->select('body', 'id')->get();
+        $reviewsCount = $allReviews->count();
+
+        return view('webmaster.reviews.index', compact('reviews', 'allReviews', 'reviewsCount'));
+    }
+
+    public function webmaster_single($id)
+    {
+        $review = Review::find($id);
+
+        $review->new = false;
+        $review->save();
+
+        return view('webmaster.reviews.single', compact('review'));
+    }
+
+    public function webmaster_remove(Request $request)
+    {
+        $review = Review::find($request->id);
+        $book = Book::find($review->book->id);
+        $book->marksCount = $book->marksCount - 1;
+        $book->save();
+        $review->delete();
+
+        $this->regenerateAverageMark($book->id);
+        
+        return redirect()->route('webmaster.reviews.index');
+    }
+
+    #-------------------------Webmaster routes end------------------------------\
 }

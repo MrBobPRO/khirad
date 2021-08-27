@@ -8,6 +8,8 @@ use App\Models\Category;
 use Illuminate\Pagination\Paginator;
 use App\Models\Book;
 use App\Models\Author;
+use App\Models\Order;
+use App\Models\Review;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -53,6 +55,12 @@ class AppServiceProvider extends ServiceProvider
         //share route name
         view()->composer(['templates.styles', 'templates.scripts', 'webmaster.master'], function ($view) {
             $view->with('route', Route::currentRouteName());
+        });
+
+        //share new reviews and new orders count with dashboard
+        view()->composer('webmaster.dashboard', function ($view) {
+            $view->with('new_reviews_count', Review::where('new', true)->count())
+                ->with('new_orders_count', Order::where('new', true)->count());
         });
 
     }

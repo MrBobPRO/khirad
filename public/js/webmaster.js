@@ -212,3 +212,11 @@ function ajax_books_store(post_url) {
       }
    });
 }
+
+
+//Escape more than one time DELETE MODAL FORM submit
+if ($('#modal_delete_form')[0]) $('#modal_delete_form')[0].onsubmit = disable_delete_button;
+
+function disable_delete_button() {
+  $('#modal_delete_button').attr('disabled', true);
+}

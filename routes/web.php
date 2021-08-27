@@ -74,6 +74,18 @@ Route::get('/webmaster/categories_create', 'CategoryController@webmaster_create'
 Route::post('/categories_store', 'CategoryController@webmaster_store');
 Route::post('/categories_update', 'CategoryController@webmaster_update');
 
+//Reviews
+Route::get('/webmaster/reviews', 'ReviewController@webmaster_index')->name('webmaster.reviews.index');
+Route::get('/webmaster/reviews/{id}', 'ReviewController@webmaster_single')->name('webmaster.reviews.single');
+
+Route::post('/reviews_remove', 'ReviewController@webmaster_remove');
+
+//Orders
+Route::get('/webmaster/orders', 'OrderController@webmaster_index')->name('webmaster.orders.index');
+Route::get('/webmaster/orders/{id}', 'OrderController@webmaster_single')->name('webmaster.orders.single');
+
+Route::post('/orders_remove', 'OrderController@webmaster_remove');
+
 //--------------------------Webmaster Routes--------------------------------
 
 require __DIR__.'/auth.php';

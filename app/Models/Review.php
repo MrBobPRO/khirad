@@ -11,4 +11,9 @@ class Review extends Model
 
     protected $guarded = ['id'];
     
+    public function book() 
+    {
+        return $this->belongsTo(Book::class);
+    }
+
 }

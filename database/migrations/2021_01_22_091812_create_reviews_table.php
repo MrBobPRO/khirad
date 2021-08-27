@@ -20,6 +20,7 @@ class CreateReviewsTable extends Migration
             $table->integer('book_id');
             $table->integer('mark');
             $table->text('body')->nullable();
+            $table->string('ip')->default('127.0.0.1');
             $table->timestamps();
         });
     }

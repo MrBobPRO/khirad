@@ -17,6 +17,8 @@ class CreateOrdersTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('phone');
+            $table->integer('book_id');
+            $table->boolean('new')->default(true);
             $table->string('ip');
             $table->timestamps();
         });

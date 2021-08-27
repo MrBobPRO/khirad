@@ -156,10 +156,10 @@
          <div class="modal-footer">
             <button type="button" class="primary-btn" data-bs-dismiss="modal">Отмена</button>
 
-            <form action="/books_remove" method="POST">
+            <form action="/books_remove" method="POST" id="modal_delete_form">
                {{ csrf_field() }}
                <input type="hidden" value="{{$book->id}}" name="id"/>
-               <button type="submit" class="primary-btn secondary-btn">Удалить</button>
+               <button type="submit" class="primary-btn secondary-btn" id="modal_delete_button">Удалить</button>
             </form>
          </div>
       </div>

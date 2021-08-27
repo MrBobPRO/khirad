@@ -45,7 +45,7 @@ button:focus {
 .width-50 {
    width: 50%;
 }
-.free {
+.free, .new {
    font-weight: bold;
    color: var(--color-scheme);
 }
